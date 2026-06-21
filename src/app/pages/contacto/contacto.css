@@ -1,0 +1,205 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 60px;
+
+}
+
+.logo img {
+  height: 70px;
+}
+
+nav a:hover {
+  color: #000;
+
+}
+
+nav a {
+  margin: 0px 15px;
+  text-decoration: none;
+  color: #6d6d6d;
+  font-size: 16px;
+  letter-spacing: 2px;
+
+}
+
+.icono img {
+  width: 25px;
+  cursor: pointer;
+}
+
+.contacto {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #f7f5f2;
+  border-bottom: 1px solid #e5e2dc;
+
+}
+
+.contacto h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.contacto p {
+  color: #c2a27c;
+  margin-bottom: 40px;
+
+}
+
+.form-contacto {
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+
+.fila {
+  flex-direction: column;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+
+}
+
+.form-contacto input,
+.form-contacto select,
+.form-contacto textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  border-radius: 6px;
+}
+
+.form-contacto textarea {
+  resize: none;
+  margin-top: 10px;
+}
+
+.form-contacto button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: #2c2c2c;
+  color: white;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.form-contacto button:hover {
+  background-color: #000;
+}
+
+.suscripcion {
+  text-align: center;
+  padding: 70px 20px;
+  background-color: #f7f5f2;
+}
+
+.suscripcion h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #2c2c2c;
+}
+
+.suscripcion p {
+  color: #6d6d6d;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form input {
+  padding: 12px 15px;
+  width: 280px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.form button {
+  padding: 12px 20px;
+  background-color: #2c2c2c;
+  color: white;
+  border: none;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form button:hover {
+  background-color: #000;
+}
+
+
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 10px 30px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+
+  nav a {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .fila {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .container {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 20px;
+    text-align: center;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  nav a {
+    font-size: 14px;
+  }
+
+  .icono {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+  }
+
+}
