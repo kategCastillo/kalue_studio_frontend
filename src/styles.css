@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+    
+    --color-bg-light: #ffffff;
+    --color-text-main: #1a1a1a;
+    --color-text-muted: #666666;
+    --color-text-light: #ffffff;
+    --color-border: #000000;
+    --color-bg-inputs: #cbcbcb74;
+    
+    --transition-smooth: all 0.3s ease;
+}

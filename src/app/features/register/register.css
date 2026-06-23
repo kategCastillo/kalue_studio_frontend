@@ -1,7 +1,20 @@
 /* ==========================================================================
    Variables de Diseño
    ========================================================================== */
-@import url('../../../styles.css');
+:root {
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+    
+    --color-bg-light: #fafafa;
+    --color-text-main: #1a1a1a;
+    --color-text-muted: #666666;
+    --color-text-light: #999999;
+    --color-input-bg: #545454;
+    --color-border: #000000;
+    
+    --transition-smooth: all 0.3s ease;
+}
+
 /* Box sizing global para Angular */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -15,7 +28,7 @@
 .login-container {
     display: block;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #ffffff;
 }
 
@@ -162,8 +175,8 @@
     border: none;
     width: 100%;
     padding: 14px 16px;
-    border-bottom: 1px solid var(--color-border);
-    background-color: var(--color-bg-inputs);
+    border-bottom: 1px solid #000000;
+    background-color: #99999974;
     font-family: var(--font-sans);
     font-size: 0.9rem;
     transition: all 0.3s ease;
@@ -171,8 +184,8 @@
 
 .input-group input:focus {
     outline: none;
-    box-shadow: 0 0 0 1px var(--color-border);
-    background-color: var(--color-bg-light);
+    box-shadow: 0 0 0 1px black;
+    background-color: #ffffff;
     transition: all 0.4s ease-in-out;
 }
 
@@ -181,6 +194,7 @@
     width: 100%;
     padding: 16px;
     background-color: var(--color-text-main);
+    color: #000000;
     border-radius: 5px;
     font-family: var(--font-sans);
     font-size: 0.85rem;
@@ -311,7 +325,7 @@
         padding: 50px 40px;
     }
     .form-wrapper {
-        max-width: 400px; /* Centra el login de forma estética en pantallas móviles más anchas */
+        max-width: 400px; 
     }
 }
 
@@ -325,17 +339,18 @@
 
     .brand-panel, .form-panel {
         display: table-cell;
-        vertical-align: middle;
+        vertical-align: top; /* Ajustado a top para flujos extensos de formulario */
         height: 100vh;
     }
 
     .brand-panel {
-        width: 45%; /* La sección artística toma un espacio armónico */
+        width: 45%; 
     }
 
     .form-panel {
         width: 55%;
         padding: 60px 50px;
+        overflow-y: auto; /* Permite hacer scroll interno en el formulario de registro si es largo */
     }
 
     .brand-tagline {
@@ -346,7 +361,7 @@
 /* 3. Pantallas de Escritorio Estándar (Laptops, Monitores) */
 @media (min-width: 1024px) {
     .brand-panel {
-        width: 50%; /* Mitad y mitad exactos como en la referencia original */
+        width: 50%; 
     }
     
     .form-panel {
@@ -369,7 +384,7 @@
     }
 }
 
-/* 4. Pantallas Ultra Anchas (Evita que el diseño se rompa o estire infinitamente) */
+/* 4. Pantallas Ultra Anchas */
 @media (min-width: 1440px) {
     .login-container {
         max-width: 1440px;
