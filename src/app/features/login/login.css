@@ -1,0 +1,391 @@
+/* ==========================================================================
+   Variables de Diseño
+   ========================================================================== */
+:root {
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+    
+    --color-bg-light: #fafafa;
+    --color-text-main: #1a1a1a;
+    --color-text-muted: #666666;
+    --color-text-light: #999999;
+    --color-input-bg: #fdfaf7;
+    --color-border: #000000;
+    
+    --transition-smooth: all 0.3s ease;
+}
+
+/* Box sizing global para Angular */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ==========================================================================
+   Layout Base (Mobile First - Optimizado para celulares por defecto)
+   ========================================================================== */
+.login-container {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+/* Panel de imagen oculto por defecto en celulares */
+.brand-panel {
+    display: none;
+    position: relative;
+    background-color: #554d45; 
+    overflow: hidden;
+}
+
+.brand-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.brand-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);
+    display: block;
+    padding: 40px;
+    z-index: 2;
+}
+
+/* Empujar el contenido al fondo sin usar Flexbox */
+.brand-content {
+    color: #ffffff;
+    position: absolute;
+    bottom: 60px;
+    left: 40px;
+    right: 40px;
+}
+
+.brand-tagline {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.brand-description {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+}
+
+/* Panel del Formulario en móviles ocupando todo el ancho */
+.form-panel {
+    display: block;
+    width: 100%;
+    padding: 40px 24px;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Tipografía y Espaciados */
+.form-header {
+    margin-bottom: 40px;
+}
+
+.logo {
+    margin-bottom: 40px;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--color-text-main);
+}
+
+.welcome-text {
+    margin-bottom: 30px;
+}
+
+.welcome-text h2 {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.welcome-text p {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+/* Formulario e Inputs */
+.login-form {
+    display: block;
+}
+
+.input-group {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+}
+
+.label-row {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.label-password {
+    float: left;
+}
+
+.forgot-link {
+    float: right;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.forgot-link:hover {
+    color: var(--color-text-main);
+    text-decoration: underline;
+}
+
+.input-group input {
+    border: none;
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 2px;
+    background-color: var(--color-input-bg);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+}
+
+.input-group input:focus {
+    border-color: 1px solid black;
+    background-color: #ffffff;
+}
+
+/* Botón Sign In */
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--color-text-main);
+    border-radius: 5px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: var(--transition-smooth);
+}
+
+.btn-submit:hover {
+    color: #ffffff;
+    background-color: #8d8b8baa;
+}
+
+/* Línea Divisoria */
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-border);
+    z-index: 1;
+}
+
+.divider span {
+    position: relative;
+    background-color: #ffffff;
+    padding: 0 15px;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--color-text-light);
+    z-index: 2;
+}
+
+/* Redes Sociales estructuradas como tabla para compatibilidad limpia */
+.oauth-group {
+    display: table;
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.oauth-cell {
+    display: table-cell;
+    width: 50%;
+}
+
+.oauth-cell:first-child {
+    padding-right: 8px;
+}
+
+.oauth-cell:last-child {
+    padding-left: 8px;
+}
+
+.btn-oauth {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    background-color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-main);
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.btn-oauth svg {
+    vertical-align: middle;
+    margin-right: 6px;
+    margin-top: -2px;
+}
+
+.btn-oauth:hover {
+    background-color: var(--color-bg-light);
+    border-color: var(--color-text-light);
+}
+
+/* Footer */
+.form-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.signup-prompt {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 30px;
+}
+
+.signup-prompt a {
+    color: var(--color-text-main);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.signup-prompt a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    color: var(--color-text-light);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (Ajustes de responsividad escalables)
+   ========================================================================== */
+
+/* 1. Celulares medianos/grandes en adelante (ej. iPhone Pro Max, Android) */
+@media (min-width: 480px) {
+    .form-panel {
+        padding: 50px 40px;
+    }
+    .form-wrapper {
+        max-width: 400px; /* Centra el login de forma estética en pantallas móviles más anchas */
+    }
+}
+
+/* 2. Tablets en adelante (Aquí se activa la vista de doble columna) */
+@media (min-width: 768px) {
+    .login-container {
+        display: table;
+        table-layout: fixed;
+        height: 100vh;
+    }
+
+    .brand-panel, .form-panel {
+        display: table-cell;
+        vertical-align: middle;
+        height: 100vh;
+    }
+
+    .brand-panel {
+        width: 45%; /* La sección artística toma un espacio armónico */
+    }
+
+    .form-panel {
+        width: 55%;
+        padding: 60px 50px;
+    }
+
+    .brand-tagline {
+        font-size: 2.2rem;
+    }
+}
+
+/* 3. Pantallas de Escritorio Estándar (Laptops, Monitores) */
+@media (min-width: 1024px) {
+    .brand-panel {
+        width: 50%; /* Mitad y mitad exactos como en la referencia original */
+    }
+    
+    .form-panel {
+        width: 50%;
+        padding: 80px;
+    }
+
+    .brand-content {
+        bottom: 80px;
+        left: 60px;
+        right: 60px;
+    }
+
+    .brand-tagline {
+        font-size: 2.6rem;
+    }
+
+    .form-wrapper {
+        max-width: 420px;
+    }
+}
+
+/* 4. Pantallas Ultra Anchas (Evita que el diseño se rompa o estire infinitamente) */
+@media (min-width: 1440px) {
+    .login-container {
+        max-width: 1440px;
+        margin: 3rem auto;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+        border-radius: 20px;
+    }
+}
