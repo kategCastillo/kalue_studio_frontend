@@ -1,0 +1,173 @@
+/* --- Variables del Sistema de Diseño --- */
+:root {
+    --color-background: #fcf9f8;
+    --color-on-surface: #1c1b1b;
+    --color-tertiary-10: rgba(90, 95, 100, 0.1);
+    --color-primary: #605e5a;
+    --color-on-primary: #ffffff;
+    --color-secondary-container: #f2ded9;
+    --color-on-secondary-container: #6f615d;
+    
+    --font-headline: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* --- Reset Básico para visualización --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- Estilos del Header --- */
+.site-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    background-color: rgba(252, 249, 248, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-tertiary-10);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 16px; /* Margen móvil por defecto */
+}
+
+/* Logo */
+.brand-logo {
+    display: flex;
+    align-items: center;
+}
+
+.brand-logo img {
+    height: 40px;
+    width: auto;
+}
+
+/* Navegación Desktop */
+.main-nav {
+    display: none; /* Oculto en móviles */
+}
+
+.nav-list {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+.nav-item {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-on-surface);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+/* Efecto hover elegante de la plantilla original */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}
+
+/* Acciones e Iconos */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.action-btn, .mobile-menu-btn {
+    background: none;
+    border: none;
+    color: var(--color-on-surface);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    width: 2rem;
+    height: 2rem;
+}
+
+.symbol-nav-btn{
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Ocultar iconos de cuenta y búsqueda en móvil para priorizar espacio */
+.action-btn:nth-child(1),
+.action-btn:nth-child(2) {
+    display: none;
+}
+
+.shopping-cart-btn {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    font-size: 10px;
+    font-weight: 600;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Media Queries (Responsive) --- */
+@media (min-width: 768px) {
+    .header-container {
+        padding: 0 40px;
+    }
+    
+    .action-btn:nth-child(1),
+    .action-btn:nth-child(2) {
+        display: flex; /* Mostrar búsqueda y cuenta en tablets */
+    }
+}
+
+@media (min-width: 1024px) {
+    .header-container {
+        padding: 0 64px; /* Margen de escritorio según tu spacing config */
+    }
+
+    .main-nav {
+        display: block; /* Mostrar menú completo en pantallas grandes */
+    }
+
+    .mobile-menu-btn {
+        display: none; /* Ocultar hamburguesa */
+    }
+    
+    .header-actions {
+        gap: 24px;
+    }
+}

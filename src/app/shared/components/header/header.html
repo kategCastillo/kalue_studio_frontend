@@ -1,0 +1,38 @@
+<header class="site-header">
+    <div class="header-container">
+        <!-- Brand Logo -->
+        <a class="brand-logo" routerLink="/">
+            <!-- Reemplazar el src con tu archivo de logo real, ej: logo.png -->
+            <img alt="Kalue-Studio_logo"
+                src="assets/images/kalue.png">
+        </a>
+
+        <!-- Navigation Links -->
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a class="nav-item" routerLink="/coleccion" routerLinkActive="active_link">Coleccion</a></li>
+                <li><a class="nav-item" routerLink="/nosotros" roouterLinkActive="active_link">Nosotros</a></li>
+                <li><a class="nav-item" routerLink="/productos" routerLinkActive="active_link">Productos</a></li>
+                <li><a class="nav-item" routerLink="/contactos" routerLinkActive="active_link">Contactos</a></li>
+            </ul>
+        </nav>
+
+        <!-- Action Icons -->
+        <div class="header-actions">
+            <button class="action-btn" aria-label="Buscar">
+                <span class="material-symbols-outlined"><img class="symbol-nav-btn" src="assets/svg/search.svg" alt="Buscar"></span>
+            </button>
+            <button class="action-btn" aria-label="Mi Cuenta">
+                <a routerLink="" class="material-symbols-outlined"><img class="symbol-nav-btn" src="assets/svg/user.svg" alt="Mi Cuenta"></a>
+            </button>
+            <button class="action-btn shopping-cart-btn" aria-label="Carrito de compras">
+                <a routerLink="" class="material-symbols-outlined"><img class="symbol-nav-btn" src="assets/svg/shopping-bag.svg" alt="Carrito de compras"></a>
+                <span class="cart-badge">2</span>
+            </button>
+            <!-- Botón de Menú Móvil -->
+            <button class="mobile-menu-btn" aria-label="Abrir Menú">
+                <span class="material-symbols-outlined"><img class="symbol-nav-btn" src="assets/svg/menu-2.svg" alt="Menu Desplegable"></span>
+            </button>
+        </div>
+    </div>
+</header>

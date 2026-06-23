@@ -1,0 +1,408 @@
+/* --- Variables del Sistema de Diseño (Aurélia) --- */
+:root {
+    --color-background: #fcf9f8;
+    --color-surface: #ffffff;
+    --color-on-background: #1c1b1b;
+    --color-on-surface-variant: #494740;
+    --color-primary: #605e5a;
+    --color-primary-hover: #484643;
+    --color-on-primary: #ffffff;
+    --color-outline-10: rgba(122, 119, 111, 0.1);
+    --color-outline-20: rgba(122, 119, 111, 0.2);
+    --color-error: #ba1a1a;
+    --color-secondary-container: #f2ded9;
+    --color-on-secondary-container: #6f615d;
+    --color-primary-container: #6f6d69;
+    --color-surface-variant: #e5e2e1;
+    
+    --font-headline: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    --luxury-shadow: 0 10px 40px -15px rgba(105, 91, 88, 0.05);
+}
+
+/* --- Estilos Generales del Contenedor --- */
+.cart-main {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 16px;
+    font-family: var(--font-body);
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+}
+
+/* Encabezado de sección */
+.cart-header {
+    border-bottom: 1px solid var(--color-outline-10);
+    padding-bottom: 24px;
+    margin-bottom: 40px;
+}
+
+.cart-title {
+    font-family: var(--font-headline);
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 500;
+}
+
+.cart-subtitle {
+    color: var(--color-on-surface-variant);
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.cart-subtitle span {
+    font-weight: 500;
+}
+
+/* Layout Base (Móvil por defecto: Una sola columna stacked) */
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+
+/* --- Columna Izquierda: Tarjetas de Productos --- */
+.cart-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    background-color: var(--color-surface);
+    border-radius: 8px;
+    border: 1px solid rgba(122, 119, 111, 0.05);
+    box-shadow: var(--luxury-shadow);
+    transition: all 0.3s ease;
+}
+
+/* Contenedor de Imagen */
+.product-image-wrapper {
+    width: 100%;
+    height: 160px;
+    background-color: #f0eded;
+    border-radius: 4px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.product-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Área de contenido del producto */
+.product-details-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.product-meta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.brand-tag {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--color-primary-container);
+    font-weight: 600;
+}
+
+.product-name {
+    font-family: var(--font-headline);
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: var(--color-on-surface-variant);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.remove-btn:hover {
+    color: var(--color-error);
+}
+
+.product-variants {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--color-on-surface-variant);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.product-variants span {
+    color: var(--color-on-background);
+    font-weight: 500;
+}
+
+/* Controles de fila inferior */
+.product-action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-outline-20);
+    border-radius: 4px;
+    background-color: var(--color-background);
+}
+
+.quantity-btn {
+    background: none;
+    border: none;
+    padding: 4px 12px;
+    color: var(--color-on-background);
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.quantity-btn:hover {
+    background-color: var(--color-surface-variant);
+}
+
+.quantity-value {
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.product-price {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* --- Columna Derecha: Resumen de Compra --- */
+.summary-card {
+    background-color: var(--color-surface);
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid rgba(122, 119, 111, 0.05);
+    box-shadow: var(--luxury-shadow);
+}
+
+.summary-title {
+    font-family: var(--font-headline);
+    font-size: 24px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--color-outline-10);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 16px;
+    color: var(--color-on-surface-variant);
+}
+
+.summary-breakdown {
+    border-bottom: 1px solid var(--color-outline-10);
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+}
+
+.value-highlight {
+    color: var(--color-on-background);
+    font-weight: 500;
+}
+
+.badge-complimentary {
+    color: var(--color-on-secondary-container);
+    background-color: var(--color-secondary-container);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 32px;
+}
+
+.total-label {
+    font-weight: 500;
+}
+
+.total-price {
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Código Promocional */
+.promo-section {
+    margin-bottom: 24px;
+}
+
+.promo-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-on-surface-variant);
+    margin-bottom: 8px;
+}
+
+.promo-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.promo-input {
+    flex-grow: 1;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-outline-20);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.promo-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.promo-btn {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.promo-btn:hover {
+    background-color: var(--color-primary-hover);
+}
+
+/* Botón Checkout de Seguridad */
+.checkout-btn {
+    width: 100%;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    border: none;
+    border-radius: 4px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: background-color 0.2s ease;
+}
+
+.checkout-btn:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.checkout-btn .material-symbols-outlined {
+    font-size: 18px;
+}
+
+/* Bloque de Garantías */
+.trust-badges {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(122, 119, 111, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--color-on-surface-variant);
+}
+
+.trust-item .material-symbols-outlined {
+    font-size: 16px;
+    color: var(--color-primary-container);
+}
+
+
+/* --- Media Queries (Adaptación Responsive Proporcional) --- */
+
+/* Tablets (Medianas) */
+@media (min-width: 640px) {
+    .cart-item {
+        flex-direction: row; /* Transición horizontal de la tarjeta del ítem */
+    }
+    
+    .product-image-wrapper {
+        width: 128px; /* Ancho fijo exacto en tablet/desktop */
+    }
+}
+
+@media (min-width: 768px) {
+    .cart-main {
+        padding: 40px;
+    }
+    
+    .cart-title {
+        font-size: 40px;
+        line-height: 48px;
+    }
+}
+
+/* Desktop (Pantallas Grandes) */
+@media (min-width: 1024px) {
+    .cart-main {
+        padding: 64px;
+    }
+
+    .cart-layout {
+        grid-template-columns: repeat(12, 1fr); /* Cambio a rejilla de 12 columnas */
+        gap: 24px;
+    }
+
+    .cart-items-list {
+        grid-column: span 8; /* Lista toma 8 de 12 */
+    }
+
+    .cart-sidebar {
+        grid-column: span 4; /* Resumen toma 4 de 12 */
+    }
+
+    .summary-card {
+        position: sticky;
+        top: 112px; /* Efecto flotante fijo al hacer scroll descendente */
+    }
+}
