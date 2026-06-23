@@ -1,25 +1,16 @@
 import { Routes } from '@angular/router';
 
-import { Coleccion } from './pages/coleccion/coleccion';
-import { Productos } from './pages/productos/productos';
-import { Nosotros } from './pages/nosotros/nosotros';
-import { Contacto } from './pages/contacto/contacto';
 
 export const routes: Routes = [
-  {
-    path: 'coleccion',
-    component: Coleccion
-  },
-  {
-    path: 'productos',
-    component: Productos
-  },
-  {
-    path: 'nosotros',
-    component: Nosotros
-  },
-  {
-    path: 'contacto',
-    component: Contacto
-  }
+  {path: 'coleccion', loadComponent: () => import ('./pages/coleccion/coleccion').then ( m => m.Coleccion)},
+
+  {path: 'productos', loadComponent: () => import ('./pages/productos/productos')},
+
+  {path: 'nosotros', loadComponent: () => import ('./pages/nosotros/nosotros').then (m => m.Nosotros)},
+
+  {path: 'contacto', loadComponent: () => import ('./pages/contacto/contacto').then (m => m.Contacto)},
+
+
+  {path: '' , redirectTo: 'coleccion', pathMatch: 'full'},
+  {path: '**', redirectTo: 'coleccion', pathMatch: 'full' }
 ];
