@@ -153,7 +153,7 @@
 }
 
 .forgot-link:hover {
-    color: var(--color-text-main);
+    color: var(--color-border);
     text-decoration: underline;
 }
 
@@ -180,7 +180,7 @@
 .btn-submit {
     width: 100%;
     padding: 16px;
-    background-color: var(--color-text-main);
+    background-color: var(--color-bg-light);
     border-radius: 5px;
     font-family: var(--font-sans);
     font-size: 0.85rem;
@@ -192,8 +192,7 @@
 }
 
 .btn-submit:hover {
-    color: #ffffff;
-    background-color: #8d8b8baa;
+    background-color: var(--color-bg-inputs);
 }
 
 /* Línea Divisoria */

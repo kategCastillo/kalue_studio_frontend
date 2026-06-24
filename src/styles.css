@@ -3,11 +3,11 @@
     --font-serif: 'Cormorant Garamond', serif;
     --font-sans: 'Inter', sans-serif;
     
-    --color-bg-light: #ffffff;
-    --color-text-main: #1a1a1a;
+    --color-bg-light: white;
+    --color-text-main: black;
     --color-text-muted: #666666;
-    --color-text-light: #ffffff;
-    --color-border: #000000;
+    --color-text-light: #483c3c;
+    --color-border: black;
     --color-bg-inputs: #cbcbcb74;
     
     --transition-smooth: all 0.3s ease;

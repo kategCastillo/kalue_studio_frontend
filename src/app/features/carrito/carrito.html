@@ -1,148 +1,131 @@
-<!-- CONTENEDOR PRINCIPAL DEL CARRITO -->
-<main class="max-w-[1440px] mx-auto px-4 md:px-10 lg:px-[64px] py-10 lg:py-16">
-    <!-- Título de la sección -->
-    <div class="border-b border-[#7a776f]/10 pb-6 mb-10">
-        <h1 class="font-['Playfair_Display'] text-[32px] leading-[40px] md:text-[40px] md:leading-[48px] font-medium text-[#1c1b1b]">
-            Your Shopping Bag
-        </h1>
-        <p class="text-[#494740] text-sm mt-2">You have <span class="font-medium">2 items</span> in your luxury selection.</p>
-    </div>
+<main>
 
-    <!-- Layout de dos columnas (Responsive) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-[24px]">
-        
-        <!-- COLUMNA IZQUIERDA: LISTA DE PRODUCTOS (8 de 12 columnas en Desktop) -->
-        <div class="lg:col-span-8 space-y-6">
-            
-            <!-- PRODUCTO 1 -->
-            <div class="cart-item-hover flex flex-col sm:flex-row gap-6 p-6 bg-[#ffffff] rounded-lg luxury-shadow border border-[#7a776f]/5 transition-all duration-300">
-                <!-- Imagen del producto -->
-                <div class="w-full sm:w-32 h-40 bg-[#f0eded] rounded flex-shrink-0 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" alt="Premium Watch" class="w-full h-full object-cover">
-                </div>
-                <!-- Detalles del producto -->
-                <div class="flex-grow flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="text-[12px] uppercase tracking-wider text-[#6f6d69] font-semibold">Aurélia Classic</span>
-                                <h3 class="font-['Playfair_Display'] text-[20px] font-medium text-[#1c1b1b] mt-1">Minimalist Gold Timepiece</h3>
-                            </div>
-                            <button class="text-[#494740] hover:text-[#ba1a1a] transition-colors" aria-label="Remove item">
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>
-                        </div>
-                        <div class="mt-2 space-y-1 text-sm text-[#494740]">
-                            <p>Color: <span class="text-[#1c1b1b] font-medium">Rose Gold</span></p>
-                            <p>Size: <span class="text-[#1c1b1b] font-medium">One Size</span></p>
-                        </div>
+    <section class="cart">
+
+        <!-- ===== Header ===== -->
+        <header class="cart__header">
+            <h1 class="cart__title">Tu Bolsa de Compras</h1>
+            <p class="cart__subtitle">2 artículos en tu carrito. Envío de cortesía en todos los pedidos mayores a $500.
+            </p>
+        </header>
+
+        <div class="cart__layout">
+
+            <!-- ===== Items ===== -->
+            <div class="cart__items">
+                <app-card-items-carrito />
+                <app-card-items-carrito />
+
+                <!-- Wishlist Banner -->
+                <div class="cart__wishlist-banner">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                        </polygon>
+                    </svg>
+                    <div class="cart__wishlist-text">
+                        <p class="cart__wishlist-title">¿Buscas algo más?</p>
+                        <p class="cart__wishlist-sub">Revisa los artículos que guardaste en tu lista de deseos.</p>
                     </div>
-                    <!-- Control de cantidad y precio -->
-                    <div class="flex justify-between items-center mt-6">
-                        <div class="flex items-center border border-[#7a776f]/20 rounded bg-[#fcf9f8]">
-                            <button class="px-3 py-1 text-[#1c1b1b] hover:bg-[#e5e2e1] transition-colors">-</button>
-                            <span class="px-3 font-medium text-sm text-[#1c1b1b]">1</span>
-                            <button class="px-3 py-1 text-[#1c1b1b] hover:bg-[#e5e2e1] transition-colors">+</button>
-                        </div>
-                        <span class="font-['Inter'] text-[18px] font-semibold text-[#1c1b1b]">$350.00</span>
-                    </div>
+                    <button class="cart__wishlist-btn">Ver Lista de Deseos</button>
                 </div>
             </div>
 
-            <!-- PRODUCTO 2 -->
-            <div class="cart-item-hover flex flex-col sm:flex-row gap-6 p-6 bg-[#ffffff] rounded-lg luxury-shadow border border-[#7a776f]/5 transition-all duration-300">
-                <!-- Imagen del producto -->
-                <div class="w-full sm:w-32 h-40 bg-[#f0eded] rounded flex-shrink-0 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600&auto=format&fit=crop" alt="Smart Device" class="w-full h-full object-cover">
-                </div>
-                <!-- Detalles del producto -->
-                <div class="flex-grow flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="text-[12px] uppercase tracking-wider text-[#6f6d69] font-semibold">Aurélia Essence</span>
-                                <h3 class="font-['Playfair_Display'] text-[20px] font-medium text-[#1c1b1b] mt-1">Nordic Smart Band</h3>
-                            </div>
-                            <button class="text-[#494740] hover:text-[#ba1a1a] transition-colors" aria-label="Remove item">
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>
-                        </div>
-                        <div class="mt-2 space-y-1 text-sm text-[#494740]">
-                            <p>Color: <span class="text-[#1c1b1b] font-medium">Matte Black</span></p>
-                            <p>Size: <span class="text-[#1c1b1b] font-medium">Medium</span></p>
-                        </div>
-                    </div>
-                    <!-- Control de cantidad y precio -->
-                    <div class="flex justify-between items-center mt-6">
-                        <div class="flex items-center border border-[#7a776f]/20 rounded bg-[#fcf9f8]">
-                            <button class="px-3 py-1 text-[#1c1b1b] hover:bg-[#e5e2e1] transition-colors">-</button>
-                            <span class="px-3 font-medium text-sm text-[#1c1b1b]">1</span>
-                            <button class="px-3 py-1 text-[#1c1b1b] hover:bg-[#e5e2e1] transition-colors">+</button>
-                        </div>
-                        <span class="font-['Inter'] text-[18px] font-semibold text-[#1c1b1b] font-price-display">$180.00</span>
-                    </div>
-                </div>
-            </div>
+            <!-- ===== Order Summary ===== -->
+            <aside class="cart__summary">
+                <h2 class="cart__summary-title">Resumen del Pedido</h2>
 
-        </div>
-
-        <!-- COLUMNA DERECHA: RESUMEN DE COMPRA (4 de 12 columnas en Desktop) -->
-        <div class="lg:col-span-4">
-            <div class="bg-[#ffffff] p-6 rounded-lg luxury-shadow border border-[#7a776f]/5 sticky top-28">
-                <h2 class="font-['Playfair_Display'] text-[24px] font-medium text-[#1c1b1b] border-b border-[#7a776f]/10 pb-4 mb-6">
-                    Order Summary
-                </h2>
-                
-                <!-- Desglose de precios -->
-                <div class="space-y-4 border-b border-[#7a776f]/10 pb-6 mb-6 text-sm">
-                    <div class="flex justify-between text-[#494740]">
-                        <span>Subtotal</span>
-                        <span class="font-medium text-[#1c1b1b]">$530.00</span>
+                <div class="cart__summary-rows">
+                    <div class="cart__summary-row">
+                        <span class="cart__summary-label">Subtotal</span>
+                        <span class="cart__summary-value">$2,270.00</span>
                     </div>
-                    <div class="flex justify-between text-[#494740]">
-                        <span>Estimated Shipping</span>
-                        <span class="text-[#6f615d] font-medium bg-[#f2ded9] px-2 py-0.5 rounded text-xs">Complimentary</span>
+                    <div class="cart__summary-row">
+                        <span class="cart__summary-label">Envío estimado</span>
+                        <span class="cart__summary-value cart__summary-value--highlight">DE CORTESÍA</span>
                     </div>
-                    <div class="flex justify-between text-[#494740]">
-                        <span>Estimated Tax</span>
-                        <span class="font-medium text-[#1c1b1b]">$0.00</span>
+                    <div class="cart__summary-row">
+                        <span class="cart__summary-label">Impuestos</span>
+                        <span class="cart__summary-value">$181.60</span>
                     </div>
                 </div>
 
-                <!-- Total -->
-                <div class="flex justify-between items-baseline mb-8">
-                    <span class="font-medium text-[#1c1b1b]">Total</span>
-                    <span class="font-['Inter'] text-[24px] font-semibold text-[#1c1b1b]">$530.00</span>
+                <div class="cart__summary-total">
+                    <span class="cart__total-label">Total</span>
+                    <span class="cart__total-value">$2,451.60</span>
                 </div>
 
-                <!-- Código de descuento / Notas adicionales -->
-                <div class="mb-6">
-                    <label for="promo-code" class="block text-xs font-semibold uppercase tracking-wider text-[#494740] mb-2">Promo Code</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="promo-code" placeholder="GIFT2026" class="flex-grow bg-[#fcf9f8] border border-[#7a776f]/20 rounded px-3 py-2 text-sm focus:outline-none focus:border-[#605e5a]">
-                        <button class="bg-[#605e5a] hover:bg-[#484643] text-white px-4 py-2 rounded text-sm font-medium transition-colors">Apply</button>
+                <!-- Promo Code -->
+                <div class="cart__promo">
+                    <label class="cart__promo-label" for="promoCode">Código Promocional</label>
+                    <div class="cart__promo-input-row">
+                        <input id="promoCode" class="cart__promo-input" type="text" placeholder="Ingresa tu código" />
+                        <button class="cart__promo-btn">Aplicar</button>
                     </div>
                 </div>
 
-                <!-- Botón de Pago Completo -->
-                <button class="w-full bg-[#605e5a] hover:bg-[#484643] text-[#ffffff] font-medium py-4 rounded transition-colors flex items-center justify-center gap-2 shadow-sm">
-                    <span class="material-symbols-outlined text-sm">lock</span>
-                    Proceed to Checkout
+                <!-- Checkout -->
+                <button class="cart__checkout-btn">
+                    Proceder al Pago
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
                 </button>
 
-                <!-- Garantías de compra de lujo -->
-                <div class="mt-6 space-y-3 pt-6 border-t border-[#7a776f]/5">
-                    <div class="flex items-center gap-2 text-xs text-[#494740]">
-                        <span class="material-symbols-outlined text-[16px] text-[#6f6d69]">local_shipping</span>
-                        <span>Free insured carbon-neutral delivery</span>
+                <p class="cart__security-note">Pagos seguros y encriptados. Aceptamos Visa, Mastercard, Amex y PayPal.
+                </p>
+
+                <!-- Trust Badges -->
+                <div class="cart__trust">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <rect x="1" y="4" width="22" height="16" rx="2"></rect>
+                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                    </svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <polyline points="9 12 11 14 15 10"></polyline>
+                    </svg>
+                </div>
+
+                <!-- Benefits -->
+                <div class="cart__benefits">
+                    <div class="cart__benefit">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <rect x="1" y="3" width="15" height="13" rx="1"></rect>
+                            <path d="M16 8h4l3 3v5h-7V8z"></path>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                        <div>
+                            <p class="cart__benefit-title">Envío Mundial Gratuito</p>
+                            <p class="cart__benefit-desc">Los pedidos se procesan y despachan en menos de 24 horas.</p>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2 text-xs text-[#494740]">
-                        <span class="material-symbols-outlined text-[16px] text-[#6f6d69]">workspace_premium</span>
-                        <span>Official 2-year international warranty</span>
+                    <div class="cart__benefit">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <path d="M3.51 15a9 9 0 1 0 .49-4.5"></path>
+                        </svg>
+                        <div>
+                            <p class="cart__benefit-title">Devoluciones en 30 días</p>
+                            <p class="cart__benefit-desc">¿No es lo que esperabas? Ofrecemos devoluciones globales sin
+                                complicaciones.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </aside>
 
-    </div>
+        </div>
+    </section>
+
 </main>

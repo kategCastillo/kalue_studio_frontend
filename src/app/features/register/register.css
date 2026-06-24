@@ -1,19 +1,7 @@
 /* ==========================================================================
    Variables de Diseño
    ========================================================================== */
-:root {
-    --font-serif: 'Cormorant Garamond', serif;
-    --font-sans: 'Inter', sans-serif;
-    
-    --color-bg-light: #fafafa;
-    --color-text-main: #1a1a1a;
-    --color-text-muted: #666666;
-    --color-text-light: #999999;
-    --color-input-bg: #545454;
-    --color-border: #000000;
-    
-    --transition-smooth: all 0.3s ease;
-}
+@import url('../../../styles.css');
 
 /* Box sizing global para Angular */
 *, *::before, *::after {
@@ -29,7 +17,7 @@
     display: block;
     width: 100%;
     min-height: 100vh;
-    background-color: #ffffff;
+    background-color: var(--color-bg-light);
 }
 
 /* Panel de imagen oculto por defecto en celulares */
@@ -64,7 +52,7 @@
 
 /* Empujar el contenido al fondo sin usar Flexbox */
 .brand-content {
-    color: #ffffff;
+    color: var(--color-bg-light);
     position: absolute;
     bottom: 60px;
     left: 40px;
@@ -166,7 +154,7 @@
 }
 
 .forgot-link:hover {
-    color: var(--color-text-main);
+    color: var(--color-border);
     text-decoration: underline;
 }
 
@@ -176,7 +164,7 @@
     width: 100%;
     padding: 14px 16px;
     border-bottom: 1px solid #000000;
-    background-color: #99999974;
+    background-color: var(--color-bg-inputs);
     font-family: var(--font-sans);
     font-size: 0.9rem;
     transition: all 0.3s ease;
@@ -184,8 +172,8 @@
 
 .input-group input:focus {
     outline: none;
-    box-shadow: 0 0 0 1px black;
-    background-color: #ffffff;
+    box-shadow: 0 0 0 1px var(--color-border);
+    background-color: var(--color-bg-light);
     transition: all 0.4s ease-in-out;
 }
 
@@ -193,8 +181,8 @@
 .btn-submit {
     width: 100%;
     padding: 16px;
-    background-color: var(--color-text-main);
-    color: #000000;
+    background-color: var(--color-bg-light);
+    color: var(--color-text-main);
     border-radius: 5px;
     font-family: var(--font-sans);
     font-size: 0.85rem;
@@ -206,8 +194,7 @@
 }
 
 .btn-submit:hover {
-    color: #ffffff;
-    background-color: #8d8b8baa;
+    background-color: var(--color-bg-inputs);
 }
 
 /* Línea Divisoria */
@@ -230,7 +217,7 @@
 
 .divider span {
     position: relative;
-    background-color: #ffffff;
+    background-color: var(--color-bg-light);
     padding: 0 15px;
     font-size: 0.7rem;
     letter-spacing: 0.05em;
@@ -262,9 +249,9 @@
     display: block;
     width: 100%;
     padding: 12px;
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
     border-radius: 2px;
-    background-color: #ffffff;
+    background-color: var(--color-bg-light);
     font-family: var(--font-sans);
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -282,9 +269,9 @@
 }
 
 .btn-oauth:hover {
-    background-color: grey;
-    color: white;
-    border-color: white;
+    background-color: var(--color-bg-inputs);
+    color: var(--color-text-main);
+    border-color: var(--color-bg-light);
 }
 
 /* Footer */
