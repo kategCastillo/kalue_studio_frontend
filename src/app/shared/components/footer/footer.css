@@ -9,13 +9,6 @@
     --font-body: 'Inter', sans-serif;
 }
 
-/* --- Reset Básico para visualización --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 /* --- Estilos del Footer --- */
 .site-footer {
     background-color: var(--color-background);
