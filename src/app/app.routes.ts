@@ -4,6 +4,8 @@ export const routes: Routes = [
     { path: 'carrito', loadComponent: () => import('./features/carrito/carrito') },
     { path: 'login', loadComponent: () => import('./features/login/login') },
     { path: 'registro', loadComponent: () => import('./features/register/register') },
-    { path: 'users/list', loadComponent: () => import('./features/users/user-list/user-list').then(m => m.UserList) }
+    { path: 'users/list', loadComponent: () => import('./features/users/user-list/user-list').then(m => m.UserList) },
+    { path: 'user/new/form', loadComponent: () => import('./features/users/user-new-form/user-new-form')}
+
 
 ]
