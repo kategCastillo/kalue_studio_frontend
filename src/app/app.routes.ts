@@ -10,6 +10,10 @@ export const routes: Routes = [
 
   {path: 'contacto', loadComponent: () => import ('./pages/contacto/contacto').then (m => m.Contacto)},
 
+  {path: 'user/list', loadComponent: () => import ( './feature/user/user-list/user-list' )},
+
+  {path: 'product-new',loadComponent: () => import ('./feature/products/products-new-form/products-new-form')},
+
 
   {path: '' , redirectTo: 'coleccion', pathMatch: 'full'},
   {path: '**', redirectTo: 'coleccion', pathMatch: 'full' }

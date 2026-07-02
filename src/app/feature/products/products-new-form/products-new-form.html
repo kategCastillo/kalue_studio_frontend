@@ -1,0 +1,46 @@
+<section class="Register-Product">
+    <h2>Registrar producto</h2>
+
+    <p>Diligenciar todos los campos</p>
+
+<form [formGroup]="formData" (ngSubmit)="onSubmit()" class="product">
+    <div class="field">
+        <label for="">product-name</label> 
+        <input formControlName="name" id="product-name" type="text" placeholder= Nombre> 
+    </div>
+   
+    <div class="field">
+        <label for="">product-Description</label> 
+        <input formControlName="description" id="product-Description" type="text" placeholder= "Descripcion del producto"> 
+    </div>
+   
+    <div class="field">
+        <label for="">product-Cantidad</label> 
+        <input formControlName="stock" id="product-Cantidad" type="number" placeholder= "Cantidad">
+    </div>
+   
+    <div class="field">
+        <label for="">product-Precio</label> 
+        <input formControlName="price" id="product-Precio" type="number" placeholder= "$$$">
+    </div>
+   
+
+   <select formControlName="material" id="product-material">
+        <option>Select..</option>
+        <option>Cuero</option>
+        <option>Cuero sintetico</option>
+        <option>Cuerina</option>        
+    </select>
+
+     <select formControlName="category" id="product-Category" > 
+        <option>Select..</option>
+        <option>Bolso</option>
+        <option>Cartera</option>
+        <option>Mochila</option>     
+    </select>
+
+    <button >REGISTRAR</button>
+
+</form>
+</section>
+
