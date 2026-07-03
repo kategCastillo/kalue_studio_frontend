@@ -6,8 +6,14 @@
 <form [formGroup]="formData" (ngSubmit)="onSubmit()" class="product">
     <div class="field">
         <label for="">product-name</label> 
-        <input formControlName="name" id="product-name" type="text" placeholder= Nombre> 
+        <input formControlName="name" id="product-name" type="text" placeholder= 'Nombre'> 
     </div>
+
+     <div class="field">
+        <label for="">product-imagen</label> 
+        <input formControlName="imagen" id="product-imagen" type="text" placeholder= 'imagen'> 
+    </div>
+   
    
     <div class="field">
         <label for="">product-Description</label> 
@@ -38,6 +44,28 @@
         <option>Cartera</option>
         <option>Mochila</option>     
     </select>
+
+    <div class="field">
+        <label for="product-isFeatured">product-isFeatured</label>
+    </div>
+
+        <div class="option">
+            <input [value]="true" id="product-isFeatured-enable" formControlName="isFeatured" type="radio"><label for="">Destacado</label>
+            <input [value]="false" id="product-isFeatured-disable" formControlName="isFeatured" type="radio"> <label for="">No destacado</label>
+        </div>
+
+        <div class="field">
+        <label for="product-isActive">product-isActive</label>
+    </div>
+
+        <div class="option">
+            <input [value]="true" id="product-isActive-enable" formControlName="isActive" type="radio"> <label for="">Activo</label>
+            <input [value]="false" id="product-isActive-disable" formControlName="isActive" type="radio"><label for="">Desactivo</label>
+        </div>
+        
+        
+
+
 
     <button >REGISTRAR</button>
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-products-new-form',
@@ -12,12 +12,15 @@ export default class ProductsNewForm {
 
   constructor(){
     this.formData = new FormGroup ({
-      name: new FormControl(),
+      name: new FormControl('', [Validators.required, Validators.minLength (2), Validators.maxLength (50)]),
       description: new FormControl(),
-      stock: new FormControl(),
-      price: new FormControl(),
-      material: new FormControl(),
-      category: new FormControl(),
+      stock: new FormControl(1, [Validators.min(1)]),
+      price: new FormControl(0, [Validators.required, Validators.min (0)]),
+      material: new FormControl('Cuero', ),
+      category: new FormControl('',[Validators.required] ),
+      imagen: new FormControl (),
+      isFeatured: new FormControl (true),
+      isActive: new FormControl (true)
 
 
 
@@ -25,7 +28,18 @@ export default class ProductsNewForm {
   }
 
   onSubmit() {
-    //muestro los valores 
+    console.group ('Estados del campo ');
+    console.log ('valid (formData)', this.formData.valid);
+    console.log ('valid (name)', this.formData.get ('name')?.valid);
+    console.groupEnd;
+
+
+//verificar si el formulario es valido
+    if (this.formData.valid) {
+
+         //muestro los valores 
     console.log (this.formData.value);
+    }
+  
   }
 }
