@@ -25,10 +25,10 @@
     </select>
 
     <div class="check">
-        <input class="rad" formControlName="status" type="radio" id="active" />
+        <input class="rad" [value]="true" formControlName="status" type="radio" id="active" />
         <label  class="label" for="active">Activo</label>
         
-        <input class="rad" formControlName="status" type="radio" id="no-active" />
+        <input class="rad" [value]="false" formControlName="status" type="radio" id="no-active" />
         <label  class="label" for="no-active">No Activo</label>
     </div>
 
