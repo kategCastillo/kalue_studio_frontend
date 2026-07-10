@@ -17,10 +17,12 @@ export default class Register {
       nickname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
       email: new FormControl ('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
-      label: new FormControl ('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
-      receiverName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-      address: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      phone: new FormControl('', [Validators.required])
+      contacts: new FormGroup({
+        label: new FormControl ('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
+        receiverName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+        address: new FormControl('', [Validators.required, Validators.minLength(5)]),
+        phone: new FormControl('', [Validators.required])
+      }),
     });
   }
 
@@ -32,10 +34,12 @@ export default class Register {
     }
   }
 
+  // OAuth de Google
   registerWithGoogle(){
 
   }
 
+  // OAuth de Apple
   registerWithapple(){
     
   }

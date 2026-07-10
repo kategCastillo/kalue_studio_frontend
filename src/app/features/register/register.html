@@ -52,25 +52,28 @@
                     </div>
                 </div>
 
-                <div class="input-group">
-                    <label for="label">Etiqueta de Dirección</label>
-                    <input type="text" id="label" formControlName="label" placeholder="Ej. Casa, Trabajo, Oficina">
+                <div formGroupName="contacts">
+                    <div class="input-group">
+                        <label for="label">Etiqueta de Dirección</label>
+                        <input type="text" id="label" formControlName="label" placeholder="Ej. Casa, Trabajo, Oficina">
+                    </div>
+    
+                    <div class="input-group">
+                        <label for="receiverName">Nombre de quien recibe</label>
+                        <input type="text" id="receiverName" formControlName="receiverName" placeholder="Nombre completo del destinatario">
+                    </div>
+    
+                    <div class="input-group">
+                        <label for="address">Dirección de entrega</label>
+                        <input type="text" id="address" formControlName="address" placeholder="Calle, Carrera, Apartamento...">
+                    </div>
+    
+                    <div class="input-group">
+                        <label for="phone">Teléfono de contacto</label>
+                        <input type="tel" id="phone" formControlName="phone" placeholder="Ej. 3001234567">
+                    </div>
                 </div>
 
-                <div class="input-group">
-                    <label for="receiverName">Nombre de quien recibe</label>
-                    <input type="text" id="receiverName" formControlName="receiverName" placeholder="Nombre completo del destinatario">
-                </div>
-
-                <div class="input-group">
-                    <label for="address">Dirección de entrega</label>
-                    <input type="text" id="address" formControlName="address" placeholder="Calle, Carrera, Apartamento...">
-                </div>
-
-                <div class="input-group">
-                    <label for="phone">Teléfono de contacto</label>
-                    <input type="tel" id="phone" formControlName="phone" placeholder="Ej. 3001234567">
-                </div>
 
                 <button type="submit" class="btn-submit">REGISTRARME</button>
             </form>
