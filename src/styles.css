@@ -4,3 +4,27 @@ small.error {
     font-style: italic;
     margin-left: 20px;
 }
+
+
+table, th, td {
+  border:1px solid black;
+}
+
+.btn {
+    padding: 3 rem;
+
+}
+
+.btn-edit {
+    background: green;
+    color: white;
+    border: 1px solid green;
+    border-radius: 3 rem;
+}
+
+.btn-delete {
+    background: red;
+    color: white;
+    border: 1px solid red;
+    border-radius: 3 rem;
+}

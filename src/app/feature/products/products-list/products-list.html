@@ -1,0 +1,50 @@
+```html
+<div class="page page-user-list">
+
+  <h2>Product list</h2>
+  <pre> {{productList$ | async | json}} </pre>
+
+  <div class="description">
+    <a href="#" class="btn btn-new">New</a>
+  </div>
+
+  <table>
+
+    <tfoot>
+      <tr>
+        <td colspan="5">
+          <small>No olvide que estas acciones solo pueden ser hechas por el ADMIN</small>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+     @for (product of (productList$ |async); track $index) {
+       
+      <tr>
+        <td>{{product.name}}</td>
+        <td>Maria Anders</td>
+        <td>Germany</td>
+        <td>Role</td>
+        <td> class="options">
+          <a href="#" class="btn btn-edit">Edit</a>
+          <a href="#" class="btn btn-delete">Delete</a>
+        </td>
+      </tr>
+     }
+      
+
+    </tbody>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Nickname</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+  </table>
+</div>
+
+```

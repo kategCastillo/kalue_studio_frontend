@@ -10,6 +10,10 @@ export class HttpProducts {
         return this.http.post ('http://localhost:3000/api/products', newProduct)
     }
 
+    getProduct () {
+        //observable (HttpClient)
+       return this.http.get<any>('http://localhost:3000/api/products')
+    }
+
 
 }
-

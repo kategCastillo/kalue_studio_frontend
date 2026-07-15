@@ -12,9 +12,7 @@ export const routes: Routes = [
 
   {path: 'product-new',loadComponent: () => import ('./feature/products/products-new-form/products-new-form')},
   
-  {path: 'user/list', loadComponent: () => import ( './feature/user/user-list/user-list' )},
-
-
+  {path: 'product/list', loadComponent: () => import ('./feature/products/products-list/products-list')},
 
   {path: '' , redirectTo: 'coleccion', pathMatch: 'full'},
   {path: '**', redirectTo: 'coleccion', pathMatch: 'full' }
