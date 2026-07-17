@@ -1,8 +1,23 @@
+/*
+  edit-user.component.css
+  Reutiliza íntegramente los estilos de register-user.component.css.
+  Solo importa ese archivo y sobreescribe lo que cambia (nada por ahora).
+  Si los componentes están en módulos separados, copia el contenido de
+  register-user.component.css aquí o ajusta la ruta del @import según
+  la ubicación real del archivo en tu proyecto.
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap');
 @import '../../../../styles.css';
 
 /* =========================================
-   REGISTER USER COMPONENT
+   EDIT USER — hereda todo de register-user
+   Copia aquí el contenido completo de
+   register-user.component.css
+   ========================================= */
+
+/* =========================================
+   BASE LAYOUT
    ========================================= */
 
 .register {
@@ -14,7 +29,7 @@
 }
 
 /* =========================================
-   ASIDE — Panel lateral
+   ASIDE
    ========================================= */
 
 .register__aside {
@@ -31,7 +46,6 @@
 .register__aside-inner {
   display: flex;
   flex-direction: column;
-  gap: 0;
   padding-top: 2rem;
 }
 
@@ -102,7 +116,7 @@
 }
 
 /* =========================================
-   MAIN — Contenido del formulario
+   MAIN
    ========================================= */
 
 .register__main {
@@ -110,8 +124,6 @@
   overflow-y: auto;
   background-color: #f9f8f6;
 }
-
-/* Header */
 
 .register__header {
   margin-bottom: 2.5rem;
@@ -157,23 +169,17 @@
   gap: 1.5rem;
 }
 
-/* Fila de 2 columnas */
-
 .register__row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
 }
 
-/* Campo individual */
-
 .register__field {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
 }
-
-/* Label */
 
 .register__label {
   font-family: var(--font-sans);
@@ -194,8 +200,6 @@
   color: var(--color-text-muted);
   font-size: 0.7rem;
 }
-
-/* Input base */
 
 .register__input {
   width: 100%;
@@ -231,8 +235,6 @@
   box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.08);
 }
 
-/* Input con icono */
-
 .register__input-icon-wrapper {
   position: relative;
   display: flex;
@@ -250,8 +252,6 @@
 .register__input--with-icon {
   padding-left: 2.5rem;
 }
-
-/* Mensaje de error */
 
 .register__error {
   font-family: var(--font-sans);
@@ -317,7 +317,7 @@
 }
 
 /* =========================================
-   RADIO GROUP — Estado
+   RADIO GROUP
    ========================================= */
 
 .register__radio-group {
@@ -391,16 +391,11 @@
   flex-shrink: 0;
 }
 
-.register__radio-dot--active {
-  background-color: #27ae60;
-}
-
-.register__radio-dot--inactive {
-  background-color: #c0392b;
-}
+.register__radio-dot--active   { background-color: #27ae60; }
+.register__radio-dot--inactive { background-color: #c0392b; }
 
 /* =========================================
-   DIVIDER
+   DIVIDER & ACTIONS
    ========================================= */
 
 .register__divider {
@@ -408,10 +403,6 @@
   background-color: rgba(0, 0, 0, 0.08);
   margin: 0.5rem 0;
 }
-
-/* =========================================
-   ACTIONS
-   ========================================= */
 
 .register__actions {
   display: flex;
@@ -442,9 +433,7 @@
   border: 1px solid var(--color-text-main);
 }
 
-.register__btn--primary:hover:not(:disabled) {
-  opacity: 0.78;
-}
+.register__btn--primary:hover:not(:disabled) { opacity: 0.78; }
 
 .register__btn--primary:disabled {
   opacity: 0.35;
@@ -475,7 +464,7 @@
   .register__aside {
     position: static;
     height: auto;
-    padding: 2rem 2rem;
+    padding: 1.75rem 2rem;
   }
 
   .register__aside-inner {

@@ -1,32 +1,63 @@
 import { Component, inject } from '@angular/core';
 import { HttpUsers } from '../../../core/services/http-users';
-import { JsonPipe } from '@angular/common';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { AsyncPipe, DatePipe, SlicePipe } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-user-list',
-  imports: [JsonPipe],
+  imports: [AsyncPipe, RouterLink, SlicePipe, DatePipe],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })
-export class UserList {
-  users: any = {};
+export default class UserList {
 
-  private httpProducts = inject(HttpUsers);
+  private subscriberUser!: Subscription;
+  private subscriberDeleteUser!: Subscription;
+  private httpUsers = inject(HttpUsers);
+  public userList$ = new BehaviorSubject<any>([]);
 
-  ngOnInit(){
-    this.httpProducts.getUsers().subscribe({
-      next: ( data ) => {
-        console.log(data); 
-        this.users = data;
+  onEdit( id: string ) {
+    console.log('edit', id)
+  }
+
+  onDelete( id: string ) {
+    this.subscriberDeleteUser = this.httpUsers.deleteUser(id).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.loadUsers();
       },
-      error: ( error ) => {
-        console.error(error); 
+      error: (error) => {
+        console.error(error);
       },
-      complete: (  ) => {}
+      complete: () => {}
+    })
+  }
+
+ private loadUsers(){
+    this.subscriberUser = this.httpUsers.getUsers().subscribe({
+      next: (data) => {
+        console.log(data);
+        this.userList$.next(data.data);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+      complete: () => {}
     });
   }
 
-  ngOnDestroy(){
+  ngOnInit(){
+    this.loadUsers();
+  }
 
+  ngOnDestroy(){
+    if (this.subscriberUser){
+      this.subscriberUser.unsubscribe();
+    }
+
+    if(this.subscriberDeleteUser){
+      this.subscriberDeleteUser.unsubscribe();
+    }
   }
 }

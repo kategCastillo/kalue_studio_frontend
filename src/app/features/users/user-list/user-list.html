@@ -1,1 +1,147 @@
-<pre>{{ users | json}}</pre>
+<div class="user-list">
+
+  <!-- Aside — igual al de registro -->
+  <aside class="user-list__aside">
+    <div class="user-list__aside-inner">
+      <span class="user-list__aside-label">Kalue Studio</span>
+      <h2 class="user-list__aside-title">Panel de<br/>Administración</h2>
+      <p class="user-list__aside-desc">Gestiona los usuarios, roles y permisos de la plataforma desde un solo lugar.</p>
+      <div class="user-list__aside-divider"></div>
+      <ul class="user-list__aside-features">
+        <li>Control de roles y accesos</li>
+        <li>Gestión de contactos</li>
+        <li>Estado de cuentas en tiempo real</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="user-list__main">
+
+    <!-- Header -->
+    <header class="user-list__header">
+      <div class="user-list__header-text">
+        <p class="user-list__eyebrow">Administración</p>
+        <h1 class="user-list__title">Usuarios del Sistema</h1>
+        <p class="user-list__subtitle">Consulta, edita o elimina los usuarios registrados en la plataforma.</p>
+      </div>
+      <button class="user-list__btn-new">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Nuevo Usuario
+      </button>
+    </header>
+
+    <!-- Tabla -->
+    <div class="user-list__table-wrapper">
+      <table class="user-list__table">
+        <thead class="user-list__thead">
+          <tr>
+            <th class="user-list__th">Usuario</th>
+            <th class="user-list__th">Correo</th>
+            <th class="user-list__th">Nickname</th>
+            <th class="user-list__th">Rol</th>
+            <th class="user-list__th">Estado</th>
+            <th class="user-list__th">Registro</th>
+            <th class="user-list__th user-list__th--center">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody class="user-list__tbody">
+          @for (item of (userList$ | async); track $index) {
+            <tr class="user-list__tr">
+
+              <!-- Usuario: avatar + nombre -->
+              <td class="user-list__td">
+                <div class="user-list__user-cell">
+                  <div class="user-list__avatar">
+                    @if (item.avatar) {
+                      <img [src]="item.avatar" [alt]="item.name" class="user-list__avatar-img" />
+                    } @else {
+                      <span class="user-list__avatar-initials">{{ item.name | slice:0:1 }}</span>
+                    }
+                  </div>
+                  <span class="user-list__user-name">{{ item.name }}</span>
+                </div>
+              </td>
+
+              <!-- Correo -->
+              <td class="user-list__td user-list__td--muted">{{ item.email }}</td>
+
+              <!-- Nickname -->
+              <td class="user-list__td">
+                <span class="user-list__nickname">@{{ item.nickname }}</span>
+              </td>
+
+              <!-- Rol -->
+              <td class="user-list__td">
+                <span class="user-list__badge user-list__badge--role">{{ item.role }}</span>
+              </td>
+
+              <!-- Estado -->
+              <td class="user-list__td">
+                <span class="user-list__status" [class.user-list__status--active]="item.status" [class.user-list__status--inactive]="!item.status">
+                  <span class="user-list__status-dot"></span>
+                  {{ item.status ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+
+              <!-- Fecha de creación -->
+              <td class="user-list__td user-list__td--muted">
+                {{ item.createdAt | date:'dd MMM yyyy' }}
+              </td>
+
+              <!-- Acciones -->
+              <td class="user-list__td user-list__td--center">
+                <div class="user-list__actions">
+                  <a
+                    class="user-list__action-btn user-list__action-btn--edit"
+                    [routerLink]="['/user', 'edit', 'form', item._id]"
+                    (click)="onEdit(item._id)"
+                    title="Editar usuario"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    Editar
+                  </a>
+                  <button
+                    class="user-list__action-btn user-list__action-btn--delete"
+                    (click)="onDelete(item._id)"
+                    title="Eliminar usuario"
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6l-1 14H6L5 6"></path>
+                      <path d="M10 11v6M14 11v6"></path>
+                      <path d="M9 6V4h6v2"></path>
+                    </svg>
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+          }
+        </tbody>
+
+        <tfoot class="user-list__tfoot">
+          <tr>
+            <td colspan="7" class="user-list__tfoot-cell">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Estas acciones son exclusivas del administrador del sistema.
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </main>
+</div>

@@ -1,6 +1,6 @@
 <div class="register">
 
-  <!-- Sidebar decorativo -->
+  <!-- Aside -->
   <aside class="register__aside">
     <div class="register__aside-inner">
       <span class="register__aside-label">Kalue Studio</span>
@@ -18,9 +18,9 @@
   <!-- Formulario -->
   <main class="register__main">
     <header class="register__header">
-      <p class="register__eyebrow">Nuevo registro</p>
-      <h1 class="register__title">Crear Usuario</h1>
-      <p class="register__subtitle">Diligencie todos los campos para registrar un nuevo usuario en el sistema.</p>
+      <p class="register__eyebrow">Modificar registro</p>
+      <h1 class="register__title">Editar Usuario</h1>
+      <p class="register__subtitle">Modifique los campos que desea actualizar y guarde los cambios.</p>
     </header>
 
     <form [formGroup]="formData" (ngSubmit)="onSend()" class="register__form" novalidate>
@@ -113,7 +113,10 @@
       <!-- Fila: Contraseña + Confirmar -->
       <div class="register__row">
         <div class="register__field">
-          <label class="register__label" for="password">Contraseña</label>
+          <label class="register__label" for="password">
+            Nueva contraseña
+            <span class="register__label-optional">(opcional)</span>
+          </label>
           <input
             class="register__input"
             [class.register__input--error]="formData.get('password')?.invalid && (formData.get('password')?.dirty || formData.get('password')?.touched)"
@@ -123,9 +126,6 @@
             placeholder="••••••••"
           />
           @if (formData.get('password')?.invalid && (formData.get('password')?.dirty || formData.get('password')?.touched)) {
-            @if (formData.get('password')?.errors?.['required']) {
-              <small class="register__error">La contraseña es obligatoria</small>
-            }
             @if (formData.get('password')?.errors?.['minlength']) {
               <small class="register__error">Mínimo 8 caracteres</small>
             }
@@ -133,7 +133,10 @@
         </div>
 
         <div class="register__field">
-          <label class="register__label" for="comfirmPassword">Confirmar contraseña</label>
+          <label class="register__label" for="comfirmPassword">
+            Confirmar contraseña
+            <span class="register__label-optional">(opcional)</span>
+          </label>
           <input
             class="register__input"
             [class.register__input--error]="formData.get('comfirmPassword')?.invalid && (formData.get('comfirmPassword')?.dirty || formData.get('comfirmPassword')?.touched)"
@@ -143,9 +146,6 @@
             placeholder="••••••••"
           />
           @if (formData.get('comfirmPassword')?.invalid && (formData.get('comfirmPassword')?.dirty || formData.get('comfirmPassword')?.touched)) {
-            @if (formData.get('comfirmPassword')?.errors?.['required']) {
-              <small class="register__error">Debes confirmar la contraseña</small>
-            }
             @if (formData.get('comfirmPassword')?.errors?.['mismatch']) {
               <small class="register__error">Las contraseñas no coinciden</small>
             }
@@ -238,12 +238,11 @@
         </button>
         <button type="submit" class="register__btn register__btn--primary" [disabled]="formData.invalid">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="8.5" cy="7" r="4"></circle>
-            <line x1="20" y1="8" x2="20" y2="14"></line>
-            <line x1="23" y1="11" x2="17" y2="11"></line>
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
           </svg>
-          Registrar Usuario
+          Guardar Cambios
         </button>
       </div>
 
