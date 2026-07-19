@@ -5,6 +5,7 @@ import { HttpRoles } from '../../../core/services/http-roles';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HttpUsers } from '../../../core/services/http-users';
+import { email } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-user-edit-form',
@@ -21,20 +22,35 @@ export default class UserEditForm {
   public formData: FormGroup;
   private httpUser = inject(HttpUsers);
 
-  constructor(){
-    this.formData = new FormGroup({
-      name: new FormControl( '', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
-      nickname: new FormControl( '', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      email: new FormControl( '', [ Validators.required, Validators.email ] ),
-      password: new FormControl( '', [Validators.required]),
-      comfirmPassword: new FormControl('', [Validators.required]),
-      role: new FormControl( '', [Validators.required]),
-      status: new FormControl( true ),
-      avatar: new FormControl( '' )
-    });
+  constructor() {
+    this.formData = new FormGroup(
+      {
+        name: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50),
+          Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/),
+        ]),
+        nickname: new FormControl('', [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20), // ← era 30, el schema dice 20
+          Validators.pattern(/^[a-zA-Z0-9]+$/),
+        ]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8), // ← faltaba, el HTML lo valida
+        ]),
+        comfirmPassword: new FormControl('', [Validators.required]),
+        role: new FormControl('', [Validators.required]),
+        status: new FormControl(true),
+        avatar: new FormControl(''),
+      },
+    );
   }
 
-  getRols(){
+  private getRols(){
     this.httpRoles.getRoles().subscribe({
       next: ( roles ) => { 
         console.log( roles )
@@ -45,10 +61,21 @@ export default class UserEditForm {
     });
   }
 
-  getUser(){
+  private getUser(){
     this.httpUser.getUserById(this.selectedId).subscribe({
       next: (data) => {
-        console.log(data)
+        console.log(data);
+
+        const {name, nickname, email, role, status, avatar} = data.data;
+
+        this.formData.patchValue({
+          name,
+          nickname,
+          email,
+          role,
+          status,
+          avatar
+        });
       },
       error: (error) => {
         console.error(error)
