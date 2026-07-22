@@ -31,24 +31,24 @@
           <label class="register__label" for="name">Nombre completo</label>
           <input
             class="register__input"
-            [class.register__input--error]="formData.get('name')?.invalid && (formData.get('name')?.dirty || formData.get('name')?.touched)"
+            [class.register__input--error]="name?.invalid && (name?.dirty || name?.touched)"
             type="text"
             formControlName="name"
             id="name"
             placeholder="Pepito Pérez"
             autocomplete="off"
           />
-          @if (formData.get('name')?.invalid && (formData.get('name')?.dirty || formData.get('name')?.touched)) {
-            @if (formData.get('name')?.errors?.['required']) {
+          @if (name?.invalid && (name?.dirty || name?.touched)) {
+            @if (name?.errors?.['required']) {
               <small class="register__error">El nombre es obligatorio</small>
             }
-            @if (formData.get('name')?.errors?.['minlength']) {
+            @if (name?.errors?.['minlength']) {
               <small class="register__error">Mínimo 2 caracteres</small>
             }
-            @if (formData.get('name')?.errors?.['maxlength']) {
+            @if (name?.errors?.['maxlength']) {
               <small class="register__error">Máximo 50 caracteres</small>
             }
-            @if (formData.get('name')?.errors?.['pattern']) {
+            @if (name?.errors?.['pattern']) {
               <small class="register__error">Solo se permiten letras y espacios</small>
             }
           }
@@ -58,24 +58,24 @@
           <label class="register__label" for="nickname">Nickname</label>
           <input
             class="register__input"
-            [class.register__input--error]="formData.get('nickname')?.invalid && (formData.get('nickname')?.dirty || formData.get('nickname')?.touched)"
+            [class.register__input--error]="nickname?.invalid && (nickname?.dirty || nickname?.touched)"
             type="text"
             formControlName="nickname"
             id="nickname"
             placeholder="pepito1652"
             autocomplete="off"
           />
-          @if (formData.get('nickname')?.invalid && (formData.get('nickname')?.dirty || formData.get('nickname')?.touched)) {
-            @if (formData.get('nickname')?.errors?.['required']) {
+          @if (nickname?.invalid && (nickname?.dirty || nickname?.touched)) {
+            @if (nickname?.errors?.['required']) {
               <small class="register__error">El nickname es obligatorio</small>
             }
-            @if (formData.get('nickname')?.errors?.['minlength']) {
+            @if (nickname?.errors?.['minlength']) {
               <small class="register__error">Mínimo 3 caracteres</small>
             }
-            @if (formData.get('nickname')?.errors?.['maxlength']) {
+            @if (nickname?.errors?.['maxlength']) {
               <small class="register__error">Máximo 20 caracteres</small>
             }
-            @if (formData.get('nickname')?.errors?.['pattern']) {
+            @if (nickname?.errors?.['pattern']) {
               <small class="register__error">Solo letras y números, sin espacios</small>
             }
           }
@@ -92,7 +92,7 @@
           </svg>
           <input
             class="register__input register__input--with-icon"
-            [class.register__input--error]="formData.get('email')?.invalid && (formData.get('email')?.dirty || formData.get('email')?.touched)"
+            [class.register__input--error]="email?.invalid && (email?.dirty || email?.touched)"
             type="email"
             formControlName="email"
             id="email"
@@ -100,11 +100,11 @@
             autocomplete="off"
           />
         </div>
-        @if (formData.get('email')?.invalid && (formData.get('email')?.dirty || formData.get('email')?.touched)) {
-          @if (formData.get('email')?.errors?.['required']) {
+        @if (email?.invalid && (email?.dirty || email?.touched)) {
+          @if (email?.errors?.['required']) {
             <small class="register__error">El correo es obligatorio</small>
           }
-          @if (formData.get('email')?.errors?.['email'] || formData.get('email')?.errors?.['pattern']) {
+          @if (email?.errors?.['email'] || email?.errors?.['pattern']) {
             <small class="register__error">Ingresa un correo electrónico válido</small>
           }
         }
@@ -119,14 +119,14 @@
           </label>
           <input
             class="register__input"
-            [class.register__input--error]="formData.get('password')?.invalid && (formData.get('password')?.dirty || formData.get('password')?.touched)"
+            [class.register__input--error]="password?.invalid && (password?.dirty || password?.touched)"
             type="password"
             formControlName="password"
             id="password"
             placeholder="••••••••"
           />
-          @if (formData.get('password')?.invalid && (formData.get('password')?.dirty || formData.get('password')?.touched)) {
-            @if (formData.get('password')?.errors?.['minlength']) {
+          @if (password?.invalid && (password?.dirty || password?.touched)) {
+            @if (password?.errors?.['minlength']) {
               <small class="register__error">Mínimo 8 caracteres</small>
             }
           }
@@ -139,14 +139,14 @@
           </label>
           <input
             class="register__input"
-            [class.register__input--error]="formData.get('comfirmPassword')?.invalid && (formData.get('comfirmPassword')?.dirty || formData.get('comfirmPassword')?.touched)"
+            [class.register__input--error]="comfirmPassword?.invalid && (comfirmPassword?.dirty || comfirmPassword?.touched)"
             type="password"
             formControlName="comfirmPassword"
             id="comfirmPassword"
             placeholder="••••••••"
           />
-          @if (formData.get('comfirmPassword')?.invalid && (formData.get('comfirmPassword')?.dirty || formData.get('comfirmPassword')?.touched)) {
-            @if (formData.get('comfirmPassword')?.errors?.['mismatch']) {
+          @if (comfirmPassword?.invalid && (comfirmPassword?.dirty || comfirmPassword?.touched)) {
+            @if (comfirmPassword?.errors?.['mismatch']) {
               <small class="register__error">Las contraseñas no coinciden</small>
             }
           }
@@ -160,7 +160,7 @@
           <div class="register__select-wrapper">
             <select
               class="register__select"
-              [class.register__input--error]="formData.get('role')?.invalid && (formData.get('role')?.dirty || formData.get('role')?.touched)"
+              [class.register__input--error]="role?.invalid && (role?.dirty || role?.touched)"
               formControlName="role"
               id="role"
             >
@@ -173,8 +173,8 @@
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </div>
-          @if (formData.get('role')?.invalid && (formData.get('role')?.dirty || formData.get('role')?.touched)) {
-            @if (formData.get('role')?.errors?.['required']) {
+          @if (role?.invalid && (role?.dirty || role?.touched)) {
+            @if (role?.errors?.['required']) {
               <small class="register__error">Debes asignar un rol</small>
             }
           }
@@ -216,14 +216,14 @@
           </svg>
           <input
             class="register__input register__input--with-icon"
-            [class.register__input--error]="formData.get('avatar')?.invalid && (formData.get('avatar')?.dirty || formData.get('avatar')?.touched)"
+            [class.register__input--error]="avatar?.invalid && (avatar?.dirty || avatar?.touched)"
             type="text"
             formControlName="avatar"
             id="link"
             placeholder="https://ejemplo.com/avatar.jpg"
           />
         </div>
-        @if (formData.get('avatar')?.invalid && (formData.get('avatar')?.dirty || formData.get('avatar')?.touched)) {
+        @if (avatar?.invalid && (avatar?.dirty || avatar?.touched)) {
           <small class="register__error">Ingresa una URL válida</small>
         }
       </div>
@@ -233,9 +233,9 @@
 
       <!-- Acciones -->
       <div class="register__actions">
-        <button type="button" class="register__btn register__btn--secondary">
+        <a routerLink="/user/list" type="button" class="register__btn register__btn--secondary">
           Cancelar
-        </button>
+        </a>
         <button type="submit" class="register__btn register__btn--primary" [disabled]="formData.invalid">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v14a2 2 0 0 1-2 2z"></path>

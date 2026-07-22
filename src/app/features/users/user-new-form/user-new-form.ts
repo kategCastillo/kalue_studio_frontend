@@ -4,10 +4,11 @@ import { HttpRoles } from '../../../core/services/http-roles';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { HttpUsers } from '../../../core/services/http-users';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-user-new-form',
-  imports: [ReactiveFormsModule, AsyncPipe],
+  imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
   templateUrl: './user-new-form.html',
   styleUrl: './user-new-form.css',
 })
