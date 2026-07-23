@@ -8,6 +8,7 @@
             <div class="texto">
                 <p class="subtitulo">NUEVA COLECCIÓN</p>
 
+                <pre>{{listProducts$ | async | json}} </pre>
                 <h1>Elegancia <br>
                     Refinada
                 </h1>
@@ -48,54 +49,20 @@
 
         <section class="productos">
 
+            @for ( product of (listProducts$ | async); track $index) {
+                <div class="producto">
+                    <img src="assets/imagenes/bolso 1.avif" alt="">
+                    <h3>{{product.name}}</h3>
+                    <p>{{product.price}} </p>
+                </div>
+            }
 
-            <div class="producto">
-                <img src="assets/imagenes/bolso 1.avif" alt="">
-                <h3>Kalué Elegancia</h3>
-                <p>$160.000</p>
-            </div>
-
-            <div class="producto">
-                <img src="assets/imagenes/bolso 2.webp" alt="">
-                <h3>Kalué Esencia</h3>
-                <p>$165.000</p>
-            </div>
-
-            <div class="producto">
-                <img src="assets/imagenes/bolso 3.webp" alt="">
-                <h3>Kalué Aura</h3>
-                <p>$140.000</p>
-            </div>
-
-            <div class="producto">
-                <img src="assets/imagenes/bolso 4.webp" alt="">
-                <h3>Kalué Atelier</h3>
-                <p>$180.000</p>
-            </div>
-
-            <div class="producto">
-                <img src="assets/imagenes/bolso 5.jpg" alt="">
-                <h3>Kalué Tierra</h3>
-                <p>$210.000</p>
-            </div>
-
-            <div class="producto">
-                <img src="assets/imagenes/bolso 6.webp" alt="">
-                <h3>Kalué Soft</h3>
-                <p>$130.000</p>
-            </div>
-
-            <div class="producto">
-                <img src="assets/imagenes/bolso 7.webp" alt="">
-                <h3>Kalué Signature</h3>
-                <p>$120.0000</p>
-            </div>
-
-            <div class="producto">
-                <img src="assets/imagenes/bolso 8.webp" alt="">
-                <h3>Kalué Belle</h3>
-                <p>$190.000</p>
-            </div>
+            <app-product-card/>
+            <app-product-card/>
+            <app-product-card/>
+            <app-product-card/>
+            <app-product-card/>
+            <app-product-card/>
 
 
         </section>

@@ -1,21 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { RouterLink } from "@angular/router";
 import { HttpProducts } from '../../../core/services/http-products';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { AsyncPipe, JsonPipe } from '@angular/common';
-import { errorContext } from 'rxjs/internal/util/errorContext';
-import { RouterLink } from "@angular/router";
 
 
 import Swal from 'sweetalert2'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCoffee, faPen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-products-list',
-  imports: [AsyncPipe, JsonPipe, RouterLink],
+  imports: [AsyncPipe, JsonPipe, RouterLink, FontAwesomeModule],
   templateUrl: './products-list.html',
   styleUrl: './products-list.css',
 })
 export default class ProductsList {
+  //atributo de iconos Fontawesome
+  faCoffee = faCoffee
+  faPen = faPen
+
+  //Atriobutos de la logica del componente 
   subscriberProduct!: Subscription
   susbscriberDeleteProduct!: Subscription
   public productList$ = new BehaviorSubject<any>([]);

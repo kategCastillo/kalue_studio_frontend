@@ -11,9 +11,9 @@ export class HttpProducts {
         return this.http.post ('http://localhost:3000/api/products', newProduct)
     }
 
-    getProduct (id: string | any) {
+    getProduct () {
         //observable (HttpClient)
-       return this.http.get<any>(`${this.BASE_URL}/products/${id}`)
+       return this.http.get<any>(`http://localhost:3000/api/products`)
     }
 
     getProductById (id: string | any) {
