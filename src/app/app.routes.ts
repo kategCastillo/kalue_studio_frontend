@@ -11,6 +11,8 @@ export const routes: Routes = [
   {path: 'contacto', loadComponent: () => import ('./pages/contacto/contacto').then (m => m.Contacto)},
 
   {path: 'product-new',loadComponent: () => import ('./feature/products/products-new-form/products-new-form')},
+
+  {path: 'product/edit/:id', loadComponent: () => import ('./feature/products/products-edit-form/products-edit-form')},
   
   {path: 'product/list', loadComponent: () => import ('./feature/products/products-list/products-list')},
 

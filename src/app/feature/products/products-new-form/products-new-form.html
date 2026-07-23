@@ -6,90 +6,94 @@
 
     <p>Diligenciar todos los campos</p>
 
-<form [formGroup]="formData" (ngSubmit)="onSubmit()" class="product">
-    <div class="field">
-        <label for="">product-name</label> 
-        <input formControlName="name" id="product-name" type="text" placeholder= 'Nombre'> 
+    <form [formGroup]="formData" (ngSubmit)="onSubmit()" class="product">
+        <div class="field">
+            <label for="">product-name</label>
+            <input formControlName="name" id="product-name" type="text" placeholder='Nombre'>
 
-        @if (formData.get('name')?.invalid && (formData.get('name')?.dirty || formData.get ('name')?.touched)) {
-            @if (formData.get ('name')?.errors?.['required']) {
+            @if ( name?.invalid && ( name?.dirty || name?.touched )) {
+                @if (name?.errors?.['required']) {
                 <small class="error">El nombre del producto es obligatorio</small>
-    
-            } 
 
-            @if (formData.get ('name')?.errors?.['minlength']) {
+                }
+
+                @if (name?.errors?.['minlength']) {
                 <small class="error">El nombre requiere minimo 2 caracteres</small>
+                }
+                @if (name?.errors?.['maxlength']) {
+                <small class="error">El nombre requiere maximo 50 caracteres</small>
+                }
             }
-            @if (formData.get ('name')?.errors?.['maxlength']) {
-                 <small class="error">El nombre requiere maximo 50 caracteres</small>
-            }
-        }
-    </div>
-
-     <div class="field">
-        <label for="">product-imagen</label> 
-        <input formControlName="imagen" id="product-imagen" type="text" placeholder= 'imagen'> 
-        <small class="error">Aquí va el error</small>
-    </div>
-   
-   
-    <div class="field">
-        <label for="">product-Description</label> 
-        <input formControlName="description" id="product-Description" type="text" placeholder= "Descripcion del producto">
-        <small class="error">Aquí va el error</small> 
-    </div>
-   
-    <div class="field">
-        <label for="">product-Cantidad</label> 
-        <input formControlName="stock" id="product-Cantidad" type="number" placeholder= "Cantidad">
-        <small class="error">Aquí va el error</small>
-    </div>
-   
-    <div class="field">
-        <label for="">product-Precio</label> 
-        <input formControlName="price" id="product-Precio" type="number" placeholder= "$$$">
-        <small class="error">Aquí va el error</small>
-    </div>
-   
-
-   <select formControlName="material" id="product-material">
-        <option>Select..</option>
-       @for (item of materialList$ | async; track $index) {
-        <option [value]="item">{{ item }}</option>
-       }        
-    </select>
-
-     <select formControlName="category" id="product-Category" > 
-        <option>Select..</option>
-       @for (items of categoryList$ |async; track $index) {
-        <option [value]="items">{{ items }}</option>
-       } 
-    </select>
-
-    <div class="field">
-        <label for="product-isFeatured">product-isFeatured</label>
-    </div>
-
-        <div class="option">
-            <input [value]="true" id="product-isFeatured-enable" formControlName="isFeatured" type="radio"><label for="">Destacado</label>
-            <input [value]="false" id="product-isFeatured-disable" formControlName="isFeatured" type="radio"> <label for="">No destacado</label>
         </div>
 
         <div class="field">
-        <label for="product-isActive">product-isActive</label>
-    </div>
+            <label for="">product-imagen</label>
+            <input formControlName="imagen" id="product-imagen" type="text" placeholder='imagen'>
+            <small class="error">Aquí va el error</small>
+        </div>
+
+
+        <div class="field">
+            <label for="">product-Description</label>
+            <input formControlName="description" id="product-Description" type="text"
+                placeholder="Descripcion del producto">
+            <small class="error">Aquí va el error</small>
+        </div>
+
+        <div class="field">
+            <label for="">product-Cantidad</label>
+            <input formControlName="stock" id="product-Cantidad" type="number" placeholder="Cantidad">
+            <small class="error">Aquí va el error</small>
+        </div>
+
+        <div class="field">
+            <label for="">product-Precio</label>
+            <input formControlName="price" id="product-Precio" type="number" placeholder="$$$">
+            <small class="error">Aquí va el error</small>
+        </div>
+
+
+        <select formControlName="material" id="product-material">
+            <option>Select..</option>
+            @for (item of materialList$ | async; track $index) {
+            <option [value]="item">{{ item }}</option>
+            }
+        </select>
+
+        <select formControlName="category" id="product-Category">
+            <option>Select..</option>
+            @for (items of categoryList$ |async; track $index) {
+            <option [value]="items">{{ items }}</option>
+            }
+        </select>
+
+        <div class="field">
+            <label for="product-isFeatured">product-isFeatured</label>
+        </div>
 
         <div class="option">
-            <input [value]="true" id="product-isActive-enable" formControlName="isActive" type="radio"> <label for="">Activo</label>
-            <input [value]="false" id="product-isActive-disable" formControlName="isActive" type="radio"><label for="">Desactivo</label>
+            <input [value]="true" id="product-isFeatured-enable" formControlName="isFeatured" type="radio"><label
+                for="">Destacado</label>
+            <input [value]="false" id="product-isFeatured-disable" formControlName="isFeatured" type="radio"> <label
+                for="">No destacado</label>
         </div>
-        
-        
+
+        <div class="field">
+            <label for="product-isActive">product-isActive</label>
+        </div>
+
+        <div class="option">
+            <input [value]="true" id="product-isActive-enable" formControlName="isActive" type="radio"> <label
+                for="">Activo</label>
+            <input [value]="false" id="product-isActive-disable" formControlName="isActive" type="radio"><label
+                for="">Inactivo</label>
+        </div>
 
 
 
-    <button >REGISTRAR</button>
 
-</form>
+
+        <button>REGISTRAR</button>
+
+    </form>
 </section>
-

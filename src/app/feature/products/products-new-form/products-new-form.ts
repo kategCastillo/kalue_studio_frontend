@@ -8,7 +8,7 @@ import { HttpProducts } from '../../../core/services/http-products';
 
 @Component({
   selector: 'app-products-new-form',
-  imports: [ReactiveFormsModule, AsyncPipe, JsonPipe],
+  imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './products-new-form.html',
   styleUrl: './products-new-form.css',
 })
@@ -58,6 +58,12 @@ export default class ProductsNewForm {
     }
   
   }
+
+  //getters
+  get name(){
+    return this.formData.get('name');
+  }
+
 
   ngOnInit () { 
     this.httpMaterials.getMaterials ().subscribe ({

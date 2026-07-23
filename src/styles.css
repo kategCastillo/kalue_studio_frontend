@@ -5,6 +5,9 @@ small.error {
     margin-left: 20px;
 }
 
+/* .pre {
+    display: none;
+} */
 
 table, th, td {
   border:1px solid black;
