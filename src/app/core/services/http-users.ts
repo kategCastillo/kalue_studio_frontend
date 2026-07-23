@@ -1,30 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { map } from 'rxjs';
-import { ResponseUsers } from '../models/Users';
+import { environment } from '../../../environments/environment';
 
 @Service()
 export class HttpUsers {
 
     private http = inject(HttpClient);
+    BASE_URL: string = environment.apiUrl;
     
     getUsers() {
-        return this.http.get<any>('http://localhost:3000/api/users')
+        return this.http.get<any>(`${this.BASE_URL}/users`)
     }
 
     getUserById(id: string | any ) {
-        return this.http.get<any>(`http://localhost:3000/api/users/${id}`)
+        return this.http.get<any>(`${this.BASE_URL}/users/${id}`)
     }
 
     createUser(newUser:any){
-        return this.http.post('http://localhost:3000/api/users', newUser);
+        return this.http.post(`${this.BASE_URL}/users`, newUser);
     }
 
     deleteUser( id:string ){
-        return this.http.delete(`http://localhost:3000/api/users/${id}`);
+        return this.http.delete(`${this.BASE_URL}/users/${id}`);
     }
 
     updateUserById( id:string, updatedUser: any ){
-        return this.http.patch(`http://localhost:3000/api/users/${id}`, updatedUser);
+        return this.http.patch(`${this.BASE_URL}/users/${id}`, updatedUser);
     }
 }
