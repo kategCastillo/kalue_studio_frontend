@@ -1,0 +1,153 @@
+<div class="contact-list">
+
+  <!-- Aside — igual al de usuarios -->
+  <aside class="contact-list__aside">
+    <div class="contact-list__aside-inner">
+      <span class="contact-list__aside-label">Kalue Studio</span>
+      <h2 class="contact-list__aside-title">Libreta de<br/>Contactos</h2>
+      <p class="contact-list__aside-desc">Consulta y administra las direcciones de entrega de todos los clientes.</p>
+      <div class="contact-list__aside-divider"></div>
+      <ul class="contact-list__aside-features">
+        <li>Direcciones de entrega guardadas</li>
+        <li>Contacto predeterminado por pedido</li>
+        <li>Datos siempre a la mano</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="contact-list__main">
+
+    <!-- Header -->
+    <header class="contact-list__header">
+      <div class="contact-list__header-text">
+        <p class="contact-list__eyebrow">Administración</p>
+        <h1 class="contact-list__title">Contactos de Entrega</h1>
+        <p class="contact-list__subtitle">Consulta, edita o elimina los contactos registrados en la plataforma.</p>
+      </div>
+      <a routerLink="/contact/new/form" class="contact-list__btn-new">
+        <fa-icon [icon]="faMapMarkerAlt" />
+        Nuevo Contacto
+      </a>
+    </header>
+
+    <!-- Tabla -->
+    <div class="contact-list__table-wrapper">
+      <table class="contact-list__table">
+        <thead class="contact-list__thead">
+          <tr>
+            <th class="contact-list__th">Cliente</th>
+            <th class="contact-list__th">Etiqueta</th>
+            <th class="contact-list__th">Quién recibe</th>
+            <th class="contact-list__th">Dirección</th>
+            <th class="contact-list__th">Teléfono</th>
+            <th class="contact-list__th">Predeterminado</th>
+            <th class="contact-list__th">Registro</th>
+            <th class="contact-list__th contact-list__th--center">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody class="contact-list__tbody">
+          @for (item of (contactList$ | async); track $index) {
+            <tr class="contact-list__tr">
+
+              <!-- Cliente -->
+              <td class="contact-list__td">
+                <div class="contact-list__user-cell">
+                  <div class="contact-list__avatar">
+                    <span class="contact-list__avatar-initials">
+                      {{ (item.userId?.name || 'U') | slice:0:1 }}
+                    </span>
+                  </div>
+                  <div class="contact-list__user-info">
+                    <span class="contact-list__user-name">{{ item.userId?.name || 'Usuario' }}</span>
+                    @if (item.userId?.email) {
+                      <span class="contact-list__user-email">{{ item.userId?.email }}</span>
+                    }
+                  </div>
+                </div>
+              </td>
+
+              <!-- Etiqueta -->
+              <td class="contact-list__td">
+                <span class="contact-list__badge contact-list__badge--label">{{ item.label }}</span>
+              </td>
+
+              <!-- Quién recibe -->
+              <td class="contact-list__td">{{ item.receiverName }}</td>
+
+              <!-- Dirección -->
+              <td class="contact-list__td contact-list__td--muted contact-list__td--address">{{ item.address }}</td>
+
+              <!-- Teléfono -->
+              <td class="contact-list__td contact-list__td--muted">{{ item.phone }}</td>
+
+              <!-- Predeterminado -->
+              <td class="contact-list__td">
+                @if (item.isDefault) {
+                  <span class="contact-list__status contact-list__status--active">
+                    <fa-icon [icon]="faStar" />
+                    Predeterminado
+                  </span>
+                } @else {
+                  <span class="contact-list__status contact-list__status--inactive">
+                    <span class="contact-list__status-dot"></span>
+                    Adicional
+                  </span>
+                }
+              </td>
+
+              <!-- Fecha de creación -->
+              <td class="contact-list__td contact-list__td--muted">
+                {{ item.createdAt | date:'dd MMM yyyy' }}
+              </td>
+
+              <!-- Acciones -->
+              <td class="contact-list__td contact-list__td--center">
+                <div class="contact-list__actions">
+                  <a
+                    class="contact-list__action-btn contact-list__action-btn--edit"
+                    [routerLink]="['/contact', 'edit', 'form', item._id]"
+                    title="Editar contacto"
+                  >
+                    <fa-icon [icon]="faEdit" />
+                    Editar
+                  </a>
+                  <button
+                    class="contact-list__action-btn contact-list__action-btn--delete"
+                    (click)="onDelete(item._id)"
+                    title="Eliminar contacto"
+                  >
+                    <fa-icon [icon]="faTrash" />
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8" class="contact-list__empty">
+                Aún no hay contactos registrados.
+              </td>
+            </tr>
+          }
+        </tbody>
+
+        <tfoot class="contact-list__tfoot">
+          <tr>
+            <td colspan="8" class="contact-list__tfoot-cell">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Estas acciones son exclusivas del administrador del sistema.
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </main>
+</div>

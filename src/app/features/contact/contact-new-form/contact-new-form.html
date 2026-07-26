@@ -1,0 +1,203 @@
+<div class="register">
+
+  <!-- Sidebar decorativo -->
+  <aside class="register__aside">
+    <div class="register__aside-inner">
+      <span class="register__aside-label">Kalue Studio</span>
+      <h2 class="register__aside-title">Libreta de<br/>Contactos</h2>
+      <p class="register__aside-desc">Registra las direcciones de entrega para agilizar los pedidos y envíos.</p>
+      <div class="register__aside-divider"></div>
+      <ul class="register__aside-features">
+        <li>Direcciones de entrega guardadas</li>
+        <li>Contacto predeterminado por pedido</li>
+        <li>Datos siempre a la mano</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Formulario -->
+  <main class="register__main">
+    <header class="register__header">
+      <p class="register__eyebrow">Nuevo registro</p>
+      <h1 class="register__title">Crear Contacto</h1>
+      <p class="register__subtitle">Diligencie los datos de entrega para asociarlos a la cuenta correspondiente.</p>
+    </header>
+
+    <form [formGroup]="formData" (ngSubmit)="onSend()" class="register__form" novalidate>
+
+      <!-- Usuario: solo visible en modo administrador -->
+      @if (!lockedUserId) {
+        <div class="register__field">
+          <label class="register__label" for="userId">Cliente</label>
+          <div class="register__select-wrapper">
+            <select
+              class="register__select"
+              [class.register__input--error]="formData.get('userId')?.invalid && (formData.get('userId')?.dirty || formData.get('userId')?.touched)"
+              formControlName="userId"
+              id="userId"
+            >
+              <option value="">Seleccionar cliente...</option>
+              @for (user of (userList$ | async); track $index) {
+                <option [value]="user._id">{{ user.name }} — {{ user.email }}</option>
+              }
+            </select>
+            <svg class="register__select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          @if (formData.get('userId')?.invalid && (formData.get('userId')?.dirty || formData.get('userId')?.touched)) {
+            @if (formData.get('userId')?.errors?.['required']) {
+              <small class="register__error">Debes seleccionar un cliente</small>
+            }
+          }
+        </div>
+      }
+
+      <!-- Fila: Etiqueta + Nombre de quien recibe -->
+      <div class="register__row">
+        <div class="register__field">
+          <label class="register__label" for="label">Etiqueta</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="formData.get('label')?.invalid && (formData.get('label')?.dirty || formData.get('label')?.touched)"
+            type="text"
+            formControlName="label"
+            id="label"
+            placeholder="Casa, Trabajo, Novia..."
+            autocomplete="off"
+          />
+          @if (formData.get('label')?.invalid && (formData.get('label')?.dirty || formData.get('label')?.touched)) {
+            @if (formData.get('label')?.errors?.['required']) {
+              <small class="register__error">La etiqueta es obligatoria</small>
+            }
+            @if (formData.get('label')?.errors?.['maxlength']) {
+              <small class="register__error">Máximo 30 caracteres</small>
+            }
+          }
+        </div>
+
+        <div class="register__field">
+          <label class="register__label" for="receiverName">Quién recibe</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="formData.get('receiverName')?.invalid && (formData.get('receiverName')?.dirty || formData.get('receiverName')?.touched)"
+            type="text"
+            formControlName="receiverName"
+            id="receiverName"
+            placeholder="Pepito Pérez"
+            autocomplete="off"
+          />
+          @if (formData.get('receiverName')?.invalid && (formData.get('receiverName')?.dirty || formData.get('receiverName')?.touched)) {
+            @if (formData.get('receiverName')?.errors?.['required']) {
+              <small class="register__error">El nombre de quien recibe es obligatorio</small>
+            }
+            @if (formData.get('receiverName')?.errors?.['minlength']) {
+              <small class="register__error">Mínimo 2 caracteres</small>
+            }
+            @if (formData.get('receiverName')?.errors?.['maxlength']) {
+              <small class="register__error">Máximo 50 caracteres</small>
+            }
+          }
+        </div>
+      </div>
+
+      <!-- Dirección -->
+      <div class="register__field">
+        <label class="register__label" for="address">Dirección de entrega</label>
+        <div class="register__input-icon-wrapper">
+          <svg class="register__input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <input
+            class="register__input register__input--with-icon"
+            [class.register__input--error]="formData.get('address')?.invalid && (formData.get('address')?.dirty || formData.get('address')?.touched)"
+            type="text"
+            formControlName="address"
+            id="address"
+            placeholder="Calle 123 # 45-67, Bogotá"
+            autocomplete="off"
+          />
+        </div>
+        @if (formData.get('address')?.invalid && (formData.get('address')?.dirty || formData.get('address')?.touched)) {
+          @if (formData.get('address')?.errors?.['required']) {
+            <small class="register__error">La dirección es obligatoria</small>
+          }
+          @if (formData.get('address')?.errors?.['minlength']) {
+            <small class="register__error">Mínimo 5 caracteres</small>
+          }
+        }
+      </div>
+
+      <!-- Fila: Teléfono + Predeterminado -->
+      <div class="register__row">
+        <div class="register__field">
+          <label class="register__label" for="phone">Teléfono de contacto</label>
+          <div class="register__input-icon-wrapper">
+            <svg class="register__input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <input
+              class="register__input register__input--with-icon"
+              [class.register__input--error]="formData.get('phone')?.invalid && (formData.get('phone')?.dirty || formData.get('phone')?.touched)"
+              type="text"
+              formControlName="phone"
+              id="phone"
+              placeholder="+57 300 123 4567"
+              autocomplete="off"
+            />
+          </div>
+          @if (formData.get('phone')?.invalid && (formData.get('phone')?.dirty || formData.get('phone')?.touched)) {
+            @if (formData.get('phone')?.errors?.['required']) {
+              <small class="register__error">El teléfono es obligatorio</small>
+            }
+            @if (formData.get('phone')?.errors?.['pattern']) {
+              <small class="register__error">Solo números, espacios, guiones y +</small>
+            }
+          }
+        </div>
+
+        <div class="register__field">
+          <label class="register__label">¿Contacto predeterminado?</label>
+          <div class="register__radio-group">
+            <label class="register__radio-option" for="default-yes">
+              <input class="register__radio" [value]="true" formControlName="isDefault" type="radio" id="default-yes" />
+              <span class="register__radio-indicator"></span>
+              <span class="register__radio-label">
+                <span class="register__radio-dot register__radio-dot--active"></span>
+                Sí
+              </span>
+            </label>
+            <label class="register__radio-option" for="default-no">
+              <input class="register__radio" [value]="false" formControlName="isDefault" type="radio" id="default-no" />
+              <span class="register__radio-indicator"></span>
+              <span class="register__radio-label">
+                <span class="register__radio-dot register__radio-dot--inactive"></span>
+                No
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="register__divider"></div>
+
+      <!-- Acciones -->
+      <div class="register__actions">
+        <a routerLink="/contact/list" type="button" class="register__btn register__btn--secondary">
+          Cancelar
+        </a>
+        <button type="submit" class="register__btn register__btn--primary" [disabled]="formData.invalid">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Registrar Contacto
+        </button>
+      </div>
+
+    </form>
+  </main>
+
+</div>
