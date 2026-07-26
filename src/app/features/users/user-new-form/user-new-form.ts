@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpRoles } from '../../../core/services/http-roles';
 import { BehaviorSubject } from 'rxjs';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { HttpUsers } from '../../../core/services/http-users';
 import { RouterLink } from "@angular/router";
 
@@ -25,18 +25,18 @@ export default class UserNewForm {
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(50),
-          Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/),
+          Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)
         ]),
         nickname: new FormControl('', [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(20), // ← era 30, el schema dice 20
-          Validators.pattern(/^[a-zA-Z0-9]+$/),
+          Validators.pattern(/^[a-zA-Z0-9]+$/)
         ]),
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [
           Validators.required,
-          Validators.minLength(8), // ← faltaba, el HTML lo valida
+          Validators.minLength(8) // ← faltaba, el HTML lo valida
         ]),
         comfirmPassword: new FormControl('', [Validators.required]),
         role: new FormControl('', [Validators.required]),

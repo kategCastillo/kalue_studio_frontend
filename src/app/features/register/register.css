@@ -177,6 +177,23 @@
     transition: all 0.4s ease-in-out;
 }
 
+/* Sección "Datos de Envío" (antes en estilos inline) */
+.input-group--section {
+    margin-top: 30px;
+}
+
+.label-row--section {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 4px;
+    margin-bottom: 15px;
+}
+
+.label-section-title {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
 /* Botón Sign In */
 .btn-submit {
     width: 100%;
