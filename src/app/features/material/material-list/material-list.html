@@ -1,0 +1,122 @@
+<div class="material-list">
+
+  <!-- Aside -->
+  <aside class="material-list__aside">
+    <div class="material-list__aside-inner">
+      <span class="material-list__aside-label">Kalue Studio</span>
+      <h2 class="material-list__aside-title">Catálogo de<br/>Materiales</h2>
+      <p class="material-list__aside-desc">Consulta y administra los materiales disponibles para las piezas.</p>
+      <div class="material-list__aside-divider"></div>
+      <ul class="material-list__aside-features">
+        <li>Materiales siempre actualizados</li>
+        <li>Activación e inactivación rápida</li>
+        <li>Base sólida para el catálogo</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="material-list__main">
+
+    <!-- Header -->
+    <header class="material-list__header">
+      <div class="material-list__header-text">
+        <p class="material-list__eyebrow">Administración</p>
+        <h1 class="material-list__title">Materiales del Catálogo</h1>
+        <p class="material-list__subtitle">Consulta, edita o elimina los materiales registrados en la plataforma.</p>
+      </div>
+      <a routerLink="/material/new/form" class="material-list__btn-new">
+        <fa-icon [icon]="faCubesStacked" />
+        Nuevo Material
+      </a>
+    </header>
+
+    <!-- Tabla -->
+    <div class="material-list__table-wrapper">
+      <table class="material-list__table">
+        <thead class="material-list__thead">
+          <tr>
+            <th class="material-list__th">Material</th>
+            <th class="material-list__th">Descripción</th>
+            <th class="material-list__th">Estado</th>
+            <th class="material-list__th">Registro</th>
+            <th class="material-list__th material-list__th--center">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody class="material-list__tbody">
+          @for (item of (materialList$ | async); track $index) {
+            <tr class="material-list__tr">
+
+              <!-- Nombre -->
+              <td class="material-list__td">
+                <span class="material-list__name">{{ item.name }}</span>
+              </td>
+
+              <!-- Descripción -->
+              <td class="material-list__td material-list__td--muted material-list__td--wrap">
+                {{ item.description || '—' }}
+              </td>
+
+              <!-- Estado -->
+              <td class="material-list__td">
+                <span class="material-list__status" [class.material-list__status--active]="item.isActive" [class.material-list__status--inactive]="!item.isActive">
+                  <span class="material-list__status-dot"></span>
+                  {{ item.isActive ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+
+              <!-- Fecha de creación -->
+              <td class="material-list__td material-list__td--muted">
+                {{ item.createdAt | date:'dd MMM yyyy' }}
+              </td>
+
+              <!-- Acciones -->
+              <td class="material-list__td material-list__td--center">
+                <div class="material-list__actions">
+                  <a
+                    class="material-list__action-btn material-list__action-btn--edit"
+                    [routerLink]="['/material', 'edit', 'form', item._id]"
+                    title="Editar material"
+                  >
+                    <fa-icon [icon]="faEdit" />
+                    Editar
+                  </a>
+                  <button
+                    class="material-list__action-btn material-list__action-btn--delete"
+                    (click)="onDelete(item._id)"
+                    title="Eliminar material"
+                  >
+                    <fa-icon [icon]="faTrash" />
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="material-list__empty">
+                Aún no hay materiales registrados.
+              </td>
+            </tr>
+          }
+        </tbody>
+
+        <tfoot class="material-list__tfoot">
+          <tr>
+            <td colspan="5" class="material-list__tfoot-cell">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Estas acciones son exclusivas del administrador del sistema.
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </main>
+</div>

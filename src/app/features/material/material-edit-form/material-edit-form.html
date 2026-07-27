@@ -1,0 +1,116 @@
+<div class="register">
+
+  <!-- Sidebar decorativo -->
+  <aside class="register__aside">
+    <div class="register__aside-inner">
+      <span class="register__aside-label">Kalue Studio</span>
+      <h2 class="register__aside-title">Catálogo de<br/>Materiales</h2>
+      <p class="register__aside-desc">Actualiza la información del material disponible en el catálogo.</p>
+      <div class="register__aside-divider"></div>
+      <ul class="register__aside-features">
+        <li>Materiales siempre actualizados</li>
+        <li>Activación e inactivación rápida</li>
+        <li>Base sólida para el catálogo</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Formulario -->
+  <main class="register__main">
+    <header class="register__header">
+      <p class="register__eyebrow">Modificar registro</p>
+      <h1 class="register__title">Editar Material</h1>
+      <p class="register__subtitle">Modifique los campos que desea actualizar y guarde los cambios.</p>
+    </header>
+
+    <form [formGroup]="formData" (ngSubmit)="onSend()" class="register__form" novalidate>
+
+      <!-- Nombre -->
+      <div class="register__field">
+        <label class="register__label" for="name">Nombre del material</label>
+        <input
+          class="register__input"
+          [class.register__input--error]="formData.get('name')?.invalid && (formData.get('name')?.dirty || formData.get('name')?.touched)"
+          type="text"
+          formControlName="name"
+          id="name"
+          placeholder="Oro, Plata, Acero..."
+          autocomplete="off"
+        />
+        @if (formData.get('name')?.invalid && (formData.get('name')?.dirty || formData.get('name')?.touched)) {
+          @if (formData.get('name')?.errors?.['required']) {
+            <small class="register__error">El nombre del material es obligatorio</small>
+          }
+          @if (formData.get('name')?.errors?.['minlength']) {
+            <small class="register__error">Mínimo 2 caracteres</small>
+          }
+          @if (formData.get('name')?.errors?.['maxlength']) {
+            <small class="register__error">Máximo 30 caracteres</small>
+          }
+        }
+      </div>
+
+      <!-- Descripción -->
+      <div class="register__field">
+        <label class="register__label" for="description">
+          Descripción
+          <span class="register__label-optional">(opcional)</span>
+        </label>
+        <textarea
+          class="register__textarea"
+          [class.register__input--error]="formData.get('description')?.invalid && (formData.get('description')?.dirty || formData.get('description')?.touched)"
+          formControlName="description"
+          id="description"
+          rows="3"
+          placeholder="Breve descripción del material..."
+        ></textarea>
+        @if (formData.get('description')?.invalid && (formData.get('description')?.dirty || formData.get('description')?.touched)) {
+          @if (formData.get('description')?.errors?.['maxlength']) {
+            <small class="register__error">Máximo 200 caracteres</small>
+          }
+        }
+      </div>
+
+      <!-- Estado -->
+      <div class="register__field">
+        <label class="register__label">Estado</label>
+        <div class="register__radio-group">
+          <label class="register__radio-option" for="active">
+            <input class="register__radio" [value]="true" formControlName="isActive" type="radio" id="active" />
+            <span class="register__radio-indicator"></span>
+            <span class="register__radio-label">
+              <span class="register__radio-dot register__radio-dot--active"></span>
+              Activo
+            </span>
+          </label>
+          <label class="register__radio-option" for="no-active">
+            <input class="register__radio" [value]="false" formControlName="isActive" type="radio" id="no-active" />
+            <span class="register__radio-indicator"></span>
+            <span class="register__radio-label">
+              <span class="register__radio-dot register__radio-dot--inactive"></span>
+              Inactivo
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="register__divider"></div>
+
+      <!-- Acciones -->
+      <div class="register__actions">
+        <a routerLink="/material/list" type="button" class="register__btn register__btn--secondary">
+          Cancelar
+        </a>
+        <button type="submit" class="register__btn register__btn--primary" [disabled]="formData.invalid">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 6L9 17l-5-5"></path>
+          </svg>
+          Guardar Cambios
+        </button>
+      </div>
+
+    </form>
+  </main>
+
+</div>
