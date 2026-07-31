@@ -8,7 +8,7 @@
             <div class="texto">
                 <p class="subtitulo">NUEVA COLECCIÓN</p>
 
-                <pre>{{listProducts$ | async | json}} </pre>
+                
                 <h1>Elegancia <br>
                     Refinada
                 </h1>
@@ -50,20 +50,11 @@
         <section class="productos">
 
             @for ( product of (listProducts$ | async); track $index) {
-                <div class="producto">
-                    <img src="assets/imagenes/bolso 1.avif" alt="">
-                    <h3>{{product.name}}</h3>
-                    <p>{{product.price}} </p>
-                </div>
+               <app-product-card [product]="product"/>
             }
 
-            <app-product-card/>
-            <app-product-card/>
-            <app-product-card/>
-            <app-product-card/>
-            <app-product-card/>
-            <app-product-card/>
-
+            
+            
 
         </section>
 

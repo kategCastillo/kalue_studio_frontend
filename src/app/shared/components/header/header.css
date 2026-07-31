@@ -1,0 +1,29 @@
+nav.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+}
+
+ul.menu-main, ul.menu-user {
+    list-style: none;
+    border: 1px dotted;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+nav.navbar {
+    height: 3rem;
+}
+img.user-avatar {
+    width: 3rem;
+    border-radius: 1.5rem;
+}
+li.user-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}

@@ -1,0 +1,32 @@
+<nav class="navbar">
+    <div class="logo">
+        <a href="">logo</a>
+
+    </div>
+    <ul class="menu-main">
+
+        <li><a routerLink="/dashboard/product/list">productos</a></li>
+        <li><a routerLink="">categorias</a></li>
+        <li><a routerLink="/dashboard/variant/list">variantes</a></li>
+        <li><a routerLink="">materiales</a></li>
+        <li><a routerLink="">ordenes</a></li>
+    </ul>
+    <ul class="menu-user">
+        @if (httpAuth.user$ | async; as user) {
+              <li class="user-info">
+                <p>{{user.name}}</p>
+                <p>{{user.role}} </p>
+                
+                @if (user.avatar) {
+                    <a routerLink="">
+                    <img class="user-avatar" [src]="user.avatar" [alt]="user.name"> </a>
+                }
+              </li>
+             <li><button (click)="logout()">logout</button></li>
+        } @else {
+             <li><a routerLink="/login">login</a></li>
+             <li><a routerLink="/register">register</a></li>
+        }
+       
+    </ul>
+</nav>

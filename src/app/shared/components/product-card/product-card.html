@@ -1,5 +1,6 @@
+ <!--{{product | json}}-->
  <div class="producto">
-                <img src="assets/imagenes/bolso 2.webp" alt="">
-                <h3>Kalué Esencia</h3>
-                <p>$165.000</p>
+                <img [src]="product.images" [alt]="product.name">
+                <h3>{{product.name}}</h3>
+                <p>{{product.price | currency}}</p>
             </div>

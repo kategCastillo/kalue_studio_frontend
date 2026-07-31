@@ -1,3 +1,30 @@
+:root {
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Inter', sans-serif;
+ 
+  --color-bg-light: white;
+  --color-text-main: black;
+  --color-text-muted: #666666;
+  --color-text-light: #483c3c;
+  --color-border: black;
+  --color-bg-inputs: #cbcbcb74;
+ 
+  --transition-smooth: all 0.3s ease;
+ 
+  /* Escalas de espaciado y layout, derivadas del sistema de la marca */
+  --container-max: 1440px;
+  --gutter: 24px;
+  --margin-mobile: 16px;
+  --margin-desktop: 64px;
+  --section-gap: 120px;
+}
+ 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* You can add global styles to this file, and also import other style files */
 small.error {
     color: red;

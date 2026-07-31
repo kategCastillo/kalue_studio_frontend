@@ -1,53 +1,150 @@
-```html
-<div class="page page-user-list">
-
-  <h2>Product list</h2>
-  <pre class="pre"> {{productList$ | async | json}} </pre>
-
-  <div class="description">
-    <a href="#" class="btn btn-new">New</a>
-  </div>
-
-  <table>
-
-    <tfoot>
-      <tr>
-        <td colspan="5">
-          <small>No olvide que estas acciones solo pueden ser hechas por el ADMIN</small>
-        </td>
-      </tr>
-    </tfoot>
-    <tbody>
-      @for (product of (productList$ |async); track $index) {
-
-      <tr>
-        <td>{{product.name}}</td>
-        <td>{{product.description}}</td>
-        <td>{{product.category}}</td>
-        <td>{{product.price}}</td>
-        <td class="options">
-          <a [routerLink]="['/product', 'edit', product._id]" (click)="onEdit( product._id)"class="btn btn-edit">Edit
-          
-          </a>
-          <button (click)="onDelete (product._id)" class="btn btn-delete">Delete</button>
-        </td>
-
-      </tr>
-      }
-
-
-    </tbody>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Cantidad</th>
-        <th>precio</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-
-  </table>
+<div class="product-list">
+ 
+  <!-- Aside — igual al de user-list -->
+  <aside class="product-list__aside">
+    <div class="product-list__aside-inner">
+      <span class="product-list__aside-label">Kalue Studio</span>
+      <h2 class="product-list__aside-title">Panel de<br/>Administración</h2>
+      <p class="product-list__aside-desc">Gestiona los productos, categorías, materiales y stock de la tienda desde un solo lugar.</p>
+      <div class="product-list__aside-divider"></div>
+      <ul class="product-list__aside-features">
+        <li>Control de stock e inventario</li>
+        <li>Gestión de categorías y materiales</li>
+        <li>Estado de productos en tiempo real</li>
+      </ul>
+    </div>
+  </aside>
+ 
+  <!-- Main -->
+  <main class="product-list__main">
+ 
+    <!-- Header -->
+    <header class="product-list__header">
+      <div class="product-list__header-text">
+        <p class="product-list__eyebrow">Administración</p>
+        <h1 class="product-list__title">Productos</h1>
+        <p class="product-list__subtitle">Consulta, edita o elimina los productos registrados en la tienda.</p>
+      </div>
+      <a routerLink="/product-new" class="product-list__btn-new">
+        <fa-icon [icon]="faPlus" />
+        Nuevo Producto
+      </a>
+    </header>
+ 
+    <!-- Tabla -->
+    <div class="product-list__table-wrapper">
+      <table class="product-list__table">
+        <thead class="product-list__thead">
+          <tr>
+            <th class="product-list__th">Producto</th>
+            <th class="product-list__th">Categoría</th>
+            <th class="product-list__th">Material</th>
+            <th class="product-list__th">Precio</th>
+            <th class="product-list__th product-list__th--center">Stock</th>
+            <th class="product-list__th product-list__th--center">Destacado</th>
+            <th class="product-list__th">Estado</th>
+            <th class="product-list__th product-list__th--center">Acciones</th>
+          </tr>
+        </thead>
+ 
+        <tbody class="product-list__tbody">
+          @for (item of (productList$ | async); track $index) {
+            <tr class="product-list__tr">
+ 
+              <!-- Producto: imagen + nombre -->
+              <td class="product-list__td">
+                <div class="product-list__product-cell">
+                  <div class="product-list__thumb">
+                    @if (item.images?.[0]) {
+                      <img [src]="item.images[0]" [alt]="item.name" class="product-list__thumb-img" />
+                    } @else {
+                      <span class="product-list__thumb-initials">{{ item.name | slice:0:1 }}</span>
+                    }
+                  </div>
+                  <div class="product-list__product-info">
+                    <span class="product-list__product-name">{{ item.name }}</span>
+                    <span class="product-list__product-desc">{{ item.description || 'Sin descripción' }}</span>
+                  </div>
+                </div>
+              </td>
+ 
+              <!-- Categoría -->
+              <td class="product-list__td">
+                <span class="product-list__badge product-list__badge--category">{{ item.category?.name }}</span>
+              </td>
+ 
+              <!-- Material -->
+              <td class="product-list__td product-list__td--muted">{{ item.material?.name }}</td>
+ 
+              <!-- Precio -->
+              <td class="product-list__td product-list__td--price">{{ item.price | currency }}</td>
+ 
+              <!-- Stock -->
+              <td class="product-list__td product-list__td--center">
+                <span class="product-list__stock" [class.product-list__stock--low]="item.stock <= 3">
+                  {{ item.stock }}
+                </span>
+              </td>
+ 
+              <!-- Destacado -->
+              <td class="product-list__td product-list__td--center">
+                @if (item.isFeatured) {
+                  <fa-icon [icon]="faStar" class="product-list__star" />
+                } @else {
+                  <span class="product-list__dash">—</span>
+                }
+              </td>
+ 
+              <!-- Estado -->
+              <td class="product-list__td">
+                <span class="product-list__status" [class.product-list__status--active]="item.isActive" [class.product-list__status--inactive]="!item.isActive">
+                  <span class="product-list__status-dot"></span>
+                  {{ item.isActive ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+ 
+              <!-- Acciones -->
+              <td class="product-list__td product-list__td--center">
+                <div class="product-list__actions">
+                  <a
+                    class="product-list__action-btn product-list__action-btn--edit"
+                    [routerLink]="['/product', 'edit', 'form', item._id]"
+                    (click)="onEdit(item._id)"
+                    title="Editar producto"
+                  >
+                    <fa-icon [icon]="faEdit" />
+                    Editar
+                  </a>
+                  <button
+                    class="product-list__action-btn product-list__action-btn--delete"
+                    (click)="onDelete(item._id)"
+                    title="Eliminar producto"
+                  >
+                    <fa-icon [icon]="faTrash" />
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+ 
+            </tr>
+          }
+        </tbody>
+ 
+        <tfoot class="product-list__tfoot">
+          <tr>
+            <td colspan="8" class="product-list__tfoot-cell">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Estas acciones son exclusivas del administrador del sistema.
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+ 
+  </main>
 </div>
-
-```
+ 
