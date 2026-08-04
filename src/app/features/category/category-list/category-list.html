@@ -25,7 +25,7 @@
         <h1 class="category-list__title">Categorías del Catálogo</h1>
         <p class="category-list__subtitle">Consulta, edita o elimina las categorías registradas en la plataforma.</p>
       </div>
-      <a routerLink="/category/new/form" class="category-list__btn-new">
+      <a routerLink="/dashboard/category/new/form" class="category-list__btn-new">
         <fa-icon [icon]="faFolderPlus" />
         Nueva Categoría
       </a>
@@ -86,7 +86,7 @@
                 <div class="category-list__actions">
                   <a
                     class="category-list__action-btn category-list__action-btn--edit"
-                    [routerLink]="['/category', 'edit', 'form', item._id]"
+                    [routerLink]="['/dashboard', 'category', 'edit', 'form', item._id]"
                     title="Editar categoría"
                   >
                     <fa-icon [icon]="faEdit" />

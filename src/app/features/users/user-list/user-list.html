@@ -25,7 +25,7 @@
         <h1 class="user-list__title">Usuarios del Sistema</h1>
         <p class="user-list__subtitle">Consulta, edita o elimina los usuarios registrados en la plataforma.</p>
       </div>
-      <a routerLink="/user/new/form" class="user-list__btn-new">
+      <a routerLink="/dashboard/user/new/form" class="user-list__btn-new">
         <fa-icon [icon]="faUserPlus" />
         Nuevo Usuario
       </a >
@@ -95,7 +95,7 @@
                 <div class="user-list__actions">
                   <a
                     class="user-list__action-btn user-list__action-btn--edit"
-                    [routerLink]="['/user', 'edit', 'form', item._id]"
+                    [routerLink]="['/dashboard', 'user', 'edit', 'form', item._id]"
                     (click)="onEdit(item._id)"
                     title="Editar usuario"
                   >

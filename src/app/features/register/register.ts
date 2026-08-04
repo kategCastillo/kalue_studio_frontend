@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from "@angular/router";
-import { HttpRegister } from '../../core/services/http-register';
+import { RouterLink } from '@angular/router';
+import { HttpAuth } from '../../core/services/http-auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -11,52 +12,74 @@ import { HttpRegister } from '../../core/services/http-register';
 })
 export default class Register {
   public formData: FormGroup;
-  private httpRegister = inject(HttpRegister);
+  private httpAuth = inject(HttpAuth);
 
-
-  constructor (){
-    this.formData = new FormGroup ({
-      name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]),
-      nickname: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z0-9]+$/)]),
-      email: new FormControl ('', [Validators.required, Validators.email]),
+  constructor() {
+    this.formData = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50),
+        Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/),
+      ]),
+      nickname: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20),
+        Validators.pattern(/^[a-zA-Z0-9]+$/),
+      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       comfirmPassword: new FormControl('', [Validators.required]),
       contacts: new FormGroup({
-        label: new FormControl ('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
-        receiverName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+        label: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(30),
+        ]),
+        receiverName: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50),
+        ]),
         address: new FormControl('', [Validators.required, Validators.minLength(5)]),
         phone: new FormControl('', [Validators.required]),
-        isDefault: new FormControl(true)
+        isDefault: new FormControl(true),
       }),
     });
   }
 
-  onSend(){
-    if(this.formData.valid){
+  onSend() {
+    if (this.formData.valid) {
       console.log(this.formData.value);
-      this.httpRegister.register(this.formData.value).subscribe({
+      this.httpAuth.register(this.formData.value).subscribe({
         next: (res) => {
           console.log(res);
           this.formData.reset();
+          Swal.fire({
+            title: 'Registado Exitosamente!',
+            icon: 'success',
+            draggable: true,
+          });
         },
         error: (error) => {
           console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo sucedio!',
+          });
         },
-        complete: () => {}
-        })
-    }else{
+        complete: () => {},
+      });
+    } else {
       console.log('formulario invalido');
     }
   }
 
   // OAuth de Google
-  registerWithGoogle(){
-
-  }
+  registerWithGoogle() {}
 
   // OAuth de Apple
-  registerWithapple(){
-    
-  }
-
+  registerWithapple() {}
 }

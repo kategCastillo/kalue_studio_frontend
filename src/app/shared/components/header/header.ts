@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
+import { HttpAuth } from '../../../core/services/http-auth';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -7,4 +9,12 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {}
+export class Header {
+
+  public httpAuth = inject(HttpAuth);
+
+  logout(): void {
+    this.httpAuth.logoutUser();
+  }
+
+}

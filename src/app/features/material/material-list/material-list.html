@@ -25,7 +25,7 @@
         <h1 class="material-list__title">Materiales del Catálogo</h1>
         <p class="material-list__subtitle">Consulta, edita o elimina los materiales registrados en la plataforma.</p>
       </div>
-      <a routerLink="/material/new/form" class="material-list__btn-new">
+      <a routerLink="/dashboard/material/new/form" class="material-list__btn-new">
         <fa-icon [icon]="faCubesStacked" />
         Nuevo Material
       </a>
@@ -76,7 +76,7 @@
                 <div class="material-list__actions">
                   <a
                     class="material-list__action-btn material-list__action-btn--edit"
-                    [routerLink]="['/material', 'edit', 'form', item._id]"
+                    [routerLink]="['/dashboard', 'material', 'edit', 'form', item._id]"
                     title="Editar material"
                   >
                     <fa-icon [icon]="faEdit" />

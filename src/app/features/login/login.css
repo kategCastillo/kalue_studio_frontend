@@ -195,6 +195,11 @@
     background-color: var(--color-bg-inputs);
 }
 
+.btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Línea Divisoria */
 .divider {
     position: relative;
@@ -376,4 +381,46 @@
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
         border-radius: 20px;
     }
+}
+
+/* ==========================================================================
+   Estados de error en el formulario
+   (mismo tratamiento visual que el panel de administración)
+   ========================================================================== */
+
+/* Input inválido: borde rojo + fondo rojo tenue */
+.input-error {
+    border-color: #c0392b !important;
+    background-color: #fff8f8;
+}
+
+.input-error:focus {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 1px #c0392b;
+}
+
+/* Mensaje de error debajo del campo, con icono de alerta */
+.error-message {
+    font-family: inherit;
+    font-size: 0.72rem;
+    color: #c0392b;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.35rem;
+}
+
+.error-message::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background-color: #c0392b;
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    flex-shrink: 0;
 }
