@@ -9,9 +9,10 @@ import { HttpContacts } from '../../../core/services/http-contacts';
 import { HttpUsers } from '../../../core/services/http-users';
 
 import { Sidebar } from '../../../shared/components/sidebar/sidebar';
+import { HttpAuth } from '../../../core/services/http-auth';
 @Component({
   selector: 'app-contact-edit-form',
-  imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
+  imports: [ReactiveFormsModule, RouterLink, Sidebar],
   templateUrl: './contact-edit-form.html',
   styleUrl: './contact-edit-form.css',
 })
@@ -23,6 +24,7 @@ export default class ContactEditForm {
   private activatedRoute = inject(ActivatedRoute);
 
   private selectedId!: string | null;
+  private httpAuth = inject(HttpAuth);
 
   public userList$ = new BehaviorSubject<any[]>([]);
 
@@ -33,23 +35,14 @@ export default class ContactEditForm {
   constructor() {
     this.formData = new FormGroup({
       userId: new FormControl('', [Validators.required]),
-      label: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(30),
-      ]),
+      label: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       receiverName: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(50),
       ]),
-      address: new FormControl('', [
-        Validators.required,
-        Validators.minLength(5),
-      ]),
-      phone: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^[+0-9\s-]+$/),
-      ]),
+      address: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      phone: new FormControl('', [Validators.required, Validators.pattern(/^[+0-9\s-]+$/)]),
       isDefault: new FormControl(false),
     });
   }
@@ -109,23 +102,26 @@ export default class ContactEditForm {
       confirmButtonText: 'Sí, guardar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.httpContacts.updateContactById(this.selectedId as string, this.formData.value).subscribe({
-          next: () => {
-            Swal.fire({
-              title: 'Actualizado',
-              text: 'El contacto se actualizó con éxito.',
-              icon: 'success',
-            });
-          },
-          error: (error) => {
-            console.error(error);
-            Swal.fire({
-              title: 'Error',
-              text: 'No se pudo actualizar el contacto.',
-              icon: 'error',
-            });
-          },
-        });
+        this.formData.get('userId')?.patchValue({ userId: this.httpAuth.user._id });
+        this.httpContacts
+          .updateContactById(this.selectedId as string, this.formData.value)
+          .subscribe({
+            next: () => {
+              Swal.fire({
+                title: 'Actualizado',
+                text: 'El contacto se actualizó con éxito.',
+                icon: 'success',
+              });
+            },
+            error: (error) => {
+              console.error(error);
+              Swal.fire({
+                title: 'Error',
+                text: 'No se pudo actualizar el contacto.',
+                icon: 'error',
+              });
+            },
+          });
       }
     });
   }

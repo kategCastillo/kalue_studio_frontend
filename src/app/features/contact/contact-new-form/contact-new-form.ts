@@ -11,7 +11,7 @@ import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 import { HttpAuth } from '../../../core/services/http-auth';
 @Component({
   selector: 'app-contact-new-form',
-  imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
+  imports: [ReactiveFormsModule, RouterLink, Sidebar],
   templateUrl: './contact-new-form.html',
   styleUrl: './contact-new-form.css',
 })
@@ -38,7 +38,7 @@ export default class ContactNewForm {
         Validators.required,
         Validators.maxLength(30),
       ]),
-      receiverName: new FormControl('', [
+      receiverName: new FormControl(this.httpAuth.user.name, [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(50),
@@ -56,7 +56,6 @@ export default class ContactNewForm {
   }
 
   ngOnInit() {
-    this.formData.get
     this.lockedUserId = this.activatedRoute.snapshot.paramMap.get('userId');
 
     if (this.lockedUserId) {

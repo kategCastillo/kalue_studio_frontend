@@ -1,5 +1,4 @@
 <div class="register">
-
   <app-sidebar></app-sidebar>
 
   <!-- Formulario -->
@@ -7,42 +6,14 @@
     <header class="register__header">
       <p class="register__eyebrow">Modificar registro</p>
       <h1 class="register__title">Editar Contacto</h1>
-      <p class="register__subtitle">Modifique los campos que desea actualizar y guarde los cambios.</p>
+      <p class="register__subtitle">
+        Modifique los campos que desea actualizar y guarde los cambios.
+      </p>
     </header>
 
     <form [formGroup]="formData" (ngSubmit)="onSend()" class="register__form" novalidate>
-
       <!-- Usuario -->
-      <div class="register__field">
-        <label class="register__label" for="userId">Cliente</label>
-        <div class="register__select-wrapper">
-          <select
-            class="register__select"
-            [class.register__input--error]="formData.get('userId')?.invalid && (formData.get('userId')?.dirty || formData.get('userId')?.touched)"
-            formControlName="userId"
-            [attr.disabled]="lockUser ? true : null"
-            id="userId"
-          >
-            <option value="">Seleccionar cliente...</option>
-            @for (user of (userList$ | async); track $index) {
-              <option [value]="user._id">{{ user.name }} — {{ user.email }}</option>
-            }
-          </select>
-          <svg class="register__select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </div>
-        @if (lockUser) {
-          <small class="register__error" style="color: var(--color-text-muted);">
-            Este contacto pertenece al cliente y no puede reasignarse.
-          </small>
-        }
-        @if (formData.get('userId')?.invalid && (formData.get('userId')?.dirty || formData.get('userId')?.touched)) {
-          @if (formData.get('userId')?.errors?.['required']) {
-            <small class="register__error">Debes seleccionar un cliente</small>
-          }
-        }
-      </div>
+      <input class="userId" type="text" formControlName="userId" id="userId" />
 
       <!-- Fila: Etiqueta + Nombre de quien recibe -->
       <div class="register__row">
@@ -50,14 +21,20 @@
           <label class="register__label" for="label">Etiqueta</label>
           <input
             class="register__input"
-            [class.register__input--error]="formData.get('label')?.invalid && (formData.get('label')?.dirty || formData.get('label')?.touched)"
+            [class.register__input--error]="
+              formData.get('label')?.invalid &&
+              (formData.get('label')?.dirty || formData.get('label')?.touched)
+            "
             type="text"
             formControlName="label"
             id="label"
             placeholder="Casa, Trabajo, Novia..."
             autocomplete="off"
           />
-          @if (formData.get('label')?.invalid && (formData.get('label')?.dirty || formData.get('label')?.touched)) {
+          @if (
+            formData.get('label')?.invalid &&
+            (formData.get('label')?.dirty || formData.get('label')?.touched)
+          ) {
             @if (formData.get('label')?.errors?.['required']) {
               <small class="register__error">La etiqueta es obligatoria</small>
             }
@@ -71,14 +48,20 @@
           <label class="register__label" for="receiverName">Quién recibe</label>
           <input
             class="register__input"
-            [class.register__input--error]="formData.get('receiverName')?.invalid && (formData.get('receiverName')?.dirty || formData.get('receiverName')?.touched)"
+            [class.register__input--error]="
+              formData.get('receiverName')?.invalid &&
+              (formData.get('receiverName')?.dirty || formData.get('receiverName')?.touched)
+            "
             type="text"
             formControlName="receiverName"
             id="receiverName"
             placeholder="Pepito Pérez"
             autocomplete="off"
           />
-          @if (formData.get('receiverName')?.invalid && (formData.get('receiverName')?.dirty || formData.get('receiverName')?.touched)) {
+          @if (
+            formData.get('receiverName')?.invalid &&
+            (formData.get('receiverName')?.dirty || formData.get('receiverName')?.touched)
+          ) {
             @if (formData.get('receiverName')?.errors?.['required']) {
               <small class="register__error">El nombre de quien recibe es obligatorio</small>
             }
@@ -96,13 +79,24 @@
       <div class="register__field">
         <label class="register__label" for="address">Dirección de entrega</label>
         <div class="register__input-icon-wrapper">
-          <svg class="register__input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg
+            class="register__input-icon"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
             <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
           <input
             class="register__input register__input--with-icon"
-            [class.register__input--error]="formData.get('address')?.invalid && (formData.get('address')?.dirty || formData.get('address')?.touched)"
+            [class.register__input--error]="
+              formData.get('address')?.invalid &&
+              (formData.get('address')?.dirty || formData.get('address')?.touched)
+            "
             type="text"
             formControlName="address"
             id="address"
@@ -110,7 +104,10 @@
             autocomplete="off"
           />
         </div>
-        @if (formData.get('address')?.invalid && (formData.get('address')?.dirty || formData.get('address')?.touched)) {
+        @if (
+          formData.get('address')?.invalid &&
+          (formData.get('address')?.dirty || formData.get('address')?.touched)
+        ) {
           @if (formData.get('address')?.errors?.['required']) {
             <small class="register__error">La dirección es obligatoria</small>
           }
@@ -125,12 +122,25 @@
         <div class="register__field">
           <label class="register__label" for="phone">Teléfono de contacto</label>
           <div class="register__input-icon-wrapper">
-            <svg class="register__input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"></path>
+            <svg
+              class="register__input-icon"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"
+              ></path>
             </svg>
             <input
               class="register__input register__input--with-icon"
-              [class.register__input--error]="formData.get('phone')?.invalid && (formData.get('phone')?.dirty || formData.get('phone')?.touched)"
+              [class.register__input--error]="
+                formData.get('phone')?.invalid &&
+                (formData.get('phone')?.dirty || formData.get('phone')?.touched)
+              "
               type="text"
               formControlName="phone"
               id="phone"
@@ -138,7 +148,10 @@
               autocomplete="off"
             />
           </div>
-          @if (formData.get('phone')?.invalid && (formData.get('phone')?.dirty || formData.get('phone')?.touched)) {
+          @if (
+            formData.get('phone')?.invalid &&
+            (formData.get('phone')?.dirty || formData.get('phone')?.touched)
+          ) {
             @if (formData.get('phone')?.errors?.['required']) {
               <small class="register__error">El teléfono es obligatorio</small>
             }
@@ -152,7 +165,13 @@
           <label class="register__label">¿Contacto predeterminado?</label>
           <div class="register__radio-group">
             <label class="register__radio-option" for="default-yes">
-              <input class="register__radio" [value]="true" formControlName="isDefault" type="radio" id="default-yes" />
+              <input
+                class="register__radio"
+                [value]="true"
+                formControlName="isDefault"
+                type="radio"
+                id="default-yes"
+              />
               <span class="register__radio-indicator"></span>
               <span class="register__radio-label">
                 <span class="register__radio-dot register__radio-dot--active"></span>
@@ -160,7 +179,13 @@
               </span>
             </label>
             <label class="register__radio-option" for="default-no">
-              <input class="register__radio" [value]="false" formControlName="isDefault" type="radio" id="default-no" />
+              <input
+                class="register__radio"
+                [value]="false"
+                formControlName="isDefault"
+                type="radio"
+                id="default-no"
+              />
               <span class="register__radio-indicator"></span>
               <span class="register__radio-label">
                 <span class="register__radio-dot register__radio-dot--inactive"></span>
@@ -176,18 +201,31 @@
 
       <!-- Acciones -->
       <div class="register__actions">
-        <a routerLink="/dashboard/contact/list" type="button" class="register__btn register__btn--secondary">
+        <a
+          routerLink="/dashboard/contact/list"
+          type="button"
+          class="register__btn register__btn--secondary"
+        >
           Cancelar
         </a>
-        <button type="submit" class="register__btn register__btn--primary" [disabled]="formData.invalid">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button
+          type="submit"
+          class="register__btn register__btn--primary"
+          [disabled]="formData.invalid"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <path d="M20 6L9 17l-5-5"></path>
           </svg>
           Guardar Cambios
         </button>
       </div>
-
     </form>
   </main>
-
 </div>

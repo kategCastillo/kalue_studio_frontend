@@ -15,6 +15,9 @@
   background-color: var(--color-bg-light);
 }
 
+.userId{
+  display: none;
+}
 /* =========================================
    MAIN — Contenido del formulario
    ========================================= */
