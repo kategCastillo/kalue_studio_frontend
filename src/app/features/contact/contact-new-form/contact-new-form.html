@@ -17,7 +17,16 @@
         <div class="register__field">
           <label class="register__label" for="userId">Cliente</label>
           <div class="register__select-wrapper">
-            <select
+            <input
+            class="register__input"
+            [class.register__input--error]="formData.get('userId')?.invalid && (formData.get('userId')?.dirty || formData.get('userId')?.touched)"
+            type="text"
+            formControlName="userId"
+            id="userId"
+            placeholder="Casa, Trabajo, Novia..."
+            autocomplete="off"
+          />
+            <!-- <select
               class="register__select"
               [class.register__input--error]="formData.get('userId')?.invalid && (formData.get('userId')?.dirty || formData.get('userId')?.touched)"
               formControlName="userId"
@@ -27,7 +36,7 @@
               @for (user of (userList$ | async); track $index) {
                 <option [value]="user._id">{{ user.name }} — {{ user.email }}</option>
               }
-            </select>
+            </select> -->
             <svg class="register__select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>

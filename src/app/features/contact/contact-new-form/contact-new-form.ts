@@ -8,6 +8,7 @@ import { HttpContacts } from '../../../core/services/http-contacts';
 import { HttpUsers } from '../../../core/services/http-users';
 
 import { Sidebar } from '../../../shared/components/sidebar/sidebar';
+import { HttpAuth } from '../../../core/services/http-auth';
 @Component({
   selector: 'app-contact-new-form',
   imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
@@ -16,7 +17,7 @@ import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 })
 export default class ContactNewForm {
   public formData: FormGroup;
-
+  private httpAuth = inject(HttpAuth);
   private httpContacts = inject(HttpContacts);
   private httpUsers = inject(HttpUsers);
   private activatedRoute = inject(ActivatedRoute);
@@ -29,8 +30,10 @@ export default class ContactNewForm {
   public lockedUserId: string | null = null;
 
   constructor() {
+    console.log()
+
     this.formData = new FormGroup({
-      userId: new FormControl('', [Validators.required]),
+      userId: new FormControl(this.httpAuth.user.name, [Validators.required]),
       label: new FormControl('', [
         Validators.required,
         Validators.maxLength(30),
@@ -53,6 +56,7 @@ export default class ContactNewForm {
   }
 
   ngOnInit() {
+    this.formData.get
     this.lockedUserId = this.activatedRoute.snapshot.paramMap.get('userId');
 
     if (this.lockedUserId) {
@@ -77,6 +81,7 @@ export default class ContactNewForm {
 
   onSend() {
     if (this.formData.valid) {
+      this.formData.get('userId')?.patchValue({userId: this.httpAuth.user._id})
       this.httpContacts.createContact(this.formData.value).subscribe({
         next: (res) => {
           console.log(res);
