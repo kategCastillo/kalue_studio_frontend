@@ -14,8 +14,6 @@ export class HttpCategories {
 
     const  token  = this.httpAuth.token;
 
-    console.log(token)
-
     return new HttpHeaders ({
       'X-Token': token || '',
       'Content-Type': 'application/json'
@@ -24,7 +22,6 @@ export class HttpCategories {
 
 
   getCategories() {
-    console.log({ headers: this.getHeader() })
     return this.http.get<any>(`${this.BASE_URL}/category`, { headers: this.getHeader() });
   }
 
