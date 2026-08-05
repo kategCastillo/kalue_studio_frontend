@@ -1,19 +1,6 @@
 <div class="register">
 
-  <!-- Sidebar decorativo -->
-  <aside class="register__aside">
-    <div class="register__aside-inner">
-      <span class="register__aside-label">Kalue Studio</span>
-      <h2 class="register__aside-title">Libreta de<br/>Contactos</h2>
-      <p class="register__aside-desc">Registra las direcciones de entrega para agilizar los pedidos y envíos.</p>
-      <div class="register__aside-divider"></div>
-      <ul class="register__aside-features">
-        <li>Direcciones de entrega guardadas</li>
-        <li>Contacto predeterminado por pedido</li>
-        <li>Datos siempre a la mano</li>
-      </ul>
-    </div>
-  </aside>
+  <app-sidebar></app-sidebar>
 
   <!-- Formulario -->
   <main class="register__main">
@@ -185,7 +172,7 @@
 
       <!-- Acciones -->
       <div class="register__actions">
-        <a routerLink="/contact/list" type="button" class="register__btn register__btn--secondary">
+        <a routerLink="/dashboard/contact/list" type="button" class="register__btn register__btn--secondary">
           Cancelar
         </a>
         <button type="submit" class="register__btn register__btn--primary" [disabled]="formData.invalid">

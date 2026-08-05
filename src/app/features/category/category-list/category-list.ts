@@ -10,9 +10,10 @@ import { HttpCategories } from '../../../core/services/http-categories';
 
 import Swal from 'sweetalert2';
 
+import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-category-list',
-  imports: [AsyncPipe, RouterLink, DatePipe, FontAwesomeModule],
+  imports: [AsyncPipe, RouterLink, DatePipe, FontAwesomeModule, Sidebar],
   templateUrl: './category-list.html',
   styleUrl: './category-list.css',
 })

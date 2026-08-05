@@ -7,9 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpContacts } from '../../../core/services/http-contacts';
 import { HttpUsers } from '../../../core/services/http-users';
 
+import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-contact-new-form',
-  imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
+  imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
   templateUrl: './contact-new-form.html',
   styleUrl: './contact-new-form.css',
 })

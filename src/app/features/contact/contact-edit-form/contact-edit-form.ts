@@ -8,9 +8,10 @@ import Swal from 'sweetalert2';
 import { HttpContacts } from '../../../core/services/http-contacts';
 import { HttpUsers } from '../../../core/services/http-users';
 
+import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-contact-edit-form',
-  imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
+  imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
   templateUrl: './contact-edit-form.html',
   styleUrl: './contact-edit-form.css',
 })

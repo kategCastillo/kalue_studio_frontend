@@ -7,9 +7,10 @@ import Swal from 'sweetalert2';
 
 import { HttpCategories } from '../../../core/services/http-categories';
 
+import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-category-edit-form',
-  imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
+  imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
   templateUrl: './category-edit-form.html',
   styleUrl: './category-edit-form.css',
 })

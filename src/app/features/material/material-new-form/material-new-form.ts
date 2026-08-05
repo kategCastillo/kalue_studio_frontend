@@ -4,9 +4,10 @@ import { RouterLink } from '@angular/router';
 
 import { HttpMaterials } from '../../../core/services/http-materials';
 
+import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-material-new-form',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, Sidebar],
   templateUrl: './material-new-form.html',
   styleUrl: './material-new-form.css',
 })

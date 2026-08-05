@@ -6,9 +6,10 @@ import { AsyncPipe } from '@angular/common';
 import { HttpUsers } from '../../../core/services/http-users';
 import { RouterLink } from "@angular/router";
 
+import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-user-new-form',
-  imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
+  imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
   templateUrl: './user-new-form.html',
   styleUrl: './user-new-form.css',
 })

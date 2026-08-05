@@ -5,9 +5,10 @@ import Swal from 'sweetalert2';
 
 import { HttpMaterials } from '../../../core/services/http-materials';
 
+import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-material-edit-form',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, Sidebar],
   templateUrl: './material-edit-form.html',
   styleUrl: './material-edit-form.css',
 })

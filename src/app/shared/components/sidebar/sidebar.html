@@ -1,0 +1,119 @@
+<aside class="sidebar">
+  <div class="sidebar__inner">
+
+    <!-- Marca -->
+    <div class="sidebar__brand">
+      <span class="sidebar__brand-label">Kalue Studio</span>
+      <h2 class="sidebar__brand-title">Panel de<br />Administración</h2>
+    </div>
+
+    <div class="sidebar__divider"></div>
+
+    <!-- Navegación principal -->
+    <nav class="sidebar__nav">
+      <a
+        class="sidebar__nav-item"
+        routerLink="/dashboard"
+        routerLinkActive="sidebar__nav-item--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <svg class="sidebar__nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 11.5 12 4l9 7.5" />
+          <path d="M5.5 10v9a1 1 0 0 0 1 1H10v-6h4v6h3.5a1 1 0 0 0 1-1v-9" />
+        </svg>
+        <span>Resumen</span>
+      </a>
+
+      <a
+        class="sidebar__nav-item"
+        routerLink="/dashboard/user/list"
+        routerLinkActive="sidebar__nav-item--active"
+      >
+        <svg class="sidebar__nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="9" cy="8" r="3.2" />
+          <path d="M2.8 19c.6-3 3-5 6.2-5s5.6 2 6.2 5" />
+          <path d="M15.5 5.2c1.4.4 2.4 1.6 2.4 3.1 0 1.5-1 2.7-2.4 3.1" />
+          <path d="M15 14c2.7.4 4.7 2.2 5.2 5" />
+        </svg>
+        <span>Usuarios</span>
+      </a>
+
+      <a
+        class="sidebar__nav-item"
+        routerLink="/dashboard/category/list"
+        routerLinkActive="sidebar__nav-item--active"
+      >
+        <svg class="sidebar__nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 4h8l2 2h8v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4Z" />
+          <circle cx="9" cy="13" r="1.3" fill="currentColor" stroke="none" />
+        </svg>
+        <span>Categorías</span>
+      </a>
+
+      <a
+        class="sidebar__nav-item"
+        routerLink="/dashboard/material/list"
+        routerLinkActive="sidebar__nav-item--active"
+      >
+        <svg class="sidebar__nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z" />
+          <path d="M4 7.5 12 12l8-4.5" />
+          <path d="M12 12v9" />
+        </svg>
+        <span>Materiales</span>
+      </a>
+
+      <a
+        class="sidebar__nav-item"
+        routerLink="/dashboard/contact/list"
+        routerLinkActive="sidebar__nav-item--active"
+      >
+        <svg class="sidebar__nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="5" width="18" height="14" rx="1.2" />
+          <path d="m3.5 6 8.5 6.5L20.5 6" />
+        </svg>
+        <span>Contactos</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__spacer"></div>
+
+    <div class="sidebar__divider"></div>
+
+    <!-- Usuario / sesión -->
+    <div class="sidebar__footer">
+      @if (httpAuth.isLoggedIn() && httpAuth.user; as user) {
+        <div class="sidebar__user">
+          @if (user.avatar) {
+            <img [src]="user.avatar" [alt]="user.name || 'Usuario'" class="sidebar__user-avatar" />
+          } @else {
+            <span class="sidebar__user-avatar sidebar__user-avatar--placeholder">
+              {{ (user.name || 'U').charAt(0) }}
+            </span>
+          }
+          <div class="sidebar__user-info">
+            <span class="sidebar__user-name">{{ user.name }}</span>
+            <span class="sidebar__user-role">{{ user.role }}</span>
+          </div>
+        </div>
+
+        <button class="sidebar__logout" type="button" (click)="logout()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4" />
+            <path d="M10 8l-4 4 4 4" />
+            <path d="M14 12H3" />
+          </svg>
+          Cerrar sesión
+        </button>
+      }
+
+      <a class="sidebar__back-link" routerLink="/">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M19 12H5" />
+          <path d="m11 18-6-6 6-6" />
+        </svg>
+        Volver a la tienda
+      </a>
+    </div>
+  </div>
+</aside>

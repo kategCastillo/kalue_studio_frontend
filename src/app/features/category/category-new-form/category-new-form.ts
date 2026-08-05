@@ -6,9 +6,10 @@ import { BehaviorSubject } from 'rxjs';
 
 import { HttpCategories } from '../../../core/services/http-categories';
 
+import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-category-new-form',
-  imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
+  imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
   templateUrl: './category-new-form.html',
   styleUrl: './category-new-form.css',
 })

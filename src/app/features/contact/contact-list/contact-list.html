@@ -1,19 +1,6 @@
 <div class="contact-list">
 
-  <!-- Aside — igual al de usuarios -->
-  <aside class="contact-list__aside">
-    <div class="contact-list__aside-inner">
-      <span class="contact-list__aside-label">Kalue Studio</span>
-      <h2 class="contact-list__aside-title">Libreta de<br/>Contactos</h2>
-      <p class="contact-list__aside-desc">Consulta y administra las direcciones de entrega de todos los clientes.</p>
-      <div class="contact-list__aside-divider"></div>
-      <ul class="contact-list__aside-features">
-        <li>Direcciones de entrega guardadas</li>
-        <li>Contacto predeterminado por pedido</li>
-        <li>Datos siempre a la mano</li>
-      </ul>
-    </div>
-  </aside>
+  <app-sidebar></app-sidebar>
 
   <!-- Main -->
   <main class="contact-list__main">
@@ -25,7 +12,7 @@
         <h1 class="contact-list__title">Contactos de Entrega</h1>
         <p class="contact-list__subtitle">Consulta, edita o elimina los contactos registrados en la plataforma.</p>
       </div>
-      <a routerLink="/contact/new/form" class="contact-list__btn-new">
+      <a routerLink="/dashboard/contact/new/form" class="contact-list__btn-new">
         <fa-icon [icon]="faMapMarkerAlt" />
         Nuevo Contacto
       </a>
