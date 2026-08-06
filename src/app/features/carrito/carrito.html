@@ -13,38 +13,17 @@
 
             <!-- ===== Items ===== -->
             <div class="cart__items">
-                <app-card-items-carrito />
-                <app-card-items-carrito />
-                <app-card-items-carrito />
-
-                <app-card-items-carrito />
-
-                <app-card-items-carrito />
-
-                <app-card-items-carrito />
-
-                <app-card-items-carrito />
-
-                <app-card-items-carrito />
-
-                <app-card-items-carrito />
-
-                <app-card-items-carrito />
-
+                @for (product of (listProduct$ | async); track $index) {
+                    <app-card-items-carrito [product]="product" />
+                }
 
                 <!-- Wishlist Banner -->
                 <div class="cart__wishlist-banner">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5">
-                        <polygon
-                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                        </polygon>
-                    </svg>
                     <div class="cart__wishlist-text">
                         <p class="cart__wishlist-title">¿Buscas algo más?</p>
-                        <p class="cart__wishlist-sub">Revisa los artículos que guardaste en tu lista de deseos.</p>
+                        <p class="cart__wishlist-sub">Revisa de nuevo los productos, que no se pase nada importante.</p>
                     </div>
-                    <button class="cart__wishlist-btn">Ver Lista de Deseos</button>
+                    <a routerLink="/productos" class="cart__wishlist-btn">Ver Mas Productos</a>
                 </div>
             </div>
 
@@ -72,22 +51,10 @@
                     <span class="cart__total-value">$2,451.60</span>
                 </div>
 
-                <!-- Promo Code -->
-                <div class="cart__promo">
-                    <label class="cart__promo-label" for="promoCode">Código Promocional</label>
-                    <div class="cart__promo-input-row">
-                        <input id="promoCode" class="cart__promo-input" type="text" placeholder="Ingresa tu código" />
-                        <button class="cart__promo-btn">Aplicar</button>
-                    </div>
-                </div>
-
                 <!-- Checkout -->
                 <button class="cart__checkout-btn">
                     Proceder al Pago
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
+                    <fa-icon [icon]="faArrowRigth" />
                 </button>
 
                 <p class="cart__security-note">Pagos seguros y encriptados. Aceptamos Visa, Mastercard, Amex y PayPal.
@@ -95,15 +62,8 @@
 
                 <!-- Trust Badges -->
                 <div class="cart__trust">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5">
-                        <rect x="1" y="4" width="22" height="16" rx="2"></rect>
-                        <line x1="1" y1="10" x2="23" y2="10"></line>
-                    </svg>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
+                    <fa-icon [icon]="faCreditCard" />
+                    <fa-icon [icon]="faShield" />
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="1.5">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -114,24 +74,14 @@
                 <!-- Benefits -->
                 <div class="cart__benefits">
                     <div class="cart__benefit">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
-                            <rect x="1" y="3" width="15" height="13" rx="1"></rect>
-                            <path d="M16 8h4l3 3v5h-7V8z"></path>
-                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                        </svg>
+                        <fa-icon [icon]="faTruck" />
                         <div>
                             <p class="cart__benefit-title">Envío Mundial Gratuito</p>
                             <p class="cart__benefit-desc">Los pedidos se procesan y despachan en menos de 24 horas.</p>
                         </div>
                     </div>
                     <div class="cart__benefit">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
-                            <polyline points="1 4 1 10 7 10"></polyline>
-                            <path d="M3.51 15a9 9 0 1 0 .49-4.5"></path>
-                        </svg>
+                        <fa-icon [icon]="faRotateLeft" />
                         <div>
                             <p class="cart__benefit-title">Devoluciones en 30 días</p>
                             <p class="cart__benefit-desc">¿No es lo que esperabas? Ofrecemos devoluciones globales sin
@@ -140,8 +90,6 @@
                     </div>
                 </div>
             </aside>
-
         </div>
     </section>
-
 </main>
