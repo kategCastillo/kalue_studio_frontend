@@ -1,20 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
 :root {
-    --font-serif: 'Cormorant Garamond', serif;
-    --font-sans: 'Inter', sans-serif;
-    
-    --color-bg-light: white;
-    --color-text-main: black;
-    --color-text-muted: #666666;
-    --color-text-light: #483c3c;
-    --color-border: black;
-    --color-bg-inputs: #cbcbcb74;
-    
-    --transition-smooth: all 0.3s ease;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Inter', sans-serif;
+ 
+  --color-bg-light: white;
+  --color-text-main: black;
+  --color-text-muted: #666666;
+  --color-text-light: #483c3c;
+  --color-border: black;
+  --color-bg-inputs: #cbcbcb74;
+ 
+  --transition-smooth: all 0.3s ease;
+ 
+  /* Escalas de espaciado y layout, derivadas del sistema de la marca */
+  --container-max: 1440px;
+  --gutter: 24px;
+  --margin-mobile: 16px;
+  --margin-desktop: 64px;
+  --section-gap: 120px;
+}
+ 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+small.error {
+    color: red;
+    font-style: italic;
+    margin-left: 20px;
+}
+
+/* .pre {
+    display: none;
+} */
+
+table, th, td {
+  border:1px solid black;
+}
+
+.btn {
+    padding: 3 rem;
+
+}
+
+.btn-edit {
+    background: green;
+    color: white;
+    border: 1px solid green;
+    border-radius: 3 rem;
+}
+
+.btn-delete {
+    background: red;
+    color: white;
+    border: 1px solid red;
+    border-radius: 3 rem;
 }

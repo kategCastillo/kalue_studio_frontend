@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #f4f2ef;
+  padding: 40px 20px;
+}
+
+/* Ocultamos los <br>, ya no hacen falta: el espaciado lo da el grid */
+form br {
+  display: none;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 8px;
+  max-width: 720px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 1px solid #e5e2dc;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* ---------- Estilo base de labels e inputs ---------- */
+
+form label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #7a776f;
+  margin-bottom: 6px;
+  margin-top: 18px;
+}
+
+form select,
+form input[type="text"],
+form input[type="number"] {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1c1b1b;
+  background-color: #ffffff;
+  border: 1px solid #e0ddd6;

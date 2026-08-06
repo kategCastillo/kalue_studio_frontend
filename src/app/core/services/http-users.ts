@@ -38,3 +38,4 @@ export class HttpUsers {
     return this.http.patch(`${this.BASE_URL}/users/${id}`, updatedUser, { headers: this.getHeader() });
   }
 }
+

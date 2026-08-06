@@ -1,8 +1,7 @@
 /* ==========================================================================
    Variables de Diseño
    ========================================================================== */
-@import url('../../../styles.css');
-
+/* @import url('../../../styles.css'); */
 /* Box sizing global para Angular */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -11,55 +10,13 @@
 }
 
 /* ==========================================================================
-   Estados de error en el formulario
-   (mismo tratamiento visual que el panel de administración)
-   ========================================================================== */
-
-/* Input inválido: borde rojo + fondo rojo tenue */
-.input-error {
-    border-color: #c0392b !important;
-    background-color: #fff8f8;
-}
-
-.input-error:focus {
-    border-color: #c0392b;
-    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.08);
-}
-
-/* Mensaje de error debajo del campo, con icono de alerta */
-.error-message {
-    font-family: inherit;
-    font-size: 0.72rem;
-    color: #c0392b;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    margin-top: 0.35rem;
-}
-
-.error-message::before {
-    content: '!';
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background-color: #c0392b;
-    color: white;
-    font-size: 0.6rem;
-    font-weight: 700;
-    flex-shrink: 0;
-}
-
-/* ==========================================================================
    Layout Base (Mobile First - Optimizado para celulares por defecto)
    ========================================================================== */
 .login-container {
     display: block;
     width: 100%;
-    min-height: 100vh;
-    background-color: var(--color-bg-light);
+    height: 100vh;
+    background-color: #ffffff;
 }
 
 /* Panel de imagen oculto por defecto en celulares */
@@ -94,7 +51,7 @@
 
 /* Empujar el contenido al fondo sin usar Flexbox */
 .brand-content {
-    color: var(--color-bg-light);
+    color: #ffffff;
     position: absolute;
     bottom: 60px;
     left: 40px;
@@ -205,7 +162,7 @@
     border: none;
     width: 100%;
     padding: 14px 16px;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid var(--color-border);
     background-color: var(--color-bg-inputs);
     font-family: var(--font-sans);
     font-size: 0.9rem;
@@ -219,29 +176,11 @@
     transition: all 0.4s ease-in-out;
 }
 
-/* Sección "Datos de Envío" (antes en estilos inline) */
-.input-group--section {
-    margin-top: 30px;
-}
-
-.label-row--section {
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 4px;
-    margin-bottom: 15px;
-}
-
-.label-section-title {
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
 /* Botón Sign In */
 .btn-submit {
     width: 100%;
     padding: 16px;
     background-color: var(--color-bg-light);
-    color: var(--color-text-main);
     border-radius: 5px;
     font-family: var(--font-sans);
     font-size: 0.85rem;
@@ -281,7 +220,7 @@
 
 .divider span {
     position: relative;
-    background-color: var(--color-bg-light);
+    background-color: #ffffff;
     padding: 0 15px;
     font-size: 0.7rem;
     letter-spacing: 0.05em;
@@ -313,9 +252,9 @@
     display: block;
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--color-border);
+    border: 1px solid black;
     border-radius: 2px;
-    background-color: var(--color-bg-light);
+    background-color: #ffffff;
     font-family: var(--font-sans);
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -333,9 +272,9 @@
 }
 
 .btn-oauth:hover {
-    background-color: var(--color-bg-inputs);
-    color: var(--color-text-main);
-    border-color: var(--color-bg-light);
+    background-color: grey;
+    color: white;
+    border-color: white;
 }
 
 /* Footer */
@@ -376,7 +315,7 @@
         padding: 50px 40px;
     }
     .form-wrapper {
-        max-width: 400px; 
+        max-width: 400px; /* Centra el login de forma estética en pantallas móviles más anchas */
     }
 }
 
@@ -390,18 +329,17 @@
 
     .brand-panel, .form-panel {
         display: table-cell;
-        vertical-align: top; /* Ajustado a top para flujos extensos de formulario */
+        vertical-align: middle;
         height: 100vh;
     }
 
     .brand-panel {
-        width: 45%; 
+        width: 45%; /* La sección artística toma un espacio armónico */
     }
 
     .form-panel {
         width: 55%;
         padding: 60px 50px;
-        overflow-y: auto; /* Permite hacer scroll interno en el formulario de registro si es largo */
     }
 
     .brand-tagline {
@@ -412,7 +350,7 @@
 /* 3. Pantallas de Escritorio Estándar (Laptops, Monitores) */
 @media (min-width: 1024px) {
     .brand-panel {
-        width: 50%; 
+        width: 50%; /* Mitad y mitad exactos como en la referencia original */
     }
     
     .form-panel {
@@ -435,7 +373,7 @@
     }
 }
 
-/* 4. Pantallas Ultra Anchas */
+/* 4. Pantallas Ultra Anchas (Evita que el diseño se rompa o estire infinitamente) */
 @media (min-width: 1440px) {
     .login-container {
         max-width: 1440px;
@@ -443,4 +381,46 @@
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
         border-radius: 20px;
     }
+}
+
+/* ==========================================================================
+   Estados de error en el formulario
+   (mismo tratamiento visual que el panel de administración)
+   ========================================================================== */
+
+/* Input inválido: borde rojo + fondo rojo tenue */
+.input-error {
+    border-color: #c0392b !important;
+    background-color: #fff8f8;
+}
+
+.input-error:focus {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 1px #c0392b;
+}
+
+/* Mensaje de error debajo del campo, con icono de alerta */
+.error-message {
+    font-family: inherit;
+    font-size: 0.72rem;
+    color: #c0392b;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.35rem;
+}
+
+.error-message::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background-color: #c0392b;
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    flex-shrink: 0;
 }
