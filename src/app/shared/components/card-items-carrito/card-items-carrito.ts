@@ -21,10 +21,14 @@ export class CardItemsCarrito {
   public faMinus = faMinus;
 
   increment(){
-    this.count++;
+    if( this.count < this.product.stock ) {
+      this.count++;
+    }
   }
 
   decrement(){
-    this.count--;
+    if( this.count > 0 ) {
+      this.count--;
+    }
   }
 }
