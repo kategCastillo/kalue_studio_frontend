@@ -5,7 +5,6 @@ import { HttpAuth } from './http-auth';
 
 @Service()
 export class HttpMaterials {
-  // http-materials.ts
   private http = inject(HttpClient);
   BASE_URL: string = environment.apiUrl;
   private httpAuth = inject(HttpAuth);

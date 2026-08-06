@@ -1,0 +1,79 @@
+<form>
+
+    <label for="productId">Producto:</label>
+    <select id="productId" name="productId" required>
+        <option value="">Seleccione un producto</option>
+    </select>
+
+    <br><br>
+
+    <label for="color">Color:</label>
+    <input
+        type="text"
+        id="color"
+        name="color"
+        placeholder="Ingrese el color"
+        required
+    >
+
+    <br><br>
+
+    <label for="colorCode">Código de color:</label>
+    <input
+        type="color"
+        id="colorCode"
+        name="colorCode"
+        required
+    >
+
+    <br><br>
+
+    <label for="size">Talla:</label>
+    <select id="size" name="size" required>
+        <option value="">Seleccione una talla</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+    </select>
+
+    <br><br>
+
+    <label for="price">Precio:</label>
+    <input
+        type="number"
+        id="price"
+        name="price"
+        min="0"
+        placeholder="Ingrese el precio"
+        required
+    >
+
+    <br><br>
+
+    <label for="stock">Stock:</label>
+    <input
+        type="number"
+        id="stock"
+        name="stock"
+        min="0"
+        placeholder="Ingrese el stock"
+        required
+    >
+
+    <br><br>
+
+    <label for="sku">SKU:</label>
+    <input
+        type="text"
+        id="sku"
+        name="sku"
+        placeholder="Ingrese el SKU"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">Guardar</button>
+
+</form>

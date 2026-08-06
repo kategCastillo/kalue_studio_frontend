@@ -1,0 +1,66 @@
+
+
+<body>
+
+
+    <main>
+        <section class="hero">
+            <div class="texto">
+                <p class="subtitulo">NUEVA COLECCIÓN</p>
+
+                
+                <h1>Elegancia <br>
+                    Refinada
+                </h1>
+
+
+                <p class="descripcion">Diseños pensados para resaltar tu estilo único y acompañarte en cada ocasión</p>
+
+            </div>
+
+            <div class="hero-img">
+                <img src="assets/imagenes/imagenprincipal.png" alt="Bolso elegante">
+            </div>
+        </section>
+
+        <section class="beneficios">
+            <div class="beneficio">
+                <h4>ENVÍO INTERNACIONAL</h4>
+                <P>Entrega gratuita en compras superiores a $200.000</P>
+            </div>
+
+            <div class="beneficio">
+                <h4>ARTESANÍA PREMIUM</h4>
+                <p>Materiales seleccionados y acabados impecables</p>
+            </div>
+
+            <div class="beneficio">
+                <h4>ATENCIÓN PERSONALIZADA</h4>
+                <p>Asesoramiento experto para cada cliente</p>
+
+            </div>
+
+        </section>
+
+        <section class="coleccion-header">
+            <h2>La Colección</h2>
+            <p>PRIMAVERA 2026</p>
+        </section>
+
+        <section class="productos">
+
+            @for ( product of (listProducts$ | async); track $index) {
+               <app-product-card [product]="product"/>
+            }
+
+            
+            
+
+        </section>
+
+    </main>
+
+
+    
+</body>
+

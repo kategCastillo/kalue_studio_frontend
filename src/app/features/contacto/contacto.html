@@ -1,0 +1,76 @@
+<main class="contact-page">
+  <div class="contact-container">
+
+    <section class="contact-info">
+      <div class="contact-intro">
+        <h1 class="page-title">Contáctanos</h1>
+        <p class="page-description">
+          Nuestro equipo de atención está dedicado a brindarte una experiencia impecable.
+          Ya sea que busques asesorías personalizadas o ayuda con tu pedido, estamos a tu servicio.
+        </p>
+      </div>
+
+      <div class="contact-map">
+        <iframe class="contact-map__frame" src="https://maps.google.com/maps?q=Carrera%2091C%20%235A-46%20Sur%2C%20Bogot%C3%A1&t=&z=16&ie=UTF8&iwloc=&output=embed" title="Ubicación en el mapa: Carrera 91C #5A-46 Sur" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+
+      <div class="contact-details">
+        <div class="detail-block">
+          <h4 class="detail-title">Nuestra Sede</h4>
+          <address class="detail-text">
+            Carrera 91C # 5A-46 Sur<br>
+            Bogotá, Colombia
+          </address>
+        </div>
+
+        <div class="detail-block">
+          <h4 class="detail-title">Atención al Cliente</h4>
+          <p class="detail-text">
+            +57 304 591 6718<br>
+            Lun — Vie: 10am - 7pm
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-form-section">
+      <form class="contact-form">
+
+        <div class="form-field">
+          <label class="field-label" for="fullname">Nombre completo</label>
+          <input class="field-input" type="text" id="fullname" name="fullname" placeholder="Elena Vance">
+        </div>
+
+        <div class="form-field">
+          <label class="field-label" for="email">Correo electrónico</label>
+          <input class="field-input" type="email" id="email" name="email" placeholder="elena@ejemplo.com">
+        </div>
+
+        <div class="form-field">
+          <label class="field-label" for="inquiry-type">Tipo de consulta</label>
+          <select class="field-input field-select" id="inquiry-type" name="inquiry-type">
+            <option>Consultas sobre colecciones</option>
+            <option>Citas privadas</option>
+            <option>Encargos a medida</option>
+            <option>Medios y prensa</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label" for="message">Tu mensaje</label>
+          <textarea class="field-input field-textarea" id="message" name="message" rows="4" placeholder="¿Cómo podemos ayudarte?"></textarea>
+        </div>
+
+        <div class="form-footer">
+          <button class="submit-button" type="submit">
+            <span class="submit-button__text">Enviar mensaje</span>
+            <span class="icon submit-button__icon"><fa-icon [icon]="faArrow" /></span>
+          </button>
+
+        </div>
+
+      </form>
+    </section>
+
+  </div>
+</main>
