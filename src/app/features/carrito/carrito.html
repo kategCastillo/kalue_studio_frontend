@@ -5,7 +5,7 @@
         <!-- ===== Header ===== -->
         <header class="cart__header">
             <h1 class="cart__title">Tu Bolsa de Compras</h1>
-            <p class="cart__subtitle">2 artículos en tu carrito. Envío de cortesía en todos los pedidos mayores a $500.
+            <p class="cart__subtitle">{{items.length}} artículo(s) en tu carrito. Envío de cortesía en todos los pedidos mayores a $500.
             </p>
         </header>
 
@@ -13,8 +13,12 @@
 
             <!-- ===== Items ===== -->
             <div class="cart__items">
-                @for (product of (listProduct$ | async); track $index) {
-                    <app-card-items-carrito [product]="product" />
+                @if (items.length === 0) {
+                    <p class="cart__empty">Tu carrito está vacío por ahora.</p>
+                } @else {
+                    @for (item of items; track item._id) {
+                        <app-card-items-carrito [item]="item" (quantityChange)="onQuantityChange($event)" (remove)="onRemove($event)" />
+                    }
                 }
 
                 <!-- Wishlist Banner -->
@@ -34,7 +38,7 @@
                 <div class="cart__summary-rows">
                     <div class="cart__summary-row">
                         <span class="cart__summary-label">Subtotal</span>
-                        <span class="cart__summary-value">$2,270.00</span>
+                        <span class="cart__summary-value">{{getSubtotal() | currency}}</span>
                     </div>
                     <div class="cart__summary-row">
                         <span class="cart__summary-label">Envío estimado</span>
@@ -42,17 +46,17 @@
                     </div>
                     <div class="cart__summary-row">
                         <span class="cart__summary-label">Impuestos</span>
-                        <span class="cart__summary-value">$181.60</span>
+                        <span class="cart__summary-value">{{getTax() | currency}}</span>
                     </div>
                 </div>
 
                 <div class="cart__summary-total">
                     <span class="cart__total-label">Total</span>
-                    <span class="cart__total-value">$2,451.60</span>
+                    <span class="cart__total-value">{{getTotal() | currency}}</span>
                 </div>
 
                 <!-- Checkout -->
-                <button class="cart__checkout-btn">
+                <button class="cart__checkout-btn" [disabled]="items.length === 0">
                     Proceder al Pago
                     <fa-icon [icon]="faArrowRigth" />
                 </button>

@@ -1,34 +1,28 @@
 <article class="cart-card">
 
   <div class="cart-card__image-wrapper">
-    <img [src]="product.images" alt="Imagen del producto" class="cart-card__image" />
+    <img [src]="item.productId.images" alt="Imagen del producto" class="cart-card__image" />
   </div>
 
   <div class="cart-card__details">
     <div class="cart-card__header">
       <div>
-        <h2 class="cart-card__name">{{product.name}}</h2>
-        @if (product.category?.name && product.parentCategoryId?.name) {
-          <p class="cart-card__variant">{{product.category.name}} / Subcategoria: {{product.parentCategoryId.name}} </p>
-        }@else if (product.category?.name) {
-          <p class="cart-card__variant">{{product.category.name}} / Subcategoria: ninguna </p>
-        }@else {
-          <p class="cart-card__variant">{{product.parentCategoryId.name}} / Subcategoria: ninguna </p>
+        <h2 class="cart-card__name">{{item.productId.name}}</h2>
+        @if (item.productId.category?.name) {
+          <p class="cart-card__variant">{{item.productId.category.name}}</p>
         }
       </div>
-      <span class="cart-card__price">{{product.price | currency}}</span>
+      <span class="cart-card__price">{{item.productId.price | currency}}</span>
     </div>
-
-    <p class="cart-card__description">{{product.description}}</p>
 
     <div class="cart-card__actions">
       <div class="cart-card__quantity">
         <button class="cart-card__qty-btn" aria-label="Reducir cantidad" (click)="decrement()"><fa-icon [icon]="faMinus" /></button>
-        <span class="cart-card__qty-value">{{count}}</span>
+        <span class="cart-card__qty-value">{{item.quantity}}</span>
         <button class="cart-card__qty-btn" aria-label="Aumentar cantidad" (click)="increment()"><fa-icon [icon]="faPlus" /></button>
       </div>
 
-      <button class="cart-card__remove">
+      <button class="cart-card__remove" (click)="onRemove()">
         <fa-icon [icon]="faTrash" />
         Eliminar
       </button>

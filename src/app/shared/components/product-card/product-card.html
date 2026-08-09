@@ -1,6 +1,18 @@
- <!--{{product | json}}-->
- <div class="producto">
-                <img [src]="product.images" [alt]="product.name">
-                <h3>{{product.name}}</h3>
-                <p>{{product.price | currency}}</p>
-            </div>
+<!--{{product | json}}-->
+
+<div>
+    <div class="producto">
+      <img [src]="product.images" [alt]="product.name" />
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.price | currency }}</p>
+    </div>
+    <div>
+        <button (click)="addCart()" [disabled]="adding || count === 0">
+            {{ adding ? 'Agregando...' : 'Agregar al carrito' }}
+        </button>
+    </div>
+
+    <div>
+        <button (click)="increment()">+</button><p>{{count}}</p><button (click)="decrement()">-</button>
+    </div>
+</div>

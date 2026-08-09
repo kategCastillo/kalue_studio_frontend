@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { HttpAuth } from '../../../core/services/http-auth';
 import Swal from 'sweetalert2';
+import { HttpCart } from '../../../core/services/http-cart';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ import Swal from 'sweetalert2';
 export default class Login {
   public formData: FormGroup;
   private httpAuth = inject(HttpAuth);
+  private httpCart = inject(HttpCart);
+
 
   constructor() {
     this.formData = new FormGroup({
@@ -22,31 +25,21 @@ export default class Login {
   }
 
   onSubmit() {
-    this.httpAuth.loginUser(this.formData.value).subscribe({
-      next: (res) => {
-        
-        if (res?.error) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: res.msg,
-          });
+  this.httpAuth.loginUser(this.formData.value).subscribe({
+    next: (res) => {
+      if (res?.error) {
+        Swal.fire({ icon: 'error', title: 'Oops...', text: res.msg });
+        return;
+      }
 
-          return;
-        }
+      Swal.fire({ title: 'Inicio exitoso!', icon: 'success', draggable: true });
+      this.formData.reset();
 
-        Swal.fire({
-          title: 'Inicio exitoso!',
-          icon: 'success',
-          draggable: true,
-        });
-
-        this.formData.reset();
-      },
-      error: (error) => {
-        console.error(error);
-      },
-      complete: () => {},
-    });
-  }
+      this.httpCart.refreshCart();
+    },
+    error: (error) => console.error(error),
+    complete: () => {}
+  });
+}
+  
 }

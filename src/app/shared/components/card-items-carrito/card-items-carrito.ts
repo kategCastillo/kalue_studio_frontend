@@ -1,9 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faTrash, faMinus } from '@fortawesome/free-solid-svg-icons';
-
-
 
 @Component({
   selector: 'app-card-items-carrito',
@@ -12,23 +10,33 @@ import { faPlus, faTrash, faMinus } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './card-items-carrito.css',
 })
 export class CardItemsCarrito {
-  @Input() product:any;
-  public count: number = 0;
-  
+  // item = { _id, productId: { _id, name, price, images, category, stock, isActive }, quantity }
+  // Así es exactamente como el backend devuelve cada item del carrito (populate en cart.service.js).
+  @Input() item: any;
+
+  // El componente no llama al backend directamente: solo avisa al padre (carrito.ts),
+  // que es quien tiene la lógica de recarga y manejo de errores.
+  @Output() quantityChange = new EventEmitter<any>();
+  @Output() remove = new EventEmitter<any>();
+
   //FONTAWESOME
   public faPlus = faPlus;
   public faTrash = faTrash;
   public faMinus = faMinus;
 
-  increment(){
-    if( this.count < this.product.stock ) {
-      this.count++;
+  increment() {
+    if (this.item.quantity < this.item.productId.stock) {
+      this.quantityChange.emit({ productId: this.item.productId._id, delta: 1 });
     }
   }
 
-  decrement(){
-    if( this.count > 0 ) {
-      this.count--;
+  decrement() {
+    if (this.item.quantity > 0) {
+      this.quantityChange.emit({ productId: this.item.productId._id, delta: -1 });
     }
+  }
+
+  onRemove() {
+    this.remove.emit(this.item.productId._id);
   }
 }
