@@ -1,47 +1,44 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
-.container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 60px;
-    
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 60px;
 }
 
-.logo img{
-    height: 70px;
+.logo img {
+  height: 70px;
 }
 
-
-.icono img{
-    width: 25px;
-    cursor: pointer;
+.icono img {
+  width: 25px;
+  cursor: pointer;
 }
 
-.productos-header{
+.productos-header {
   text-align: center;
   padding: 100px 20px 40px;
   background-color: #f7f5f2;
 }
 
-.productos-header h1{
-  font-family:'Playfair Display', serif;
+.productos-header h1 {
+  font-family: 'Playfair Display', serif;
   font-size: 45px;
   margin-bottom: 10px;
 }
 
-.productos-header p{
+.productos-header p {
   font-size: 12px;
   letter-spacing: 3px;
-   color: #c2a27c;
+  color: #c2a27c;
 }
 
-.categoria{
+.categoria {
   padding: 40px 80px;
   background-color: #f7f5f2;
   border-bottom: 1px solid #e5e2dc;
@@ -49,7 +46,7 @@
 
 .categoria h2 {
   font-family: 'Playfair Display', serif;
-  font-size:32px;
+  font-size: 32px;
   font-weight: 400;
   margin-bottom: 10px;
   color: #2c2c2c;
@@ -68,7 +65,9 @@
   gap: 30px;
 }
 
-.producto{
+/* ---------- Estilo de las tarjetas de Carteras (hardcodeadas) ---------- */
+
+.producto {
   text-align: center;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -87,7 +86,7 @@
 
 .producto:hover {
   transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .producto:hover img {
@@ -104,29 +103,29 @@
   font-size: 14px;
 }
 
-.suscripcion{
-    text-align: center;
-    padding: 70px 20px;
-    background-color: #f7f5f2;
+.suscripcion {
+  text-align: center;
+  padding: 70px 20px;
+  background-color: #f7f5f2;
 }
 
-.suscripcion h2{
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: #2c2c2c;
+.suscripcion h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #2c2c2c;
 }
 
-.suscripcion p{
-    color: #6d6d6d;
-     margin-bottom: 30px;
+.suscripcion p {
+  color: #6d6d6d;
+  margin-bottom: 30px;
   font-size: 15px;
 }
 
-.form{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+.form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .form input {
@@ -152,22 +151,19 @@
   background-color: #000;
 }
 
-
-
-@media (max-width: 1024px){
-
-  .container{
+@media (max-width: 1024px) {
+  .container {
     padding: 10px 30px;
   }
 
-  nav{
+  nav {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
     gap: 20px;
   }
 
-  nav a{
+  nav a {
     font-size: 14px;
     white-space: nowrap;
   }
@@ -181,20 +177,19 @@
   }
 }
 
-@media(max-width:768px){
-  .container{
+@media (max-width: 768px) {
+  .container {
     flex-direction: column;
     gap: 10px;
     padding: 10px 20px;
     text-align: center;
   }
 
-  nav{
+  nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
-  
   }
 
   nav a {
@@ -206,7 +201,8 @@
     display: flex;
     justify-content: center;
   }
-   .categoria {
+
+  .categoria {
     padding: 30px 20px;
   }
 

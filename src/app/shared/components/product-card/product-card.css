@@ -1,29 +1,115 @@
-.producto {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.producto-card {
+  max-width: 280px;
+  margin: 0 auto;
   text-align: center;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.producto p {
-  color: #c2a27c;
-  font-size: 14px;
-}
-
-.producto:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', sans-serif;
 }
 
 .producto img {
   width: 100%;
-  height: 300px;
+  height: 260px;
   object-fit: cover;
-  margin-bottom: 15px;
-  transition: transform 0.4s ease;
   border-radius: 8px;
+  margin-bottom: 18px;
 }
 
-.producto:hover img {
-  transform: scale(1.05);
+.producto h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #2c2c2c;
+  margin-bottom: 18px;
+}
+
+/* ---------- Fila: cantidad + precio ---------- */
+
+.fila-precio-cantidad {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.cantidad-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  border: 1px solid #e5e2dc;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.cantidad-btn {
+  width: 34px;
+  height: 34px;
+  border: none;
+  background-color: #ffffff;
+  color: #2c2c2c;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cantidad-btn:hover:not(:disabled) {
+  background-color: #f7f5f2;
+}
+
+.cantidad-btn:disabled {
+  color: #cfcac3;
+  cursor: not-allowed;
+}
+
+.cantidad-valor {
+  min-width: 36px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2c2c2c;
+}
+
+.precio {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1c1b1b;
+}
+
+/* ---------- Botón agregar al carrito ---------- */
+
+.btn-agregar {
+  width: 100%;
+  padding: 13px 20px;
+  background-color: #2c2c2c;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-agregar:hover:not(:disabled) {
+  background-color: #000000;
+}
+
+.btn-agregar:disabled {
+  background-color: #cfcac3;
+  cursor: not-allowed;
+}
+
+.especificacion{
+  font-size: 10px;
+}
+
+.price-cops{
+  display: flex;
+  gap: 5px;
+  align-items: end;
 }

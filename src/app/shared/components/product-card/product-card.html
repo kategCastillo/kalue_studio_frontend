@@ -1,18 +1,25 @@
 <!--{{product | json}}-->
 
-<div>
-    <div class="producto">
-      <img [src]="product.images" [alt]="product.name" />
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.price | currency }}</p>
-    </div>
-    <div>
-        <button (click)="addCart()" [disabled]="adding || count === 0">
-            {{ adding ? 'Agregando...' : 'Agregar al carrito' }}
-        </button>
-    </div>
+<div class="producto-card">
+  <div class="producto">
+    <img [src]="product.images" [alt]="product.name" />
+    <h3>{{ product.name }}</h3>
+</div>
 
-    <div>
-        <button (click)="increment()">+</button><p>{{count}}</p><button (click)="decrement()">-</button>
+<div class="fila-precio-cantidad">
+    <div class="price-cops">
+        <p class="precio">{{ product.price | currency }}</p>
+        <span class="especificacion" >COP</span>
     </div>
+   <div class="cantidad-selector">
+
+     <button class="cantidad-btn" (click)="decrement()" [disabled]="count === 0" aria-label="Restar">−</button>
+    <span class="cantidad-valor">{{ count }}</span>
+    <button class="cantidad-btn" (click)="increment()" aria-label="Sumar">+</button>
+   </div>
+  </div>
+
+  <button class="btn-agregar" (click)="addCart()" [disabled]="adding || count === 0">
+    {{ adding ? 'Agregando...' : 'Agregar al carrito' }}
+  </button>
 </div>
