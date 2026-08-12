@@ -1,0 +1,294 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #2c2c2c;
+}
+
+.orden {
+  background-color: #f7f5f2;
+  padding: 70px 80px 100px;
+}
+
+/* ---------- Encabezado ---------- */
+
+.orden-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto 40px;
+}
+
+.ojo-marca {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #c2a27c;
+  margin-bottom: 8px;
+}
+
+.orden-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  font-weight: 500;
+}
+
+.fecha {
+  font-size: 13px;
+  color: #6d6d6d;
+  margin-top: 6px;
+}
+
+.estado-badge {
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.estado-pendiente { background-color: #f0e6d6; color: #9c7a2e; }
+.estado-pagado { background-color: #dde8e0; color: #3f6b4d; }
+.estado-en-preparacion { background-color: #e2e6f0; color: #4650a3; }
+.estado-enviado { background-color: #dbe9f2; color: #2f6f95; }
+.estado-entregado { background-color: #e2ecd8; color: #4b7a30; }
+.estado-cancelado { background-color: #f4dede; color: #b3392c; }
+
+/* ---------- Línea de tiempo ---------- */
+
+.orden-timeline {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto 50px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e5e2dc;
+}
+
+.paso {
+  text-align: center;
+  flex: 1;
+}
+
+.paso .punto {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #cfcac3;
+  margin: 0 auto 8px;
+}
+
+.paso p {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: #b0aca4;
+}
+
+.paso.activo .punto {
+  background-color: #2c2c2c;
+}
+
+.paso.activo p {
+  color: #2c2c2c;
+  font-weight: 600;
+}
+
+/* ---------- Grid principal ---------- */
+
+.orden-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ---------- Productos ---------- */
+
+.orden-productos h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.producto-lista {
+  background-color: #ffffff;
+  border: 1px solid #e5e2dc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.producto-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 22px;
+  border-bottom: 1px solid #f0eeea;
+}
+
+.producto-item:last-child {
+  border-bottom: none;
+}
+
+.producto-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.producto-item-info {
+  flex: 1;
+}
+
+.producto-item-info h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.cantidad {
+  font-size: 12px;
+  color: #6d6d6d;
+}
+
+.producto-item-precio {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.orden-notas {
+  background-color: #ffffff;
+  border: 1px solid #e5e2dc;
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-top: 18px;
+}
+
+.orden-notas h4 {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #c2a27c;
+  margin-bottom: 8px;
+}
+
+.orden-notas p {
+  font-size: 14px;
+  color: #6d6d6d;
+  line-height: 1.6;
+}
+
+/* ---------- Lateral ---------- */
+
+.orden-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lateral-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e2dc;
+  border-radius: 10px;
+  padding: 22px;
+}
+
+.lateral-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.lateral-card p {
+  font-size: 13px;
+  color: #6d6d6d;
+  line-height: 1.6;
+}
+
+.pago-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #6d6d6d;
+  margin-bottom: 12px;
+}
+
+.pago-fila:last-child {
+  margin-bottom: 0;
+}
+
+.pago-valor {
+  color: #2c2c2c;
+  font-weight: 500;
+}
+
+.pago-badge {
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 11px;
+}
+
+.pago-pendiente { background-color: #f0e6d6; color: #9c7a2e; }
+.pago-aprobado { background-color: #dde8e0; color: #3f6b4d; }
+.pago-rechazado { background-color: #f4dede; color: #b3392c; }
+
+/* ---------- Totales ---------- */
+
+.total-fila {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #6d6d6d;
+  margin-bottom: 12px;
+}
+
+.total-fila.descuento {
+  color: #b3392c;
+}
+
+.total-fila.total-final {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e5e2dc;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1c1b1b;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .orden {
+    padding: 50px 40px 80px;
+  }
+
+  .orden-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .orden-timeline {
+    overflow-x: auto;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .orden {
+    padding: 40px 20px 60px;
+  }
+
+  .orden-header {
+    flex-direction: column;
+    gap: 14px;
+  }
+}

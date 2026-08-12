@@ -1,1 +1,119 @@
-<p>order-list works!</p>
+
+<main class="orden">
+
+  <section class="orden-header">
+    <div>
+      <p class="ojo-marca">PEDIDO #A83F21</p>
+      <h1>Resumen de tu orden</h1>
+      <p class="fecha">Realizada el 12 de marzo, 2025</p>
+    </div>
+
+    <span class="estado-badge estado-enviado">Enviado</span>
+  </section>
+
+  <section class="orden-timeline">
+    <div class="paso activo">
+      <span class="punto"></span>
+      <p>Pendiente</p>
+    </div>
+    <div class="paso activo">
+      <span class="punto"></span>
+      <p>Pagado</p>
+    </div>
+    <div class="paso activo">
+      <span class="punto"></span>
+      <p>En preparación</p>
+    </div>
+    <div class="paso activo">
+      <span class="punto"></span>
+      <p>Enviado</p>
+    </div>
+    <div class="paso">
+      <span class="punto"></span>
+      <p>Entregado</p>
+    </div>
+  </section>
+
+  <div class="orden-grid">
+
+    <section class="orden-productos">
+      <h2>Productos</h2>
+
+      <div class="producto-lista">
+
+        <div class="producto-item">
+          <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=200" alt="Kalué Bordeaux">
+          <div class="producto-item-info">
+            <h4>Kalué Bordeaux</h4>
+            <p class="cantidad">Cantidad: 1</p>
+          </div>
+          <p class="producto-item-precio">$220.000</p>
+        </div>
+
+        <div class="producto-item">
+          <img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=200" alt="Kalué Soft Ruby">
+          <div class="producto-item-info">
+            <h4>Kalué Soft Ruby</h4>
+            <p class="cantidad">Cantidad: 2</p>
+          </div>
+          <p class="producto-item-precio">$70.000</p>
+        </div>
+
+      </div>
+
+      <div class="orden-notas">
+        <h4>Notas del pedido</h4>
+        <p>Por favor entregar en portería. Dejar con el vigilante Carlos.</p>
+      </div>
+    </section>
+
+    <aside class="orden-lateral">
+
+      <div class="lateral-card">
+        <h3>Dirección de envío</h3>
+        <p>Elena Vance</p>
+        <p>Cra. 15 #93-47, Apto 502</p>
+        <p>Bogotá, Colombia</p>
+        <p>+57 300 123 4567</p>
+      </div>
+
+      <div class="lateral-card">
+        <h3>Pago</h3>
+        <div class="pago-fila">
+          <span>Método</span>
+          <span class="pago-valor">Tarjeta</span>
+        </div>
+        <div class="pago-fila">
+          <span>Estado del pago</span>
+          <span class="pago-badge pago-aprobado">Aprobado</span>
+        </div>
+        <div class="pago-fila">
+          <span>Referencia</span>
+          <span class="pago-valor">TXN-88213</span>
+        </div>
+      </div>
+
+      <div class="lateral-card totales">
+        <div class="total-fila">
+          <span>Subtotal</span>
+          <span>$290.000</span>
+        </div>
+        <div class="total-fila descuento">
+          <span>Descuento</span>
+          <span>−$20.000</span>
+        </div>
+        <div class="total-fila">
+          <span>Envío</span>
+          <span>$12.000</span>
+        </div>
+        <div class="total-fila total-final">
+          <span>Total</span>
+          <span>$282.000</span>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+</main>

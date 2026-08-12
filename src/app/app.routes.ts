@@ -9,6 +9,8 @@ export const routes: Routes = [
   { path: 'productos', loadComponent: () => import ('./features/productos/productos')},
   { path: 'nosotros', loadComponent: () => import ('./features/nosotros/nosotros')},
   { path: 'contacto', loadComponent: () => import ('./features/contacto/contacto')},
+  { path: 'order', loadComponent: () => import ('./features/order/order-list/order-list')},
+
   
     //Listado de componentes
     { path: 'dashboard/product-new',loadComponent: () => import ('./features/products/products-new-form/products-new-form')},

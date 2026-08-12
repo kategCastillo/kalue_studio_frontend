@@ -1,32 +1,29 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
+import { HttpAuth } from './http-auth';
 import { environment } from '../../../environments/environment';
 
 @Service()
-export class HttpOrder {
+export class HttpOrderTs {
     private http = inject (HttpClient)
+    private authHttp = inject (HttpAuth);
 
-    BASE_URL: string = environment.apiUrl;
-    createOrder  (newOrder:any) {
-        return this.http.post ('http://localhost:3000/api/Order', newOrder )
+    //crear una cabecera y va a mantener dentro de ella el token
+    private getHeader(): HttpHeaders{
+    //obteniendo el token del getter del servicio de AuthHttp
+        const token = this.authHttp.token
+    //crea y retorna un header de angular con el token y el nombre de la propiedad especificado en Backend para recibir dicho valor
+        return new HttpHeaders ({
+            'X-Token': token ||'',
+            'Content-Type': 'application/json'
+        });
     }
 
-    getOrder () {
-        //observable (HttpClient)
-       return this.http.get<any>(`http://localhost:3000/api/Order `)
-    }
+     BASE_URL: string = environment.apiUrl;
 
-    getOrderById (id: string | any) {
-        return this.http.get<any>(`${this.BASE_URL}/Order/${id}`)
-    }
-
-    deleteOrderById (id: string | null){
-        return this.http.delete(`${this.BASE_URL}/Order/${id}`)
-    }
-
-    updateOrderById (id:string | null, updateOrder: any){
-        return this.http.patch(`${this.BASE_URL}/Order/${id}`,updateOrder);
-    }
-
-
+     createOrder (order:any) {
+        return this.http.post<any>(`${this.BASE_URL}/orders`,order,{ headers: this.getHeader() } )
+     }
 }
+
+

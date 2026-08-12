@@ -56,7 +56,7 @@
                 </div>
 
                 <!-- Checkout -->
-                <button class="cart__checkout-btn" [disabled]="items.length === 0">
+                <button class="cart__checkout-btn" [disabled]="items.length === 0" (click)="order()">
                     Proceder al Pago
                     <fa-icon [icon]="faArrowRigth" />
                 </button>
