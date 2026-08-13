@@ -9,10 +9,11 @@ export const routes: Routes = [
   { path: 'productos', loadComponent: () => import ('./features/productos/productos')},
   { path: 'nosotros', loadComponent: () => import ('./features/nosotros/nosotros')},
   { path: 'contacto', loadComponent: () => import ('./features/contacto/contacto')},
-  { path: 'order', loadComponent: () => import ('./features/order/order-list/order-list')},
+  { path: 'order/:id', loadComponent: () => import ('./features/order/order-detail/order-detail')},
 
   
     //Listado de componentes
+    { path: 'dashboard/order/list', loadComponent: () => import ('./features/order/order-list/order-list')},
     { path: 'dashboard/product-new',loadComponent: () => import ('./features/products/products-new-form/products-new-form')},
     { path: 'dashboard/user/list', loadComponent: () => import('./features/users/user-list/user-list')},
     { path: 'dashboard/contact/list', loadComponent:() => import('./features/contact/contact-list/contact-list')},

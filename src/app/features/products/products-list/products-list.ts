@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, CurrencyPipe, JsonPipe, SlicePipe } from '@angular/common';
 import { RouterLink } from "@angular/router";

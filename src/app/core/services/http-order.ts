@@ -8,6 +8,10 @@ export class HttpOrderTs {
     private http = inject (HttpClient)
     private authHttp = inject (HttpAuth);
 
+    constructor() {
+        console.log( this.authHttp.token )
+    }
+
     //crear una cabecera y va a mantener dentro de ella el token
     private getHeader(): HttpHeaders{
     //obteniendo el token del getter del servicio de AuthHttp
@@ -20,6 +24,10 @@ export class HttpOrderTs {
     }
 
      BASE_URL: string = environment.apiUrl;
+
+    getAllOrders () {
+        return this.http.get<any>(`${this.BASE_URL}/orders`, { headers: this.getHeader() })
+    }
 
      createOrder (order:any) {
         return this.http.post<any>(`${this.BASE_URL}/orders`,order,{ headers: this.getHeader() } )
