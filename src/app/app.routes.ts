@@ -11,6 +11,7 @@ export const routes: Routes = [
   { path: 'contacto', loadComponent: () => import ('./features/contacto/contacto')},
   { path: 'order/:id', loadComponent: () => import ('./features/order/order-detail/order-detail')},
   { path: 'products/modal', loadComponent: () => import ('./features/products/products-modal/products-modal')},
+  { path: 'user/detail', loadComponent: () => import('./features/dashboard-user/dashboard-user') },
 
   
     //Listado de componentes

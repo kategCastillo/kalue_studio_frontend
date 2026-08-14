@@ -26,6 +26,14 @@ export class HttpUsers {
     return this.http.get<any>(`${this.BASE_URL}/users/${id}`, { headers: this.getHeader() });
   }
 
+  getUserByIdPublic(){
+    return this.http.get<any>(`${this.BASE_URL}/users/details`, { headers: this.getHeader() })
+  }
+
+  updateUserSelf(updatedUser: any) {
+    return this.http.patch<any>(`${this.BASE_URL}/users/details`, updatedUser, { headers: this.getHeader() });
+  }
+
   createUser(newUser: any) {
     return this.http.post(`${this.BASE_URL}/users`, newUser, { headers: this.getHeader() });
   }
