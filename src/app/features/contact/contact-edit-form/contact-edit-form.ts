@@ -12,7 +12,7 @@ import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 import { HttpAuth } from '../../../core/services/http-auth';
 @Component({
   selector: 'app-contact-edit-form',
-  imports: [ReactiveFormsModule, RouterLink, Sidebar],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './contact-edit-form.html',
   styleUrl: './contact-edit-form.css',
 })

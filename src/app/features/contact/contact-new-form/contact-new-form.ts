@@ -11,7 +11,7 @@ import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 import { HttpAuth } from '../../../core/services/http-auth';
 @Component({
   selector: 'app-contact-new-form',
-  imports: [ReactiveFormsModule, RouterLink, Sidebar],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './contact-new-form.html',
   styleUrl: './contact-new-form.css',
 })
