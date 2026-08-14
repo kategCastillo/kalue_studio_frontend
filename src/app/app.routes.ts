@@ -21,10 +21,8 @@ export const routes: Routes = [
     { path: 'dashboard/category/list', loadComponent: () => import('./features/category/category-list/category-list')},
     { path: 'dashboard/material/list', loadComponent: () => import('./features/material/material-list/material-list')},
     { path: 'dashboard/product/list', loadComponent: () => import ('./features/products/products-list/products-list')},
-    { path: 'dashboard/variant/list', loadComponent: () => import ('./features/variants/variants-list/variants-list')},
     
     //Creacion de componenetes
-    { path: 'dashboard/variant-new',loadComponent: () => import ('./features/variants/variants-new-form/variants-new-form')},
     { path: 'dashboard/user/new/form', loadComponent: () => import('./features/users/user-new-form/user-new-form')},
     { path: 'dashboard/contact/new/form', loadComponent: () => import('./features/contact/contact-new-form/contact-new-form')},
     { path: 'dashboard/category/new/form', loadComponent: () => import('./features/category/category-new-form/category-new-form')},
@@ -36,7 +34,6 @@ export const routes: Routes = [
     { path: 'dashboard/contact/edit/form/:id', loadComponent:() => import('./features/contact/contact-edit-form/contact-edit-form')},
     { path: 'dashboard/category/edit/form/:id', loadComponent: () => import('./features/category/category-edit-form/category-edit-form')},
     { path: 'dashboard/material/edit/form/:id', loadComponent: () => import('./features/material/material-edit-form/material-edit-form')},
-    { path: 'dashboard/variant/edit/:id', loadComponent: () => import ('./features/variants/variants-edit-form/variants-edit-form')},
 
     { path: '' , redirectTo: 'coleccion', pathMatch: 'full'},
     { path: '**', redirectTo: 'coleccion', pathMatch: 'full' }
