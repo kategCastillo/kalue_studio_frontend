@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: 'nosotros', loadComponent: () => import ('./features/nosotros/nosotros')},
   { path: 'contacto', loadComponent: () => import ('./features/contacto/contacto')},
   { path: 'order/:id', loadComponent: () => import ('./features/order/order-detail/order-detail')},
+  { path: 'user/detail', loadComponent: () => import('./features/dashboard-user/dashboard-user') },
 
   
     //Listado de componentes

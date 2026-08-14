@@ -10,10 +10,9 @@ import { HttpContacts } from '../../../core/services/http-contacts';
 
 import Swal from 'sweetalert2';
 
-import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-contact-list',
-  imports: [AsyncPipe, RouterLink, SlicePipe, DatePipe, FontAwesomeModule, Sidebar],
+  imports: [AsyncPipe, RouterLink, SlicePipe, DatePipe, FontAwesomeModule],
   templateUrl: './contact-list.html',
   styleUrl: './contact-list.css',
 })

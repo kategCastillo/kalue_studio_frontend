@@ -34,6 +34,77 @@
     padding: 0 16px; /* Margen móvil por defecto */
 }
 
+.avatar-logout {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 100%;
+    border: 2px solid var(--color-primary);
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.user-avatar:hover {
+    transform: scale(1.05);
+    border-color: var(--color-on-surface);
+}
+
+/* Dropdown que aparece al pasar el mouse por el avatar */
+.logout-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 160px;
+    padding: 12px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-tertiary-10);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+
+.avatar-logout:hover .logout-dropdown,
+.avatar-logout:focus-within .logout-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-name {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-on-surface);
+    border-bottom: 1px solid var(--color-tertiary-10);
+    padding-bottom: 8px;
+}
+
+.btn-logout {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.btn-logout:hover {
+    color: var(--color-on-secondary-container);
+}
+
 /* Logo */
 .brand-logo {
     display: flex;

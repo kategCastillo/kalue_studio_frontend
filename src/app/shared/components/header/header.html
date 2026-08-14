@@ -32,21 +32,23 @@
         /></span>
       </button>
       @if (httpAuth.isLoggedIn() && httpAuth.user; as user) {
-            @if (user.avatar) {
-              <img [src]="user.avatar" [alt]="user.name || 'User'" class="user-avatar" />
-            }
-            <div class="user-details">
-              <span class="nav-item">{{ user.name }}</span>
-              <span class="nav-item">{{ user.role }}</span>
-            </div>
-            <a class="nav-item" style="cursor: pointer" (click)="logout()">Logout (Síncrono)</a>
-        } @else {
-          <button class="action-btn" aria-label="Mi Cuenta">
-            <a routerLink="/login" class="material-symbols-outlined"
-              ><img class="symbol-nav-btn" src="assets/svg/user.svg" alt="Mi Cuenta"
-            /></a>
-          </button>
-        }
+        <div class="avatar-logout">
+          @if (user.avatar) {
+            <img [src]="user.avatar" [alt]="user.name || 'User'" class="user-avatar" />
+          }
+          <div class="logout-dropdown">
+            <span class="user-name">{{ user.name || 'Usuario' }}</span>
+            <a routerLink="/user/detail" class="btn-logout">Ver Perfil</a>
+            <a class="btn-logout" style="cursor: pointer" (click)="logout()">Cerrar Sesión</a>
+          </div>
+        </div>
+      } @else {
+        <button class="action-btn" aria-label="Mi Cuenta">
+          <a routerLink="/login" class="material-symbols-outlined"
+            ><img class="symbol-nav-btn" src="assets/svg/user.svg" alt="Mi Cuenta"
+          /></a>
+        </button>
+      }
       <button class="action-btn shopping-cart-btn" aria-label="Carrito de compras">
         <a routerLink="/carrito" class="material-symbols-outlined"
           ><img class="symbol-nav-btn" src="assets/svg/shopping-bag.svg" alt="Carrito de compras"
