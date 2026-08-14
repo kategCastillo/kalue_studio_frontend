@@ -3,9 +3,13 @@ import { Component, inject, Input } from '@angular/core';
 import { HttpCart } from '../../../core/services/http-cart';
 import { HttpAuth } from '../../../core/services/http-auth';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { ProductModal } from '../../../core/services/product-modal';
+
 @Component({
   selector: 'app-product-card',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, FontAwesomeModule],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
@@ -17,6 +21,13 @@ export class ProductCard {
 
   private httpCart = inject(HttpCart);
   private httpAuth = inject(HttpAuth);
+  private productModal = inject (ProductModal)
+
+  public faEye = faEye;
+
+  onView(item: any){
+    this.productModal.open(item);
+  }
 
   addCart() {
     if (!this.httpAuth.isLoggedIn()) {

@@ -9,7 +9,7 @@
 <div class="fila-precio-cantidad">
     <div class="price-cops">
         <p class="precio">{{ product.price | currency }}</p>
-        <span class="especificacion" >COP</span>
+        <span class="moneda">COP</span>
     </div>
    <div class="cantidad-selector">
 
@@ -22,4 +22,14 @@
   <button class="btn-agregar" (click)="addCart()" [disabled]="adding || count === 0">
     {{ adding ? 'Agregando...' : 'Agregar al carrito' }}
   </button>
+
+  <button
+   class="btn-agregar btn-see-product"
+   (click)="onView(product)"
+   title="Ver producto"
+  >
+   <fa-icon [icon]="faEye" />
+   Ver
+  </button>
 </div>
+ 

@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(28, 27, 27, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background-color: #f7f5f2;
+  color: #2c2c2c;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  z-index: 2;
+}
+
+.modal-close:hover {
+  background-color: #e5e2dc;
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.modal-imagen {
+  background-color: #f7f5f2;
+  border-radius: 12px 0 0 12px;
+  overflow: hidden;
+}
+
+.modal-imagen img {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-info {
+  padding: 50px 45px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #c2a27c;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.modal-nombre {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #2c2c2c;
+  margin-bottom: 10px;
+}
+
+.modal-precio {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1c1b1b;
+  margin-bottom: 24px;
+}
+
+.modal-descripcion {
+  font-size: 14px;
+  color: #6d6d6d;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.modal-stock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.stock-punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #4b7a30;
+}
+
+.stock-texto {
+  font-size: 13px;
+  color: #4b7a30;
+  font-weight: 500;
+}
+
+.stock-punto.agotado {
+  background-color: #c0392b;
+}
+
+.stock-texto.agotado {
+  color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-imagen {
+    border-radius: 12px 12px 0 0;
+  }
+
+  .modal-imagen img {
+    min-height: 260px;
+  }
+
+  .modal-info {
+    padding: 35px 25px;
+  }
+}

@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: 'nosotros', loadComponent: () => import ('./features/nosotros/nosotros')},
   { path: 'contacto', loadComponent: () => import ('./features/contacto/contacto')},
   { path: 'order/:id', loadComponent: () => import ('./features/order/order-detail/order-detail')},
+  { path: 'products/modal', loadComponent: () => import ('./features/products/products-modal/products-modal')},
 
   
     //Listado de componentes
@@ -40,3 +41,5 @@ export const routes: Routes = [
     { path: '' , redirectTo: 'coleccion', pathMatch: 'full'},
     { path: '**', redirectTo: 'coleccion', pathMatch: 'full' }
 ];
+
+

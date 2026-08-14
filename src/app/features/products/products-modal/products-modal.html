@@ -1,0 +1,38 @@
+@if (selectedProduct$ | async; as product) {
+  <main class="modal-overlay" (click)="cerrar()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+
+      <button class="modal-close" (click)="cerrar()" aria-label="Cerrar">&times;</button>
+
+      <div class="modal-grid">
+
+        <div class="modal-imagen">
+          <img [src]="product.images?.[0]" [alt]="product.name">
+        </div>
+
+        <div class="modal-info">
+          <p class="modal-eyebrow">{{ product.category?.name || 'PRODUCTO' }}</p>
+          <h2 class="modal-nombre">{{ product.name }}</h2>
+          <p class="modal-precio">{{ product.price | currency:'COP'}}</p>
+
+          <p class="modal-descripcion">
+            {{ product.description || 'Este producto no tiene una descripción disponible.' }}
+          </p>
+
+          <div class="modal-stock">
+            @if (product.stock > 0) {
+              <span class="stock-punto"></span>
+              <span class="stock-texto">{{ product.stock }} unidades disponibles</span>
+            } @else {
+              <span class="stock-punto agotado"></span>
+              <span class="stock-texto agotado">Agotado</span>
+            }
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+}
