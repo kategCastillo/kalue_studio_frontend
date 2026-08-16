@@ -27,6 +27,10 @@ export default class Carrito {
   public cart$ = this.httpCart.cart$;
   private contacts$ = new BehaviorSubject<any>('');
 
+  // Evita doble-click / doble submit del boton "Pagar" mientras la orden
+  // se esta procesando en el backend.
+  public isProcessingOrder = false;
+
   //FONTAWESOME
   public faTruck = faTruck;
   public faRotateLeft = faRotateLeft;
@@ -86,6 +90,13 @@ export default class Carrito {
 
   //Se dispara cuando card-items-carrito emite la eliminación de un producto
   onRemove(productId: any) {
+    // Item huerfano (sin productId valido): el backend ya lo autolimpia al
+    // leer el carrito, asi que basta con volver a pedirlo.
+    if (!productId) {
+      this.loadCart();
+      return;
+    }
+
     this.httpCart.removeCartItem(productId).subscribe({
       next: () => this.loadCart(),
       error: (error: any) => {
@@ -115,44 +126,63 @@ export default class Carrito {
   }
 
   order(){
-    const mailingAddress = this.contacts$.getValue();
-
-    const items: any = this.items.map( (item : any) => ({ productID: item.productId._id , quantity: item.quantity}));
-
-    const order = {
-      status: 'enviado',
-      products: items,
-      mailingAddress,
-      subtotal: this.getSubtotal(),
-      total: this.getTotal(),
-      paymentMethod: 'tarjeta',
-      paymentStatus: 'aprobado',
-      paymentReference: 'A#B156',
-      notes: 'Dejar en porteria'
+    if (this.isProcessingOrder || this.items.length === 0) {
+      return;
     }
 
-    console.log(order)
+    const mailingAddress = this.contacts$.getValue();
 
-    this.httpOrder.createOrder(order).subscribe({
+    if (!mailingAddress) {
+      Swal.fire({
+        title: 'Falta una dirección de envío',
+        text: 'Agrega una dirección de envío predeterminada antes de pagar.',
+        icon: 'warning'
+      });
+      return;
+    }
+
+    // El backend es quien decide qué productos, cantidades, precios y total
+    // corresponden a esta orden (los toma del carrito real del usuario en
+    // el servidor). Desde el cliente solo enviamos lo que legítimamente
+    // controla el comprador: la dirección, el método de pago y una nota.
+    const checkoutData = {
+      mailingAddress,
+      paymentMethod: 'tarjeta',
+      notes: 'Dejar en porteria'
+    };
+
+    this.isProcessingOrder = true;
+
+    this.httpOrder.createOrder(checkoutData).subscribe({
       next: (res) => {
-        console.log(res);
+        // La orden ya vació el carrito en el servidor; sincronizamos el
+        // estado local para que el header y esta vista lo reflejen.
+        this.httpCart.refreshCart();
+        this.isProcessingOrder = false;
+        this.ngOnInit();
 
         Swal.fire({
-        title: '¡Pedido confirmado!',
-        text: 'Tu compra se ha procesado con éxito.',
-        icon: 'success',
-        draggable: true
-      });
+          title: '¡Pedido confirmado!',
+          text: 'Tu compra se ha procesado con éxito.',
+          icon: 'success',
+          draggable: true
+        });
       },
       error: (error) => {
         console.error(error);
+        this.isProcessingOrder = false;
+
         Swal.fire({
-        title: 'Algo salió mal',
-        text: error.error?.msg || 'No pudimos procesar tu pedido, intenta de nuevo.',
-        icon: 'error'
-      });
-      },
-      complete: () => {}
+          title: 'Algo salió mal',
+          text: error.error?.msg || 'No pudimos procesar tu pedido, intenta de nuevo.',
+          icon: 'error'
+        });
+        // Si el error fue por un producto ya no disponible (409), el
+        // backend ya limpió ese item huérfano al leer el carrito; nos
+        // aseguramos de reflejarlo aquí sin que el usuario tenga que
+        // salir y volver a entrar al carrito.
+        this.ngOnInit()
+      }
     })
   }
 }

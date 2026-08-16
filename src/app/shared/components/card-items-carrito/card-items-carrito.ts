@@ -25,18 +25,31 @@ export class CardItemsCarrito {
   public faMinus = faMinus;
 
   increment() {
+    if (!this.item.productId) return;
+
     if (this.item.quantity < this.item.productId.stock) {
       this.quantityChange.emit({ productId: this.item.productId._id, delta: 1 });
     }
   }
 
   decrement() {
+    if (!this.item.productId) return;
+
     if (this.item.quantity > 0) {
       this.quantityChange.emit({ productId: this.item.productId._id, delta: -1 });
     }
   }
 
   onRemove() {
+    // Item huerfano (producto ya eliminado del catalogo): no hay productId
+    // valido por el cual pedirle al backend que elimine. El backend ya se
+    // autolimpia en el siguiente GET /cart/me, asi que aqui solo forzamos
+    // ese refresco en el padre.
+    if (!this.item.productId) {
+      this.remove.emit(null);
+      return;
+    }
+
     this.remove.emit(this.item.productId._id);
   }
 }
