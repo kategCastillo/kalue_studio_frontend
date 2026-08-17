@@ -15,6 +15,23 @@
         </span>
       </section>
 
+      <!-- Línea de tiempo dinámica -->
+      @if (order.status !== 'cancelado') {
+        <section class="orden-timeline">
+          @for (paso of getPasos(order.status); track paso.key) {
+            <div class="paso" [class.activo]="paso.activo">
+              <span class="punto"></span>
+              <p>{{ paso.label }}</p>
+            </div>
+          }
+        </section>
+      } @else {
+        <section class="orden-cancelada">
+          <span class="punto-cancelado"></span>
+          <p>Esta orden fue cancelada.</p>
+        </section>
+      }
+
       <div class="orden-grid">
         <section class="orden-productos">
           <h2>Productos</h2>

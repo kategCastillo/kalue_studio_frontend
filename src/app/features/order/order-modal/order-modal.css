@@ -1,301 +1,149 @@
-/* src/app/features/order/order-modal/order-modal.css */
+@if (selectedOrder$ | async; as order) {
+  <main class="modal-overlay" (click)="cerrar()">
+    <div class="orden modal-content" (click)="$event.stopPropagation()">
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+      <button class="modal-close" (click)="cerrar()" aria-label="Cerrar">&times;</button>
 
-/* ---------- Overlay y caja del modal (mismo patrón que products-modal) ---------- */
+      <section class="orden-header">
+        <div>
+          <p class="ojo-marca">PEDIDO #{{ order._id | slice:-6 }}</p>
+          <h1>Resumen de tu orden</h1>
+          <p class="fecha">Realizada el {{ order.createdAt | date:'d MMM, y' }}</p>
+        </div>
+        <span class="estado-badge" [ngClass]="'estado-' + order.status.replace(' ', '-')">
+          {{ order.status }}
+        </span>
+      </section>
 
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(28, 27, 27, 0.55);
+      <!-- Línea de tiempo dinámica -->
+      @if (order.status !== 'cancelado') {
+        <section class="orden-timeline">
+          @for (paso of getPasos(order.status); track paso.key) {
+            <div class="paso" [class.activo]="paso.activo">
+              <span class="punto"></span>
+              <p>{{ paso.label }}</p>
+            </div>
+          }
+        </section>
+      } @else {
+        <section class="orden-cancelada">
+          <span class="punto-cancelado"></span>
+          <p>Esta orden fue cancelada.</p>
+        </section>
+      }
+
+      <div class="orden-grid">
+        <section class="orden-productos">
+          <h2>Productos</h2>
+          <div class="producto-lista">
+            @for (item of order.products; track item._id) {
+              <div class="producto-item">
+                <img [src]="item.productID?.images?.[0]" [alt]="item.productID?.name">
+                <div class="producto-item-info">
+                  <h4>{{ item.productID?.name }}</h4>
+                  <p class="cantidad">Cantidad: {{ item.quantity }}</p>
+                </div>
+                <p class="producto-item-precio">{{ item.unitPrice | currency:'COP' }}</p>
+              </div>
+            }
+          </div>
+
+          @if (order.notes) {
+            <div class="orden-notas">
+              <h4>Notas del pedido</h4>
+              <p>{{ order.notes }}</p>
+            </div>
+          }
+        </section>
+
+        /* ---------- Línea de tiempo ---------- */
+
+.orden-timeline {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 1000;
-}
-
-.modal-content {
-  position: relative;
-  background-color: #ffffff;
-  border-radius: 12px;
-  max-width: 1000px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-}
-
-.modal-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: none;
-  background-color: #f7f5f2;
-  color: #2c2c2c;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease;
-  z-index: 2;
-}
-
-.modal-close:hover {
-  background-color: #e5e2dc;
-}
-
-/* ---------- Contenido de la orden (antes era .orden a pantalla completa,
-   ahora vive dentro de .modal-content, así que el padding es más chico) ---------- */
-
-.orden {
-  font-family: 'Inter', sans-serif;
-  color: #2c2c2c;
-  background-color: #ffffff;
-  padding: 50px 45px 40px;
-}
-
-/* ---------- Encabezado ---------- */
-
-.orden-header {
-  display: flex;
-  align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
   margin-bottom: 30px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e2dc;
 }
 
-.ojo-marca {
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: #c2a27c;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-}
-
-.orden-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  font-weight: 500;
-}
-
-.fecha {
-  font-size: 13px;
-  color: #6d6d6d;
-  margin-top: 6px;
-}
-
-.estado-badge {
-  padding: 8px 18px;
-  border-radius: 30px;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-  text-transform: capitalize;
-}
-
-.estado-pendiente { background-color: #f0e6d6; color: #9c7a2e; }
-.estado-pagado { background-color: #dde8e0; color: #3f6b4d; }
-.estado-en-preparacion { background-color: #e2e6f0; color: #4650a3; }
-.estado-enviado { background-color: #dbe9f2; color: #2f6f95; }
-.estado-entregado { background-color: #e2ecd8; color: #4b7a30; }
-.estado-cancelado { background-color: #f4dede; color: #b3392c; }
-
-/* ---------- Grid principal ---------- */
-
-.orden-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 32px;
-}
-
-/* ---------- Productos ---------- */
-
-.orden-productos h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 18px;
-}
-
-.producto-lista {
-  background-color: #ffffff;
-  border: 1px solid #e5e2dc;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.producto-item {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 16px 20px;
-  border-bottom: 1px solid #f0eeea;
-}
-
-.producto-item:last-child {
-  border-bottom: none;
-}
-
-.producto-item img {
-  width: 56px;
-  height: 56px;
-  object-fit: cover;
-  border-radius: 6px;
-  background-color: #f7f5f2;
-}
-
-.producto-item-info {
+.paso {
+  text-align: center;
   flex: 1;
 }
 
-.producto-item-info h4 {
-  font-family: 'Playfair Display', serif;
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 4px;
+.paso .punto {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #cfcac3;
+  margin: 0 auto 8px;
 }
 
-.cantidad {
-  font-size: 12px;
-  color: #6d6d6d;
-}
-
-.producto-item-precio {
-  font-size: 14px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.orden-notas {
-  background-color: #f7f5f2;
-  border: 1px solid #e5e2dc;
-  border-radius: 10px;
-  padding: 16px 20px;
-  margin-top: 18px;
-}
-
-.orden-notas h4 {
+.paso p {
   font-size: 11px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #c2a27c;
-  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  color: #b0aca4;
 }
 
-.orden-notas p {
-  font-size: 14px;
-  color: #6d6d6d;
-  line-height: 1.6;
+.paso.activo .punto {
+  background-color: #2c2c2c;
 }
 
-/* ---------- Lateral ---------- */
-
-.orden-lateral {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.lateral-card {
-  background-color: #ffffff;
-  border: 1px solid #e5e2dc;
-  border-radius: 10px;
-  padding: 20px;
-}
-
-.lateral-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-
-.lateral-card p {
-  font-size: 13px;
-  color: #6d6d6d;
-  line-height: 1.6;
-}
-
-.pago-fila {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  color: #6d6d6d;
-  margin-bottom: 12px;
-}
-
-.pago-fila:last-child {
-  margin-bottom: 0;
-}
-
-.pago-valor {
+.paso.activo p {
   color: #2c2c2c;
-  font-weight: 500;
-  text-transform: capitalize;
+  font-weight: 600;
 }
 
-.pago-badge {
-  padding: 4px 12px;
-  border-radius: 30px;
-  font-size: 11px;
-  text-transform: capitalize;
-  background-color: #dde8e0;
-  color: #3f6b4d;
-}
+/* ---------- Aviso de cancelada ---------- */
 
-/* ---------- Totales ---------- */
-
-.total-fila {
+.orden-cancelada {
   display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: #6d6d6d;
-  margin-bottom: 12px;
+  align-items: center;
+  gap: 10px;
+  background-color: #f4dede;
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 30px;
 }
 
-.total-fila:last-child {
-  margin-bottom: 0;
+.punto-cancelado {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #b3392c;
+  flex-shrink: 0;
 }
 
-.total-fila.total-final {
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid #e5e2dc;
-  font-size: 17px;
-  font-weight: 700;
-  color: #1c1b1b;
+.orden-cancelada p {
+  font-size: 13px;
+  color: #b3392c;
+  font-weight: 600;
 }
 
-/* ---------- Responsive ---------- */
+        <aside class="orden-lateral">
+          <div class="lateral-card">
+            <h3>Dirección de envío</h3>
+            <p>{{ order.mailingAddress?.receiverName }}</p>
+            <p>{{ order.mailingAddress?.address }}</p>
+            <p>{{ order.mailingAddress?.phone }}</p>
+          </div>
 
-@media (max-width: 1024px) {
-  .orden {
-    padding: 40px 28px 30px;
-  }
+          <div class="lateral-card">
+            <h3>Pago</h3>
+            <div class="pago-fila"><span>Método</span><span class="pago-valor">{{ order.paymentMethod }}</span></div>
+            <div class="pago-fila"><span>Estado del pago</span><span class="pago-badge">{{ order.paymentStatus }}</span></div>
+            <div class="pago-fila"><span>Referencia</span><span class="pago-valor">{{ order.paymentReference }}</span></div>
+          </div>
 
-  .orden-grid {
-    grid-template-columns: 1fr;
-  }
-}
+          <div class="lateral-card totales">
+            <div class="total-fila"><span>Subtotal</span><span>{{ order.subTotal | currency:'COP' }}</span></div>
+            <div class="total-fila"><span>Impuesto</span><span>{{ order.tax | currency:'COP' }}</span></div>
+            <div class="total-fila total-final"><span>Total</span><span>{{ order.total | currency:'COP' }}</span></div>
+          </div>
+        </aside>
+      </div>
 
-@media (max-width: 768px) {
-  .orden {
-    padding: 32px 20px 24px;
-  }
-
-  .orden-header {
-    flex-direction: column;
-    gap: 12px;
-  }
+    </div>
+  </main>
 }
