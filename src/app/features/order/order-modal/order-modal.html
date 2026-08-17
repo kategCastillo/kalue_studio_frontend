@@ -1,0 +1,67 @@
+@if (selectedOrder$ | async; as order) {
+  <main class="modal-overlay" (click)="cerrar()">
+    <div class="orden modal-content" (click)="$event.stopPropagation()">
+
+      <button class="modal-close" (click)="cerrar()" aria-label="Cerrar">&times;</button>
+
+      <section class="orden-header">
+        <div>
+          <p class="ojo-marca">PEDIDO #{{ order._id | slice:-6 }}</p>
+          <h1>Resumen de tu orden</h1>
+          <p class="fecha">Realizada el {{ order.createdAt | date:'d MMM, y' }}</p>
+        </div>
+        <span class="estado-badge" [ngClass]="'estado-' + order.status.replace(' ', '-')">
+          {{ order.status }}
+        </span>
+      </section>
+
+      <div class="orden-grid">
+        <section class="orden-productos">
+          <h2>Productos</h2>
+          <div class="producto-lista">
+            @for (item of order.products; track item._id) {
+              <div class="producto-item">
+                <img [src]="item.productID?.images?.[0]" [alt]="item.productID?.name">
+                <div class="producto-item-info">
+                  <h4>{{ item.productID?.name }}</h4>
+                  <p class="cantidad">Cantidad: {{ item.quantity }}</p>
+                </div>
+                <p class="producto-item-precio">{{ item.unitPrice | currency:'COP' }}</p>
+              </div>
+            }
+          </div>
+
+          @if (order.notes) {
+            <div class="orden-notas">
+              <h4>Notas del pedido</h4>
+              <p>{{ order.notes }}</p>
+            </div>
+          }
+        </section>
+
+        <aside class="orden-lateral">
+          <div class="lateral-card">
+            <h3>Dirección de envío</h3>
+            <p>{{ order.mailingAddress?.receiverName }}</p>
+            <p>{{ order.mailingAddress?.address }}</p>
+            <p>{{ order.mailingAddress?.phone }}</p>
+          </div>
+
+          <div class="lateral-card">
+            <h3>Pago</h3>
+            <div class="pago-fila"><span>Método</span><span class="pago-valor">{{ order.paymentMethod }}</span></div>
+            <div class="pago-fila"><span>Estado del pago</span><span class="pago-badge">{{ order.paymentStatus }}</span></div>
+            <div class="pago-fila"><span>Referencia</span><span class="pago-valor">{{ order.paymentReference }}</span></div>
+          </div>
+
+          <div class="lateral-card totales">
+            <div class="total-fila"><span>Subtotal</span><span>{{ order.subTotal | currency:'COP' }}</span></div>
+            <div class="total-fila"><span>Impuesto</span><span>{{ order.tax | currency:'COP' }}</span></div>
+            <div class="total-fila total-final"><span>Total</span><span>{{ order.total | currency:'COP' }}</span></div>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+  </main>
+}

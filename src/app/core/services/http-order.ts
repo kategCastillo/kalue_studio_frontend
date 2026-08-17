@@ -29,6 +29,11 @@ export class HttpOrderTs {
         return this.http.get<any>(`${this.BASE_URL}/orders`, { headers: this.getHeader() })
     }
 
+    getOrderById (id:string) {
+        return this.http.get <any> (`${this.BASE_URL}/order/${id}`, {headers: this.getHeader ()})
+    }
+
+
      createOrder (order:any) {
         return this.http.post<any>(`${this.BASE_URL}/orders`,order,{ headers: this.getHeader() } )
      }

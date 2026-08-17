@@ -27,17 +27,16 @@ export default class OrderList implements OnInit {
 
   private loadOrders(): void {
     this.httpOrder.getAllOrders().subscribe({
-      next: (res) => {
-        console.log('Respuesta del backend:', res); // déjalo un rato para depurar
-        this.orders.next(res.data);
-      },
-      error: (error) => {
-        console.error('Error al cargar órdenes:', error);
-      }
+      next: (res) => this.orders.next(res.data),
+      error:(error) => console.error('Error al cargar errores:', error)
+    
     });
   }
 
   verOrden(orderId: string): void {
-    this.router.navigate(['/order', orderId]);
+    this.httpOrder.getOrderById(orderId).subscribe({
+      next: (res) => this.orderModal.open(res.data),
+      error: (error) => console.error('Error al cargar el detalle de la orden',error)
+    });
   }
 }
