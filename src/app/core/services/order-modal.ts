@@ -6,8 +6,8 @@ import { BehaviorSubject } from "rxjs";
 export class OrderModal{
     public selectedOrder$ = new BehaviorSubject<any>(null);
 
-    open(order:any) void {
-         this.selectedOrder$.next(order);
+    open(order:any): void {
+         this.selectedOrder$.next(order)
     }
 
     close(): void{

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe, CurrencyPipe, DatePipe, NgClass } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, DatePipe, NgClass, SlicePipe } from '@angular/common';
 import { OrderModal } from '../../../core/services/order-modal';
 
 interface PasoTimeline {
@@ -10,7 +10,7 @@ interface PasoTimeline {
 
 @Component({
   selector: 'app-order-modal',
-  imports: [AsyncPipe, CurrencyPipe, DatePipe, NgClass],
+  imports: [AsyncPipe, CurrencyPipe, DatePipe, NgClass, SlicePipe],
   templateUrl: './order-modal.html',
   styleUrl: './order-modal.css',
 })

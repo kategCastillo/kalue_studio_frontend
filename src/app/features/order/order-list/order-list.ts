@@ -5,6 +5,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { HttpOrderTs } from '../../../core/services/http-order';
 import { BehaviorSubject } from 'rxjs';
+import { OrderModal } from '../../../core/services/order-modal';
+import OrderModalComponent from '../order-modal/order-modal';
 
 @Component({
   selector: 'app-order-list',
@@ -17,6 +19,8 @@ export default class OrderList implements OnInit {
 
   private httpOrder = inject(HttpOrderTs);
   private router = inject(Router);
+  private orderModal = inject(OrderModal);
+ 
 
   public faEye = faEye;
   public orders = new BehaviorSubject<any>([]);
