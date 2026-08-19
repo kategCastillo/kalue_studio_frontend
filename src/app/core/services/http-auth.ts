@@ -2,7 +2,7 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, PLATFORM_ID, Service } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, of, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Service()
@@ -50,12 +50,13 @@ export class HttpAuth {
             map((data) => data.msg),
             catchError((err: HttpErrorResponse) => {
 
+                if(!err.error?.msg){
+                    err.error.msg = 'No se puede iniciar sesion '
+                }
+
                 console.error(err);
 
-                // Extraemos el mensaje de la propiedad error
-                const errorMsg = err.error?.msg || 'Error al iniciar sesión';
-
-                return of(errorMsg);
+                return throwError(() => err );
             })
         )
     }
@@ -108,6 +109,10 @@ export class HttpAuth {
    
     logoutUser(): void{
        this.clearAuthData();        //redireccionamos
+    }
+
+    checkAuth(){
+        
     }
 
     isLoggedIn(): boolean{

@@ -16,7 +16,6 @@ export default class Login {
   private httpAuth = inject(HttpAuth);
   private httpCart = inject(HttpCart);
 
-
   constructor() {
     this.formData = new FormGroup({
       user: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -25,21 +24,25 @@ export default class Login {
   }
 
   onSubmit() {
-  this.httpAuth.loginUser(this.formData.value).subscribe({
-    next: (res) => {
-      if (res?.error) {
-        Swal.fire({ icon: 'error', title: 'Oops...', text: res.msg });
-        return;
-      }
+    this.httpAuth.loginUser(this.formData.value).subscribe({
+      next: (res) => {
+        Swal.fire({ title: 'Inicio exitoso!', icon: 'success', draggable: true });
+        this.formData.reset();
 
-      Swal.fire({ title: 'Inicio exitoso!', icon: 'success', draggable: true });
-      this.formData.reset();
+        this.httpCart.refreshCart();
+        console.log(res)
+      },
+      error: (error) => {
+        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.error?.msg
+        });
 
-      this.httpCart.refreshCart();
-    },
-    error: (error) => console.error(error),
-    complete: () => {}
-  });
-}
-  
+        
+      },
+      complete: () => {},
+    });
+  }
 }
