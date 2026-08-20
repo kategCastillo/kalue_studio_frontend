@@ -28,8 +28,6 @@ export default class Login {
       next: (res) => {
         Swal.fire({ title: 'Inicio exitoso!', icon: 'success', draggable: true });
         this.formData.reset();
-
-        this.httpCart.refreshCart();
         console.log(res)
       },
       error: (error) => {

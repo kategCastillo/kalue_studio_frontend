@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CardItemsCarrito } from "../../shared/components/card-items-carrito/card-items-carrito";
 import { HttpCart } from '../../core/services/http-cart';
-import { CurrencyPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, JsonPipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTruck, faRotateLeft, faCreditCard, faShield, faShieldCat, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from "@angular/router";
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-carrito',
-  imports: [CardItemsCarrito, CurrencyPipe, FontAwesomeModule, RouterLink],
+  imports: [CardItemsCarrito, CurrencyPipe, FontAwesomeModule, RouterLink, AsyncPipe, JsonPipe],
   templateUrl: './carrito.html',
   styleUrl: './carrito.css',
 })
@@ -26,6 +26,8 @@ export default class Carrito {
   // fuente de verdad y ambos queden siempre sincronizados.
   public cart$ = this.httpCart.cart$;
   private contacts$ = new BehaviorSubject<any>('');
+
+  public shoppingCart = new BehaviorSubject<any[]>([]);
 
   // Evita doble-click / doble submit del boton "Pagar" mientras la orden
   // se esta procesando en el backend.
@@ -42,7 +44,7 @@ export default class Carrito {
   private loadCart() {
     this.httpCart.getMyCart().subscribe({
       next: (res: any) => {
-        this.httpCart.cart$.next(res.data);
+        this.httpCart.cart$.next(res);
       },
       error: (error: any) => {
         console.error(error);
@@ -57,26 +59,32 @@ export default class Carrito {
   ngOnInit() {
     this.loadCart();
     this.getContactdefault();
+
+    this.httpCart.cart.subscribe({
+      next: ( res ) => {
+        console.log( res );
+        this.shoppingCart.next( res );
+      },
+      error: ( err ) => {
+        console.log( err );
+      }
+    })
   }
 
-  // Getter de conveniencia para usar en el template sin repetir el optional-chaining.
-  get items(): any {
-    return this.cart$.getValue()?.items || [];
-  }
-
+  
   getSubtotal(): any {
     return this.items.reduce((acc: any, item: any) => acc + (item.productId?.price || 0) * item.quantity, 0);
   }
-
+  
   // Impuesto de ejemplo (8%). Ajusta el porcentaje si el negocio maneja otro valor.
   getTax(): any {
     return this.getSubtotal() * 0.08;
   }
-
+  
   getTotal(): any {
     return this.getSubtotal() + this.getTax();
   }
-
+  
   // Se dispara cuando card-items-carrito emite un cambio de cantidad (+1 / -1)
   onQuantityChange(event: any) {
     this.httpCart.updateMyCart(event.productId, event.delta).subscribe({
@@ -87,7 +95,7 @@ export default class Carrito {
       }
     });
   }
-
+  
   //Se dispara cuando card-items-carrito emite la eliminación de un producto
   onRemove(productId: any) {
     // Item huerfano (sin productId valido): el backend ya lo autolimpia al
@@ -96,7 +104,7 @@ export default class Carrito {
       this.loadCart();
       return;
     }
-
+    
     this.httpCart.removeCartItem(productId).subscribe({
       next: () => this.loadCart(),
       error: (error: any) => {
@@ -124,14 +132,14 @@ export default class Carrito {
       complete: () => {}
     })
   }
-
+  
   order(){
     if (this.isProcessingOrder || this.items.length === 0) {
       return;
     }
-
+    
     const mailingAddress = this.contacts$.getValue();
-
+    
     if (!mailingAddress) {
       Swal.fire({
         title: 'Falta una dirección de envío',
@@ -140,7 +148,7 @@ export default class Carrito {
       });
       return;
     }
-
+    
     // El backend es quien decide qué productos, cantidades, precios y total
     // corresponden a esta orden (los toma del carrito real del usuario en
     // el servidor). Desde el cliente solo enviamos lo que legítimamente
@@ -152,14 +160,13 @@ export default class Carrito {
     };
 
     this.isProcessingOrder = true;
-
+    
     this.httpOrder.createOrder(checkoutData).subscribe({
       next: (res) => {
         // La orden ya vació el carrito en el servidor; sincronizamos el
         // estado local para que el header y esta vista lo reflejen.
-        this.httpCart.refreshCart();
         this.isProcessingOrder = false;
-
+        
         Swal.fire({
           title: '¡Pedido confirmado!',
           text: 'Tu compra se ha procesado con éxito.',
@@ -180,8 +187,12 @@ export default class Carrito {
         // backend ya limpió ese item huérfano al leer el carrito; nos
         // aseguramos de reflejarlo aquí sin que el usuario tenga que
         // salir y volver a entrar al carrito.
-        this.httpCart.refreshCart();
       }
     })
+  }
+  
+  // Getter de conveniencia para usar en el template sin repetir el optional-chaining.
+  get items(): any {
+    return this.cart$.getValue()?.items || [];
   }
 }

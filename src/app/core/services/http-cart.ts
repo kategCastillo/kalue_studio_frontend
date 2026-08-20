@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, map, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpAuth } from './http-auth';
 
@@ -12,10 +12,17 @@ export class HttpCart {
   // Carrito compartido en toda la app (header, carrito, product-card, etc.)
   // Cualquier componente puede suscribirse a cart$ para enterarse de cambios.
   public cart$ = new BehaviorSubject<any>(null);
+  public cart = this.cart$.asObservable();
 
   // Trae (o crea) el carrito del usuario logueado -> GET /cart/me
   getMyCart() {
-    return this.http.get<any>(`${this.BASE_URL}/cart/me`);
+    return this.http.get<any>(`${this.BASE_URL}/cart/me`).pipe(
+      map(( res )=> res.data ),
+      tap( res => {
+        this.cart = res;
+      }),
+      catchError( err => throwError( err ))
+    );
 
   }
 
@@ -36,10 +43,7 @@ export class HttpCart {
 
   // Vuelve a pedir el carrito al backend y actualiza cart$, para que el
   // header (y cualquier otro componente suscrito) se refresque solo.
-  refreshCart(): void {
-    this.getMyCart().subscribe({
-      next: (res: any) => this.cart$.next(res.data),
-      error: (err: any) => console.error(err)
-    });
-  }
+  // refreshCart(): void {
+  //   return this.getMyCart()
+  // }
 }

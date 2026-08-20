@@ -50,14 +50,12 @@
         <section class="productos">
 
             @for ( product of (listProducts$ | async); track $index) {
-               <app-product-card [product]="product"/>
+               <app-product-card [product]="product" (add) = "addCart($event)"/>
             }
 
         </section>
 
     </main>
-
-
     
 </body>
 

@@ -1,4 +1,6 @@
 <header class="site-header">
+  <pre>{{ (counter | async) }}</pre>
+  
   <div class="header-container">
     <!-- Brand Logo -->
     <a class="brand-logo" routerLink="/">
@@ -53,7 +55,7 @@
         <a routerLink="/carrito" class="material-symbols-outlined"
           ><img class="symbol-nav-btn" src="assets/svg/shopping-bag.svg" alt="Carrito de compras"
         /></a>
-        <span class="cart-badge">{{ (httpCart.cart$ | async)?.items?.length || 0 }}</span>
+        <span class="cart-badge">{{ (counter | async) }}</span>
       </button>
       <!-- Botón de Menú Móvil -->
       <button class="mobile-menu-btn" aria-label="Abrir Menú">
