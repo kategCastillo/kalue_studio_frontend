@@ -40,10 +40,4 @@ export class HttpCart {
   clearCart() {
     return this.http.delete<any>(`${this.BASE_URL}/cart/me`);
   }
-
-  // Vuelve a pedir el carrito al backend y actualiza cart$, para que el
-  // header (y cualquier otro componente suscrito) se refresque solo.
-  // refreshCart(): void {
-  //   return this.getMyCart()
-  // }
 }

@@ -26,7 +26,6 @@ export default class Carrito {
   // fuente de verdad y ambos queden siempre sincronizados.
   public cart$ = this.httpCart.cart$;
   private contacts$ = new BehaviorSubject<any>('');
-
   public shoppingCart = new BehaviorSubject<any[]>([]);
 
   // Evita doble-click / doble submit del boton "Pagar" mientras la orden
@@ -84,10 +83,19 @@ export default class Carrito {
   getTotal(): any {
     return this.getSubtotal() + this.getTax();
   }
-  
-  // Se dispara cuando card-items-carrito emite un cambio de cantidad (+1 / -1)
-  onQuantityChange(event: any) {
-    this.httpCart.updateMyCart(event.productId, event.delta).subscribe({
+
+  decrementQuantity(event: any){
+    this.httpCart.updateMyCart(event.productId, -1).subscribe({
+      next: () => this.loadCart(),
+      error: (error: any) => {
+        console.error(error);
+        alert(error.error?.msg || 'No se pudo actualizar el carrito');
+      }
+    });
+  }
+
+  incrementQuantity(event: any){
+    this.httpCart.updateMyCart(event.productId, +1).subscribe({
       next: () => this.loadCart(),
       error: (error: any) => {
         console.error(error);
