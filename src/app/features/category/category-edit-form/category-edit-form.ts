@@ -10,7 +10,7 @@ import { HttpCategories } from '../../../core/services/http-categories';
 import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-category-edit-form',
-  imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
+  imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
   templateUrl: './category-edit-form.html',
   styleUrl: './category-edit-form.css',
 })

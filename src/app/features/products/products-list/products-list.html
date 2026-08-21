@@ -1,20 +1,4 @@
 <div class="product-list">
- 
-  <!-- Aside — igual al de user-list -->
-  <aside class="product-list__aside">
-    <div class="product-list__aside-inner">
-      <span class="product-list__aside-label">Kalue Studio</span>
-      <h2 class="product-list__aside-title">Panel de<br/>Administración</h2>
-      <p class="product-list__aside-desc">Gestiona los productos, categorías, materiales y stock de la tienda desde un solo lugar.</p>
-      <div class="product-list__aside-divider"></div>
-      <ul class="product-list__aside-features">
-        <li>Control de stock e inventario</li>
-        <li>Gestión de categorías y materiales</li>
-        <li>Estado de productos en tiempo real</li>
-      </ul>
-    </div>
-  </aside>
- 
   <!-- Main -->
   <main class="product-list__main">
  
@@ -25,7 +9,7 @@
         <h1 class="product-list__title">Productos</h1>
         <p class="product-list__subtitle">Consulta, edita o elimina los productos registrados en la tienda.</p>
       </div>
-      <a routerLink="/product-new" class="product-list__btn-new">
+      <a routerLink="/dashboard/product/new" class="product-list__btn-new">
         <fa-icon [icon]="faPlus" />
         Nuevo Producto
       </a>
@@ -108,7 +92,7 @@
                 <div class="product-list__actions">
                   <a
                     class="product-list__action-btn product-list__action-btn--edit"
-                    [routerLink]="['/product', 'edit', 'form', item._id]"
+                    [routerLink]="['/dashboard',' product', 'edit', item._id]"
                     (click)="onEdit(item._id)"
                     title="Editar producto"
                   >

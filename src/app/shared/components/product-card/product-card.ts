@@ -30,6 +30,7 @@ export class ProductCard {
   }
 
   addCart() {
+    this.adding = true;
     this.add.emit({ product: this.product, count: this.count } );
   }
 

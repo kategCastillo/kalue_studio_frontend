@@ -49,8 +49,7 @@ export class CardItemsCarrito {
     // autolimpia en el siguiente GET /cart/me, asi que aqui solo forzamos
     // ese refresco en el padre.
     if (!this.item.productId) {
-      this.remove.emit(null);
-      return;
+      return this.remove.emit();
     }
 
     this.remove.emit(this.item.productId._id);

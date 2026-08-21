@@ -107,12 +107,7 @@ export default class Carrito {
   //Se dispara cuando card-items-carrito emite la eliminación de un producto
   onRemove(productId: any) {
     // Item huerfano (sin productId valido): el backend ya lo autolimpia al
-    // leer el carrito, asi que basta con volver a pedirlo.
-    if (!productId) {
-      this.loadCart();
-      return;
-    }
-    
+    // leer el carrito, asi que basta con volver a pedirlo.    
     this.httpCart.removeCartItem(productId).subscribe({
       next: () => this.loadCart(),
       error: (error: any) => {
@@ -173,6 +168,8 @@ export default class Carrito {
       next: (res) => {
         // La orden ya vació el carrito en el servidor; sincronizamos el
         // estado local para que el header y esta vista lo reflejen.
+        // this.loadCart();
+        this.httpCart.cart$.next([]);
         this.isProcessingOrder = false;
         
         Swal.fire({
