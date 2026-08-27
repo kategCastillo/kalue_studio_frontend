@@ -11,7 +11,7 @@ import OrderModalComponent from '../order-modal/order-modal';
 @Component({
   selector: 'app-order-list',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, AsyncPipe],
+  imports: [CommonModule, FontAwesomeModule, AsyncPipe, OrderModalComponent],
   templateUrl: './order-list.html',
   styleUrl: './order-list.css',
 })
