@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
   margin: 0;
   padding: 0;
@@ -121,6 +122,8 @@
 
 /* ---------- Línea de tiempo ---------- */
 
+=======
+>>>>>>> 8826c9838a958fe0bb07584a2de7491bafb00455
 .orden-timeline {
   display: flex;
   justify-content: space-between;
@@ -382,4 +385,5 @@
     flex-direction: column;
     gap: 14px;
   }
+
 }

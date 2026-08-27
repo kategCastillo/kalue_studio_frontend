@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { HttpAuth } from '../../../core/services/http-auth';
 import { HttpCart } from '../../../core/services/http-cart';
 
@@ -14,6 +14,7 @@ export class Header {
 
   public httpAuth = inject (HttpAuth);
   public httpCart = inject (HttpCart);
+  private router = inject(Router);
 
   ngOnInit(): void {
     // Si ya hay sesión, precargamos el carrito para que el badge no arranque en 0 falso.
@@ -24,5 +25,6 @@ export class Header {
 
   logout(): void {
     this.httpAuth.logoutUser(); 
+    this.router.navigateByUrl( '/login' );
   }
 }

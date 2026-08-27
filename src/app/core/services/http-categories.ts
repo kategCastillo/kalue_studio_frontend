@@ -8,36 +8,24 @@ export class HttpCategories {
   // http-categories.ts
   private http = inject(HttpClient);
   BASE_URL: string = environment.apiUrl;
-  private httpAuth = inject(HttpAuth);
-
-  private getHeader() : HttpHeaders {
-
-    const  token  = this.httpAuth.token;
-
-    return new HttpHeaders ({
-      'X-Token': token || '',
-      'Content-Type': 'application/json'
-    });
-  }
-
 
   getCategories() {
-    return this.http.get<any>(`${this.BASE_URL}/category`, { headers: this.getHeader() });
+    return this.http.get<any>(`${this.BASE_URL}/category`);
   }
 
   getCategoryById(id: string | any) {
-    return this.http.get<any>(`${this.BASE_URL}/category/${id}`, { headers: this.getHeader() });
+    return this.http.get<any>(`${this.BASE_URL}/category/${id}`);
   }
 
   createCategory(newCategory: any) {
-    return this.http.post(`${this.BASE_URL}/category`, newCategory , { headers: this.getHeader() });
+    return this.http.post(`${this.BASE_URL}/category`, newCategory );
   }
 
   deleteCategory(id: string) {
-    return this.http.delete(`${this.BASE_URL}/category/${id}`, { headers: this.getHeader() });
+    return this.http.delete(`${this.BASE_URL}/category/${id}`);
   }
 
   updateCategoryById(id: string, updatedCategory: any) {
-    return this.http.patch(`${this.BASE_URL}/category/${id}`, updatedCategory, { headers: this.getHeader() });
+    return this.http.patch(`${this.BASE_URL}/category/${id}`, updatedCategory);
   }
 }

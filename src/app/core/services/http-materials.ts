@@ -7,36 +7,24 @@ import { HttpAuth } from './http-auth';
 export class HttpMaterials {
   private http = inject(HttpClient);
   BASE_URL: string = environment.apiUrl;
-  private httpAuth = inject(HttpAuth);
-
-  private getHeader(): HttpHeaders {
-    const token = this.httpAuth.token;
-
-    return new HttpHeaders({
-      'X-Token': token || '',
-      'Content-Type': 'application/json',
-    });
-  }
 
   getMaterials() {
-    return this.http.get<any>(`${this.BASE_URL}/material`, { headers: this.getHeader() });
+    return this.http.get<any>(`${this.BASE_URL}/material`);
   }
 
   getMaterialById(id: string | any) {
-    return this.http.get<any>(`${this.BASE_URL}/material/${id}`, { headers: this.getHeader() });
+    return this.http.get<any>(`${this.BASE_URL}/material/${id}`);
   }
 
   createMaterial(newMaterial: any) {
-    return this.http.post(`${this.BASE_URL}/material`, newMaterial, { headers: this.getHeader() });
+    return this.http.post(`${this.BASE_URL}/material`, newMaterial);
   }
 
   deleteMaterial(id: string) {
-    return this.http.delete(`${this.BASE_URL}/material/${id}`, { headers: this.getHeader() });
+    return this.http.delete(`${this.BASE_URL}/material/${id}`);
   }
 
   updateMaterialById(id: string, updatedMaterial: any) {
-    return this.http.patch(`${this.BASE_URL}/material/${id}`, updatedMaterial, {
-      headers: this.getHeader(),
-    });
+    return this.http.patch(`${this.BASE_URL}/material/${id}`, updatedMaterial);
   }
 }

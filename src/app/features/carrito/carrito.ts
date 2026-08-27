@@ -159,7 +159,6 @@ export default class Carrito {
         // estado local para que el header y esta vista lo reflejen.
         this.httpCart.refreshCart();
         this.isProcessingOrder = false;
-        this.ngOnInit();
 
         Swal.fire({
           title: '¡Pedido confirmado!',
@@ -181,7 +180,7 @@ export default class Carrito {
         // backend ya limpió ese item huérfano al leer el carrito; nos
         // aseguramos de reflejarlo aquí sin que el usuario tenga que
         // salir y volver a entrar al carrito.
-        this.ngOnInit()
+        this.httpCart.refreshCart();
       }
     })
   }

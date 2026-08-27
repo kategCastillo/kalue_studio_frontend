@@ -9,41 +9,32 @@ export class HttpUsers {
   BASE_URL: string = environment.apiUrl;
   private httpAuth = inject(HttpAuth);
 
-  private getHeader(): HttpHeaders {
-    const token = this.httpAuth.token;
-
-    return new HttpHeaders({
-      'X-Token': token || '',
-      'Content-Type': 'application/json',
-    });
-  }
-
   getUsers() {
-    return this.http.get<any>(`${this.BASE_URL}/users`, { headers: this.getHeader() });
+    return this.http.get<any>(`${this.BASE_URL}/users`);
   }
 
   getUserById(id: string | any) {
-    return this.http.get<any>(`${this.BASE_URL}/users/${id}`, { headers: this.getHeader() });
+    return this.http.get<any>(`${this.BASE_URL}/users/${id}`);
   }
 
   getUserByIdPublic(){
-    return this.http.get<any>(`${this.BASE_URL}/users/details`, { headers: this.getHeader() })
+    return this.http.get<any>(`${this.BASE_URL}/users/details`)
   }
 
   updateUserSelf(updatedUser: any) {
-    return this.http.patch<any>(`${this.BASE_URL}/users/details`, updatedUser, { headers: this.getHeader() });
+    return this.http.patch<any>(`${this.BASE_URL}/users/details`, updatedUser);
   }
 
   createUser(newUser: any) {
-    return this.http.post(`${this.BASE_URL}/users`, newUser, { headers: this.getHeader() });
+    return this.http.post(`${this.BASE_URL}/users`, newUser);
   }
 
   deleteUser(id: string) {
-    return this.http.delete(`${this.BASE_URL}/users/${id}`, { headers: this.getHeader() });
+    return this.http.delete(`${this.BASE_URL}/users/${id}`);
   }
 
   updateUserById(id: string, updatedUser: any) {
-    return this.http.patch(`${this.BASE_URL}/users/${id}`, updatedUser, { headers: this.getHeader() });
+    return this.http.patch(`${this.BASE_URL}/users/${id}`, updatedUser);
   }
 }
 
