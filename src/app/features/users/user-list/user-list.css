@@ -346,3 +346,87 @@
     justify-content: center;
   }
 }
+
+/* =========================================
+   TABLA RESPONSIVE (modo tarjeta en móvil)
+   ========================================= */
+
+@media (max-width: 720px) {
+  .user-list__table-wrapper {
+    overflow-x: visible;
+    border: none;
+    background: transparent;
+  }
+
+  .user-list__table,
+  .user-list__thead,
+  .user-list__tbody,
+  .user-list__tr,
+  .user-list__td {
+    display: block;
+    width: 100%;
+  }
+
+  .user-list__thead {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+  }
+
+  .user-list__tr {
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background-color: var(--color-bg-light);
+    overflow: hidden;
+  }
+
+  .user-list__td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    white-space: normal;
+    text-align: right;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .user-list__td:last-child {
+    border-bottom: none;
+  }
+
+  .user-list__td::before {
+    content: attr(data-label);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-align: left;
+    flex-shrink: 0;
+  }
+
+  .user-list__td--identity {
+    justify-content: flex-start;
+    text-align: left;
+    background-color: #f9f8f6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .user-list__td--identity::before {
+    content: none;
+  }
+
+  .user-list__td--center {
+    text-align: right;
+  }
+
+  .user-list__actions {
+    justify-content: flex-end;
+  }
+
+  .user-list__tfoot-cell {
+    padding: 0.85rem 1rem;
+  }
+}

@@ -11,10 +11,8 @@ export const guestGuard: CanActivateFn = (route, state) => {
     map( (isAuthenticated) =>  !isAuthenticated  ),
     tap( (isGuest) => {
       if( !isGuest ){
-        router.navigateByUrl('/user/detail')
+        router.navigateByUrl('/dashboard/resume')
       }
     } )
   )
-  
-  return true;
 };

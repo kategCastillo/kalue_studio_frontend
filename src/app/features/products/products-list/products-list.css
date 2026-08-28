@@ -6,12 +6,16 @@
    ========================================= */
  
 .product-list {
-  display: grid;
-  grid-template-columns: 300px 1fr;
+  display: flex;
+  width: 100%;
   min-height: 100vh;
   font-family: var(--font-sans);
   background-color: var(--color-bg-light);
 }
+/* Nota: este componente se renderiza dentro del router-outlet del panel
+   de administración, que ya incluye su propio <app-sidebar>. Por eso aquí
+   solo existe __main (el aside de abajo quedó sin usarse y no se elimina
+   para no romper nada si se reutiliza en otro lugar). */
  
 /* =========================================
    ASIDE
@@ -105,6 +109,10 @@
    ========================================= */
  
 .product-list__main {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
   padding: 3.5rem 4rem;
   overflow-y: auto;
   background-color: #f9f8f6;
@@ -453,7 +461,7 @@
  
 @media (max-width: 960px) {
   .product-list {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
  
   .product-list__aside {
@@ -493,6 +501,95 @@
   .product-list__btn-new {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* =========================================
+   TABLA RESPONSIVE (modo tarjeta en móvil)
+   ========================================= */
+
+@media (max-width: 720px) {
+  .product-list__table-wrapper {
+    overflow-x: visible;
+    border: none;
+    background: transparent;
+  }
+
+  .product-list__table,
+  .product-list__thead,
+  .product-list__tbody,
+  .product-list__tr,
+  .product-list__td {
+    display: block;
+    width: 100%;
+  }
+
+  .product-list__thead {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+  }
+
+  .product-list__tr {
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background-color: var(--color-bg-light);
+    overflow: hidden;
+  }
+
+  .product-list__td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    white-space: normal;
+    text-align: right;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .product-list__td:last-child {
+    border-bottom: none;
+  }
+
+  .product-list__td::before {
+    content: attr(data-label);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-align: left;
+    flex-shrink: 0;
+  }
+
+  /* La celda de producto actúa como encabezado de la tarjeta: sin etiqueta */
+  .product-list__td--identity {
+    justify-content: flex-start;
+    text-align: left;
+    background-color: #f9f8f6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .product-list__td--identity::before {
+    content: none;
+  }
+
+  .product-list__product-info {
+    max-width: none;
+  }
+
+  .product-list__td--center {
+    text-align: right;
+  }
+
+  .product-list__actions {
+    justify-content: flex-end;
+  }
+
+  .product-list__tfoot-cell {
+    padding: 0.85rem 1rem;
   }
 }
  

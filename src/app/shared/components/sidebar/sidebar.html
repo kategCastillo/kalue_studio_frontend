@@ -1,5 +1,25 @@
-<aside class="sidebar">
-  <div class="sidebar__inner">
+<aside class="sidebar" [class.sidebar--open]="isMobileOpen()">
+
+  <!-- Barra superior (solo visible en móvil/tablet) -->
+  <div class="sidebar__mobile-bar">
+    <span class="sidebar__mobile-brand">Kalue Studio · Admin</span>
+    <button
+      class="sidebar__mobile-toggle"
+      type="button"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileOpen()"
+      aria-label="Abrir menú de administración"
+    >
+      <svg *ngIf="!isMobileOpen()" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg *ngIf="isMobileOpen()" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M6 6l12 12M18 6 6 18" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="sidebar__inner sidebar__collapsible">
 
     <!-- Marca -->
     <div class="sidebar__brand">
@@ -10,10 +30,10 @@
     <div class="sidebar__divider"></div>
 
     <!-- Navegación principal -->
-    <nav class="sidebar__nav">
+    <nav class="sidebar__nav" (click)="closeMobileMenu()">
       <a
         class="sidebar__nav-item"
-        routerLink="/dashboard"
+        routerLink="/dashboard/resume"
         routerLinkActive="sidebar__nav-item--active"
         [routerLinkActiveOptions]="{ exact: true }"
       >
@@ -62,6 +82,19 @@
         </svg>
         <span>Materiales</span>
       </a>
+
+      <a
+        class="sidebar__nav-item"
+        routerLink="/dashboard/product/list"
+        routerLinkActive="sidebar__nav-item--active"
+      >
+        <svg class="sidebar__nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z" />
+          <path d="M4 7.5 12 12l8-4.5" />
+          <path d="M12 12v9" />
+        </svg>
+        <span>Productos</span>
+      </a>
     </nav>
 
     <div class="sidebar__spacer"></div>
@@ -69,7 +102,7 @@
     <div class="sidebar__divider"></div>
 
     <!-- Usuario / sesión -->
-    <div class="sidebar__footer">
+    <div class="sidebar__footer" (click)="closeMobileMenu()">
       @if (httpAuth.isLoggedIn() && httpAuth.user; as user) {
         <div class="sidebar__user">
           @if (user.avatar) {

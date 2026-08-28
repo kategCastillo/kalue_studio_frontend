@@ -36,7 +36,7 @@
             <tr class="product-list__tr">
  
               <!-- Producto: imagen + nombre -->
-              <td class="product-list__td">
+              <td class="product-list__td product-list__td--identity" data-label="Producto">
                 <div class="product-list__product-cell">
                   <div class="product-list__thumb">
                     @if (item.images?.[0]) {
@@ -53,25 +53,25 @@
               </td>
  
               <!-- Categoría -->
-              <td class="product-list__td">
+              <td class="product-list__td" data-label="Categoría">
                 <span class="product-list__badge product-list__badge--category">{{ item.category?.name }}</span>
               </td>
  
               <!-- Material -->
-              <td class="product-list__td product-list__td--muted">{{ item.material?.name }}</td>
+              <td class="product-list__td product-list__td--muted" data-label="Material">{{ item.material?.name }}</td>
  
               <!-- Precio -->
-              <td class="product-list__td product-list__td--price">{{ item.price | currency }}</td>
+              <td class="product-list__td product-list__td--price" data-label="Precio">{{ item.price | currency }}</td>
  
               <!-- Stock -->
-              <td class="product-list__td product-list__td--center">
+              <td class="product-list__td product-list__td--center" data-label="Stock">
                 <span class="product-list__stock" [class.product-list__stock--low]="item.stock <= 3">
                   {{ item.stock }}
                 </span>
               </td>
  
               <!-- Destacado -->
-              <td class="product-list__td product-list__td--center">
+              <td class="product-list__td product-list__td--center" data-label="Destacado">
                 @if (item.isFeatured) {
                   <fa-icon [icon]="faStar" class="product-list__star" />
                 } @else {
@@ -80,7 +80,7 @@
               </td>
  
               <!-- Estado -->
-              <td class="product-list__td">
+              <td class="product-list__td" data-label="Estado">
                 <span class="product-list__status" [class.product-list__status--active]="item.isActive" [class.product-list__status--inactive]="!item.isActive">
                   <span class="product-list__status-dot"></span>
                   {{ item.isActive ? 'Activo' : 'Inactivo' }}
@@ -88,7 +88,7 @@
               </td>
  
               <!-- Acciones -->
-              <td class="product-list__td product-list__td--center">
+              <td class="product-list__td product-list__td--center" data-label="Acciones">
                 <div class="product-list__actions">
                   <a
                     class="product-list__action-btn product-list__action-btn--edit"

@@ -35,7 +35,7 @@
             <tr class="user-list__tr">
 
               <!-- Usuario: avatar + nombre -->
-              <td class="user-list__td">
+              <td class="user-list__td user-list__td--identity" data-label="Usuario">
                 <div class="user-list__user-cell">
                   <div class="user-list__avatar">
                     @if (item.avatar) {
@@ -49,20 +49,20 @@
               </td>
 
               <!-- Correo -->
-              <td class="user-list__td user-list__td--muted">{{ item.email }}</td>
+              <td class="user-list__td user-list__td--muted" data-label="Correo">{{ item.email }}</td>
 
               <!-- Nickname -->
-              <td class="user-list__td">
+              <td class="user-list__td" data-label="Nickname">
                 <span class="user-list__nickname">@{{ item.nickname }}</span>
               </td>
 
               <!-- Rol -->
-              <td class="user-list__td">
+              <td class="user-list__td" data-label="Rol">
                 <span class="user-list__badge user-list__badge--role">{{ item.role }}</span>
               </td>
 
               <!-- Estado -->
-              <td class="user-list__td">
+              <td class="user-list__td" data-label="Estado">
                 <span class="user-list__status" [class.user-list__status--active]="item.status" [class.user-list__status--inactive]="!item.status">
                   <span class="user-list__status-dot"></span>
                   {{ item.status ? 'Activo' : 'Inactivo' }}
@@ -70,12 +70,12 @@
               </td>
 
               <!-- Fecha de creación -->
-              <td class="user-list__td user-list__td--muted">
+              <td class="user-list__td user-list__td--muted" data-label="Registro">
                 {{ item.createdAt | date:'dd MMM yyyy' }}
               </td>
 
               <!-- Acciones -->
-              <td class="user-list__td user-list__td--center">
+              <td class="user-list__td user-list__td--center" data-label="Acciones">
                 <div class="user-list__actions">
                   <a
                     class="user-list__action-btn user-list__action-btn--edit"

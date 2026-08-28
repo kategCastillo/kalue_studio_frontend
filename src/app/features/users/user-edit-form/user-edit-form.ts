@@ -13,10 +13,9 @@ import { AsyncPipe } from '@angular/common';
 import { HttpUsers } from '../../../core/services/http-users';
 import Swal from 'sweetalert2';
 
-import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-user-edit-form',
-  imports: [ReactiveFormsModule, AsyncPipe, RouterLink, Sidebar],
+  imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
   templateUrl: './user-edit-form.html',
   styleUrl: './user-edit-form.css',
 })

@@ -10,10 +10,9 @@ import { HttpUsers } from '../../../core/services/http-users';
 
 import Swal from 'sweetalert2';
 
-import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-user-list',
-  imports: [AsyncPipe, RouterLink, SlicePipe, DatePipe, FontAwesomeModule, Sidebar],
+  imports: [AsyncPipe, RouterLink, SlicePipe, DatePipe, FontAwesomeModule],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })

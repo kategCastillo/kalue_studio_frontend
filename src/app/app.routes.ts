@@ -13,12 +13,14 @@ export const routes: Routes = [
     { path: 'order/:id', loadComponent: () => import ('./features/order/order-detail/order-detail')},
     { path: 'products/modal', loadComponent: () => import ('./features/products/products-modal/products-modal')},
     { path: 'user/detail', loadComponent: () => import('./features/dashboard-user/dashboard-user') },
-    
 
     { path: 'dashboard',
-      canActivate: [authGuard, guestGuard], 
+      canActivate: [authGuard], 
       loadComponent:() => import('./features/dashboard/dashboard'),
       children: [
+        { path: 'resume',
+          loadComponent: () => import('./features/resume-dashboard/resume-dashboard'),
+        },
         { path: 'user',
           children: [
             { path: 'list', loadComponent: () => import('./features/users/user-list/user-list')},
