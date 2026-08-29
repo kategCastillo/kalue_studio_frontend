@@ -57,3 +57,7 @@ table, th, td {
     border: 1px solid red;
     border-radius: 3 rem;
 }
+
+.pre {
+    display: none;
+}

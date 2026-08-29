@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { HttpCart } from '../../../core/services/http-cart';
 import { HttpAuth } from '../../../core/services/http-auth';
 
@@ -19,9 +19,9 @@ export class ProductCard {
   public count: any = 0;
   public adding: any = false; // deshabilita el botón mientras la petición está en curso
 
-  private httpCart = inject(HttpCart);
-  private httpAuth = inject(HttpAuth);
+  
   private productModal = inject (ProductModal)
+  @Output() add = new EventEmitter<any>();
 
   public faEye = faEye;
 
@@ -30,36 +30,16 @@ export class ProductCard {
   }
 
   addCart() {
-    if (!this.httpAuth.isLoggedIn()) {
-      alert('Debes iniciar sesión para agregar productos al carrito');
-      return;
-    }
-
-    if (this.count <= 0) {
-      alert('Selecciona al menos 1 unidad para agregar al carrito');
-      return;
-    }
-
     this.adding = true;
-
-    // quantity aquí es la cantidad a SUMAR (delta), tal como lo espera PATCH /cart/me
-    this.httpCart.updateMyCart(this.product._id, this.count).subscribe({
-      next: () => {
-        this.httpCart.refreshCart(); // avisa al header (badge) y a quien esté suscrito
-        this.count = 0;
-        this.adding = false;
-      },
-      error: (error: any) => {
-        console.error(error);
-        alert(error.error?.msg || 'No se pudo agregar el producto al carrito');
-        this.adding = false;
-      }
-    });
+    this.add.emit({ product: this.product, count: this.count } );
   }
 
   increment() {
+    console.log( this.product );
+
     if (this.count < this.product.stock) {
       this.count++;
+      console.log( this.count );
     }
   }
 

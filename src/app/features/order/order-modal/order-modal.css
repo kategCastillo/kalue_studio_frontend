@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 * {
   margin: 0;
   padding: 0;
@@ -121,9 +121,6 @@
 .estado-cancelado { background-color: #f4dede; color: #b3392c; }
 
 /* ---------- Línea de tiempo ---------- */
-
-=======
->>>>>>> 8826c9838a958fe0bb07584a2de7491bafb00455
 .orden-timeline {
   display: flex;
   justify-content: space-between;

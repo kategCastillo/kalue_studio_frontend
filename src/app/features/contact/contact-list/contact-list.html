@@ -36,7 +36,7 @@
             <tr class="contact-list__tr">
 
               <!-- Cliente -->
-              <td class="contact-list__td">
+              <td class="contact-list__td contact-list__td--identity" data-label="Cliente">
                 <div class="contact-list__user-cell">
                   <div class="contact-list__avatar">
                     <span class="contact-list__avatar-initials">
@@ -53,21 +53,21 @@
               </td>
 
               <!-- Etiqueta -->
-              <td class="contact-list__td">
+              <td class="contact-list__td" data-label="Etiqueta">
                 <span class="contact-list__badge contact-list__badge--label">{{ item.label }}</span>
               </td>
 
               <!-- Quién recibe -->
-              <td class="contact-list__td">{{ item.receiverName }}</td>
+              <td class="contact-list__td" data-label="Quién recibe">{{ item.receiverName }}</td>
 
               <!-- Dirección -->
-              <td class="contact-list__td contact-list__td--muted contact-list__td--address">{{ item.address }}</td>
+              <td class="contact-list__td contact-list__td--muted contact-list__td--address" data-label="Dirección">{{ item.address }}</td>
 
               <!-- Teléfono -->
-              <td class="contact-list__td contact-list__td--muted">{{ item.phone }}</td>
+              <td class="contact-list__td contact-list__td--muted" data-label="Teléfono">{{ item.phone }}</td>
 
               <!-- Predeterminado -->
-              <td class="contact-list__td">
+              <td class="contact-list__td" data-label="Predeterminado">
                 @if (item.isDefault) {
                   <span class="contact-list__status contact-list__status--active">
                     <fa-icon [icon]="faStar" />
@@ -82,12 +82,12 @@
               </td>
 
               <!-- Fecha de creación -->
-              <td class="contact-list__td contact-list__td--muted">
+              <td class="contact-list__td contact-list__td--muted" data-label="Registro">
                 {{ item.createdAt | date:'dd MMM yyyy' }}
               </td>
 
               <!-- Acciones -->
-              <td class="contact-list__td contact-list__td--center">
+              <td class="contact-list__td contact-list__td--center" data-label="Acciones">
                 <div class="contact-list__actions">
                   <a
                     class="contact-list__action-btn contact-list__action-btn--edit"

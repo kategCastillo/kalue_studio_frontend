@@ -2,12 +2,14 @@
 @import '../../../../styles.css';
 
 .product-register {
-  display: grid;
-  grid-template-columns: 300px 1fr;
+  display: flex;
+  width: 100%;
   min-height: 100vh;
   font-family: var(--font-sans);
   background-color: var(--color-bg-light);
 }
+/* Este componente vive dentro del router-outlet del panel de administración,
+   que ya trae su propio <app-sidebar>; por eso solo se usa __main. */
 
 .product-register__aside {
   background-color: var(--color-text-main);
@@ -94,6 +96,10 @@
 }
 
 .product-register__main {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
   padding: 3.5rem 4rem;
   overflow-y: auto;
   background-color: #f9f8f6;
@@ -525,7 +531,7 @@
 
 @media (max-width: 960px) {
   .product-register {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     min-height: auto;
   }
 

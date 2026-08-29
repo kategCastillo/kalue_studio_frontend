@@ -1,7 +1,4 @@
 <div class="category-list">
-
-  <app-sidebar></app-sidebar>
-
   <!-- Main -->
   <main class="category-list__main">
 
@@ -37,17 +34,17 @@
             <tr class="category-list__tr">
 
               <!-- Nombre -->
-              <td class="category-list__td">
+              <td class="category-list__td category-list__td--identity" data-label="Categoría">
                 <span class="category-list__name">{{ item.name }}</span>
               </td>
 
               <!-- Descripción -->
-              <td class="category-list__td category-list__td--muted category-list__td--wrap">
+              <td class="category-list__td category-list__td--muted category-list__td--wrap" data-label="Descripción">
                 {{ item.description || '—' }}
               </td>
 
               <!-- Categoría padre -->
-              <td class="category-list__td">
+              <td class="category-list__td" data-label="Categoría padre">
                 @if (item.parentCategoryId?.name) {
                   <span class="category-list__badge category-list__badge--parent">{{ item.parentCategoryId.name }}</span>
                 } @else {
@@ -56,7 +53,7 @@
               </td>
 
               <!-- Estado -->
-              <td class="category-list__td">
+              <td class="category-list__td" data-label="Estado">
                 <span class="category-list__status" [class.category-list__status--active]="item.isActive" [class.category-list__status--inactive]="!item.isActive">
                   <span class="category-list__status-dot"></span>
                   {{ item.isActive ? 'Activa' : 'Inactiva' }}
@@ -64,12 +61,12 @@
               </td>
 
               <!-- Fecha de creación -->
-              <td class="category-list__td category-list__td--muted">
+              <td class="category-list__td category-list__td--muted" data-label="Registro">
                 {{ item.createdAt | date:'dd MMM yyyy' }}
               </td>
 
               <!-- Acciones -->
-              <td class="category-list__td category-list__td--center">
+              <td class="category-list__td category-list__td--center" data-label="Acciones">
                 <div class="category-list__actions">
                   <a
                     class="category-list__action-btn category-list__action-btn--edit"

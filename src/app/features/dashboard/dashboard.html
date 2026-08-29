@@ -1,133 +1,15 @@
-<div class="dashboard">
-
-  <!-- Barra lateral (componente aparte) -->
+<!-- Barra lateral (componente aparte) -->
+<main class="main">
   <app-sidebar></app-sidebar>
 
-  <!-- Contenido -->
-  <main class="dashboard__main">
-    <header class="dashboard__header">
-      <p class="dashboard__eyebrow">Panel de administración</p>
-      <h1 class="dashboard__title">Resumen general</h1>
-      <p class="dashboard__subtitle">
-        Visualiza el estado general del catálogo, usuarios y contactos de Kalue Studio.
-      </p>
-    </header>
-
-    <!-- Tarjetas de estadísticas -->
-    <section class="dashboard__stats">
-      <article class="dashboard__stat-card">
-        <div class="dashboard__stat-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="9" cy="8" r="3.2" />
-            <path d="M2.8 19c.6-3 3-5 6.2-5s5.6 2 6.2 5" />
-            <path d="M15.5 5.2c1.4.4 2.4 1.6 2.4 3.1 0 1.5-1 2.7-2.4 3.1" />
-            <path d="M15 14c2.7.4 4.7 2.2 5.2 5" />
-          </svg>
-        </div>
-        <div class="dashboard__stat-body">
-          <span class="dashboard__stat-label">Usuarios</span>
-          <span class="dashboard__stat-value">{{ stats.users }}</span>
-        </div>
-      </article>
-
-      <article class="dashboard__stat-card">
-        <div class="dashboard__stat-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M3 4h8l2 2h8v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4Z" />
-            <circle cx="9" cy="13" r="1.3" fill="currentColor" stroke="none" />
-          </svg>
-        </div>
-        <div class="dashboard__stat-body">
-          <span class="dashboard__stat-label">Categorías</span>
-          <span class="dashboard__stat-value">{{ stats.categories }}</span>
-        </div>
-      </article>
-
-      <article class="dashboard__stat-card">
-        <div class="dashboard__stat-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z" />
-            <path d="M4 7.5 12 12l8-4.5" />
-            <path d="M12 12v9" />
-          </svg>
-        </div>
-        <div class="dashboard__stat-body">
-          <span class="dashboard__stat-label">Materiales</span>
-          <span class="dashboard__stat-value">{{ stats.materials }}</span>
-        </div>
-      </article>
-
-      <article class="dashboard__stat-card">
-        <div class="dashboard__stat-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <rect x="3" y="5" width="18" height="14" rx="1.2" />
-            <path d="m3.5 6 8.5 6.5L20.5 6" />
-          </svg>
-        </div>
-        <div class="dashboard__stat-body">
-          <span class="dashboard__stat-label">Contactos</span>
-          <span class="dashboard__stat-value">{{ stats.contacts }}</span>
-        </div>
-      </article>
-    </section>
-
-    <div class="dashboard__divider"></div>
-
-    <!-- Accesos rápidos + actividad -->
-    <section class="dashboard__grid">
-      <article class="dashboard__panel">
-        <header class="dashboard__panel-header">
-          <h2 class="dashboard__panel-title">Accesos rápidos</h2>
-        </header>
-
-        <div class="dashboard__quick-actions">
-          <a routerLink="/dashboard/user/new/form" class="dashboard__quick-action">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-            Nuevo usuario
-          </a>
-          <a routerLink="/dashboard/category/new/form" class="dashboard__quick-action">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-            Nueva categoría
-          </a>
-          <a routerLink="/dashboard/material/new/form" class="dashboard__quick-action">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-            Nuevo material
-          </a>
-          <a routerLink="/dashboard/contact/new/form" class="dashboard__quick-action">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-            Nuevo contacto
-          </a>
-        </div>
-      </article>
-
-      <article class="dashboard__panel">
-        <header class="dashboard__panel-header">
-          <h2 class="dashboard__panel-title">Actividad reciente</h2>
-        </header>
-
-        <ul class="dashboard__activity-list">
-          @for (item of recentActivity; track $index) {
-            <li class="dashboard__activity-item">
-              <span class="dashboard__activity-dot"></span>
-              <div class="dashboard__activity-body">
-                <p class="dashboard__activity-text">{{ item.text }}</p>
-                <span class="dashboard__activity-time">{{ item.time }}</span>
-              </div>
-            </li>
-          } @empty {
-            <li class="dashboard__activity-empty">Sin actividad reciente.</li>
-          }
-        </ul>
-      </article>
-    </section>
-  </main>
-
-</div>
+  <!--
+    El div "main__content" SÍ pertenece a la plantilla de este componente
+    (a diferencia de lo que inserta el router-outlet dinámicamente), así
+    que Angular le aplica el mismo scope de estilos que a ".main" y el
+    "flex: 1" de dashboard.css se aplica de verdad, sin importar qué
+    página cargue el router-outlet en su interior.
+  -->
+  <div class="main__content">
+    <router-outlet />
+  </div>
+</main>

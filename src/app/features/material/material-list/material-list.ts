@@ -10,10 +10,9 @@ import { HttpMaterials } from '../../../core/services/http-materials';
 
 import Swal from 'sweetalert2';
 
-import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-material-list',
-  imports: [AsyncPipe, RouterLink, DatePipe, FontAwesomeModule, Sidebar],
+  imports: [AsyncPipe, RouterLink, DatePipe, FontAwesomeModule],
   templateUrl: './material-list.html',
   styleUrl: './material-list.css',
 })

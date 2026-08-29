@@ -1,5 +1,7 @@
 <main>
 
+    <pre class="pre">"{{ shoppingCart | async | json }}</pre>
+
     <section class="cart">
 
         <!-- ===== Header ===== -->
@@ -17,7 +19,7 @@
                     <p class="cart__empty">Tu carrito está vacío por ahora.</p>
                 } @else {
                     @for (item of items; track item._id) {
-                        <app-card-items-carrito [item]="item" (quantityChange)="onQuantityChange($event)" (remove)="onRemove($event)" />
+                        <app-card-items-carrito [item]="item" (incrementEm)="incrementQuantity($event)" (decrementEm)="decrementQuantity($event)" (remove)="onRemove($event)" />
                     }
                 }
 

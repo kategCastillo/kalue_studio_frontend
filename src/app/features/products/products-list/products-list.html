@@ -1,20 +1,4 @@
 <div class="product-list">
- <h1>hola</h1>
-  <!-- Aside — igual al de user-list -->
-  <aside class="product-list__aside">
-    <div class="product-list__aside-inner">
-      <span class="product-list__aside-label">Kalue Studio</span>
-      <h2 class="product-list__aside-title">Panel de<br/>Administración</h2>
-      <p class="product-list__aside-desc">Gestiona los productos, categorías, materiales y stock de la tienda desde un solo lugar.</p>
-      <div class="product-list__aside-divider"></div>
-      <ul class="product-list__aside-features">
-        <li>Control de stock e inventario</li>
-        <li>Gestión de categorías y materiales</li>
-        <li>Estado de productos en tiempo real</li>
-      </ul>
-    </div>
-  </aside>
- 
   <!-- Main -->
   <main class="product-list__main">
  
@@ -25,7 +9,7 @@
         <h1 class="product-list__title">Productos</h1>
         <p class="product-list__subtitle">Consulta, edita o elimina los productos registrados en la tienda.</p>
       </div>
-      <a routerLink="/product-new" class="product-list__btn-new">
+      <a routerLink="/dashboard/product/new" class="product-list__btn-new">
         <fa-icon [icon]="faPlus" />
         Nuevo Producto
       </a>
@@ -52,7 +36,7 @@
             <tr class="product-list__tr">
  
               <!-- Producto: imagen + nombre -->
-              <td class="product-list__td">
+              <td class="product-list__td product-list__td--identity" data-label="Producto">
                 <div class="product-list__product-cell">
                   <div class="product-list__thumb">
                     @if (item.images?.[0]) {
@@ -69,25 +53,25 @@
               </td>
  
               <!-- Categoría -->
-              <td class="product-list__td">
+              <td class="product-list__td" data-label="Categoría">
                 <span class="product-list__badge product-list__badge--category">{{ item.category?.name }}</span>
               </td>
  
               <!-- Material -->
-              <td class="product-list__td product-list__td--muted">{{ item.material?.name }}</td>
+              <td class="product-list__td product-list__td--muted" data-label="Material">{{ item.material?.name }}</td>
  
               <!-- Precio -->
-              <td class="product-list__td product-list__td--price">{{ item.price | currency }}</td>
+              <td class="product-list__td product-list__td--price" data-label="Precio">{{ item.price | currency }}</td>
  
               <!-- Stock -->
-              <td class="product-list__td product-list__td--center">
+              <td class="product-list__td product-list__td--center" data-label="Stock">
                 <span class="product-list__stock" [class.product-list__stock--low]="item.stock <= 3">
                   {{ item.stock }}
                 </span>
               </td>
  
               <!-- Destacado -->
-              <td class="product-list__td product-list__td--center">
+              <td class="product-list__td product-list__td--center" data-label="Destacado">
                 @if (item.isFeatured) {
                   <fa-icon [icon]="faStar" class="product-list__star" />
                 } @else {
@@ -96,7 +80,7 @@
               </td>
  
               <!-- Estado -->
-              <td class="product-list__td">
+              <td class="product-list__td" data-label="Estado">
                 <span class="product-list__status" [class.product-list__status--active]="item.isActive" [class.product-list__status--inactive]="!item.isActive">
                   <span class="product-list__status-dot"></span>
                   {{ item.isActive ? 'Activo' : 'Inactivo' }}
@@ -104,11 +88,11 @@
               </td>
  
               <!-- Acciones -->
-              <td class="product-list__td product-list__td--center">
+              <td class="product-list__td product-list__td--center" data-label="Acciones">
                 <div class="product-list__actions">
                   <a
                     class="product-list__action-btn product-list__action-btn--edit"
-                    [routerLink]="['/product', 'edit', 'form', item._id]"
+                    [routerLink]="['/dashboard','product', 'edit', item._id]"
                     (click)="onEdit(item._id)"
                     title="Editar producto"
                   >
