@@ -4,11 +4,15 @@
   width: 100%;
 }
 
-/* El contenido enrutado (router-outlet) debe ocupar el espacio restante
-   junto al sidebar y nunca desbordar la pantalla */
-.main > *:not(app-sidebar):not(router-outlet) {
+/* Contenedor real (no dinámico) que envuelve el router-outlet. Al vivir en
+   la propia plantilla de Dashboard, Angular sí le aplica el mismo scope de
+   estilos que a ".main", así que "flex: 1" funciona sin importar qué
+   página cargue el router-outlet adentro. */
+.main__content {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 960px) {

@@ -2,7 +2,14 @@
 <main class="main">
   <app-sidebar></app-sidebar>
 
-  <router-outlet class="routerOut" />
+  <!--
+    El div "main__content" SÍ pertenece a la plantilla de este componente
+    (a diferencia de lo que inserta el router-outlet dinámicamente), así
+    que Angular le aplica el mismo scope de estilos que a ".main" y el
+    "flex: 1" de dashboard.css se aplica de verdad, sin importar qué
+    página cargue el router-outlet en su interior.
+  -->
+  <div class="main__content">
+    <router-outlet />
+  </div>
 </main>
-  
-  

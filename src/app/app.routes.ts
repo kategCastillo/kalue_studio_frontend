@@ -58,7 +58,9 @@ export const routes: Routes = [
     
 
     { path: '' , redirectTo: 'coleccion', pathMatch: 'full'},
-    { path: '**', redirectTo: 'coleccion', pathMatch: 'full' }
+    { path: '**', redirectTo: 'coleccion', pathMatch: 'full' },
+    { path: 'dashboard', redirectTo: 'dashboars/resume', pathMatch: 'full' }
+
 ];
 
 
