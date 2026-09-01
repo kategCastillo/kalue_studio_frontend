@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { HttpAuth } from '../../../core/services/http-auth';
 import { HttpCart } from '../../../core/services/http-cart';
@@ -13,10 +13,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class Header {
   public counter = new BehaviorSubject<number|null>(0);
+  public isMobileMenuOpen = false;
 
-
-  public httpAuth = inject (HttpAuth);
-  public httpCart = inject (HttpCart);
+  public httpAuth = inject(HttpAuth);
+  public httpCart = inject(HttpCart);
   private router = inject(Router);
 
   ngOnInit(): void {
@@ -26,19 +26,35 @@ export class Header {
     }
   }
 
-  loadCounter () {
+  loadCounter() {
     this.httpCart.cart.subscribe({
-        next: ( res ) => {
-          this.counter.next( res?.items.length || 0 );
-        },
-        error: ( err ) => {
-          console.error( err );
-        }
-      })
+      next: (res) => {
+        this.counter.next(res?.items.length || 0);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    document.body.style.overflow = this.isMobileMenuOpen ? 'hidden' : '';
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+    document.body.style.overflow = '';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeMobileMenu();
   }
 
   logout(): void {
-    this.httpAuth.logoutUser(); 
-    this.router.navigateByUrl( '/login' );
+    this.httpAuth.logoutUser();
+    this.closeMobileMenu();
+    this.router.navigateByUrl('/login');
   }
 }

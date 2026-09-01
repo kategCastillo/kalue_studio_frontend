@@ -7,7 +7,7 @@ import OrderModalComponent from './features/order/order-modal/order-modal';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Footer, Header, ProductsModal, OrderModalComponent],
+  imports: [RouterOutlet, Footer, Header, ProductsModal],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

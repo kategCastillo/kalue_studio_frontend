@@ -1,6 +1,3 @@
-
-
-/* @import '../../../styles.css'; */
 /* ==========================================================================
    Sección de contacto
    ========================================================================== */
@@ -15,32 +12,32 @@
 .contact-container {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 64px;
+  gap: 48px;
 }
 
 /* --- Información de contacto (columna izquierda) --- */
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 40px;
 }
 
 .contact-intro {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .page-title {
   font-family: var(--font-serif);
-  font-size: 48px;
+  font-size: 36px;
   line-height: 1.1;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .page-description {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--color-text-muted);
   max-width: 480px;
@@ -48,13 +45,13 @@
 
 .contact-map {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 10; /* más bajo en móvil, evita un mapa gigante */
   width: 100%;
   overflow: hidden;
   border: 1px solid var(--color-border);
   filter: grayscale(40%) contrast(1.05);
 }
- 
+
 .contact-map__frame {
   display: block;
   width: 100%;
@@ -65,15 +62,15 @@
 .contact-details {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 32px;
-  padding-top: 32px;
+  gap: 24px;
+  padding-top: 24px;
   border-top: 1px solid var(--color-border);
 }
 
 .detail-block {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .detail-title {
@@ -86,7 +83,7 @@
 
 .detail-text {
   font-style: normal;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
   color: var(--color-text-muted);
 }
@@ -95,25 +92,25 @@
 .contact-form-section {
   background-color: var(--color-bg-inputs);
   border: 1px solid var(--color-border);
-  padding: 32px 24px;
+  padding: 28px 20px;
   display: flex;
   align-items: center;
-  margin: auto;
-  height: 700px;
-  width: 600px;
+  width: 100%;
+  height: auto; /* el alto lo define el contenido, no un valor fijo */
 }
 
 .contact-form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 28px;
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0; /* evita que inputs/selects desborden en flex/grid */
 }
 
 .field-label {
@@ -131,7 +128,7 @@
   border-bottom: 1px solid var(--color-border);
   padding: 12px 0;
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 16px; /* 16px+ evita el zoom automático de iOS al enfocar */
   color: var(--color-text-main);
   transition: var(--transition-smooth);
 }
@@ -151,6 +148,7 @@
   background-repeat: no-repeat;
   background-position: right center;
   background-size: 18px;
+  padding-right: 24px; /* espacio para que el ícono no tape el texto */
 }
 
 .field-textarea {
@@ -161,7 +159,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
   padding-top: 8px;
 }
 
@@ -202,7 +200,9 @@
 
 .social-links {
   display: flex;
-  gap: 24px;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .social-link {
@@ -227,16 +227,33 @@
     padding: 64px var(--margin-desktop);
   }
 
+  .contact-container {
+    gap: 56px;
+  }
+
   .page-title {
-    font-size: 56px;
+    font-size: 48px;
+  }
+
+  .page-description {
+    font-size: 18px;
+  }
+
+  .contact-map {
+    aspect-ratio: 4 / 3;
   }
 
   .contact-details {
     grid-template-columns: 1fr 1fr;
+    gap: 32px;
   }
 
   .contact-form-section {
     padding: 48px;
+  }
+
+  .contact-form {
+    gap: 36px;
   }
 
   .form-footer {
@@ -256,9 +273,22 @@
   .contact-container {
     grid-template-columns: 5fr 7fr;
     align-items: stretch;
+    gap: 64px;
   }
 
   .page-title {
     font-size: 64px;
+  }
+
+  .contact-map {
+    aspect-ratio: 4 / 5; /* el formato vertical original vuelve en desktop, donde hay espacio de sobra */
+  }
+
+  .contact-form-section {
+    height: 100%; /* estira el form para igualar el alto de la columna izquierda */
+  }
+
+  .contact-form {
+    gap: 40px;
   }
 }
