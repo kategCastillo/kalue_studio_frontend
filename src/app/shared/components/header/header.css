@@ -1,37 +1,43 @@
-/* --- Variables del Sistema de Diseño --- */
-:root {
-    --color-background: #fcf9f8;
-    --color-on-surface: #1c1b1b;
-    --color-tertiary-10: rgba(90, 95, 100, 0.1);
-    --color-primary: #605e5a;
-    --color-on-primary: #ffffff;
-    --color-secondary-container: #f2ded9;
-    --color-on-secondary-container: #6f615d;
-    
-    --font-headline: 'Playfair Display', serif;
-    --font-body: 'Inter', sans-serif;
+/* --- Estilos del Header --- */
+html {
+    overflow-x: hidden;
+    width: 100%;
 }
 
-/* --- Estilos del Header --- */
+body {
+    overflow-x: hidden;
+    overflow-x: clip; /* más robusto que hidden, no rompe position:sticky */
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+    overscroll-behavior-x: none; /* evita el "rebote" horizontal en el gesto de swipe */
+    touch-action: pan-y; /* bloquea el swipe horizontal de navegación, permite scroll vertical normal */
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 .site-header {
     position: sticky;
     top: 0;
     width: 100%;
     z-index: 50;
-    background-color: rgba(252, 249, 248, 0.8);
+    background-color: color-mix(in srgb, var(--color-bg-light) 80%, transparent);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--color-tertiary-10);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 10%, transparent);
 }
 
 .header-container {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    max-width: 1440px;
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 16px; /* Margen móvil por defecto */
+    padding: 0 var(--margin-mobile);
 }
 
 .avatar-logout {
@@ -44,35 +50,39 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 100%;
-    border: 2px solid var(--color-primary);
+    border: 2px solid var(--color-text-light);
     object-fit: cover;
     cursor: pointer;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: var(--transition-smooth);
 }
 
 .user-avatar:hover {
     transform: scale(1.05);
-    border-color: var(--color-on-surface);
+    border-color: var(--color-text-main);
 }
 
-/* Dropdown que aparece al pasar el mouse por el avatar */
+/* Dropdown de escritorio (hover sobre el avatar) */
 .logout-dropdown {
     position: absolute;
     top: calc(100% + 12px);
     right: 0;
+    z-index: 100;
+    isolation: isolate;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    min-width: 160px;
-    padding: 12px;
-    background-color: var(--color-background);
-    border: 1px solid var(--color-tertiary-10);
+    min-width: 180px;
+    padding: 14px;
+    background-color: var(--color-bg-light);
+    border: 1px solid color-mix(in srgb, var(--color-border) 10%, transparent);
     border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    transition: var(--transition-smooth);
 }
 
 .avatar-logout:hover .logout-dropdown,
@@ -83,26 +93,28 @@
 }
 
 .user-name {
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
     font-size: 13px;
     font-weight: 600;
-    color: var(--color-on-surface);
-    border-bottom: 1px solid var(--color-tertiary-10);
+    color: var(--color-text-main);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 10%, transparent);
     padding-bottom: 8px;
 }
 
-.btn-logout {
-    font-family: var(--font-body);
+.btn-logout,
+.btn-dashboard {
+    font-family: var(--font-sans);
     font-size: 13px;
     font-weight: 500;
-    color: var(--color-primary);
+    color: var(--color-text-light);
     text-decoration: none;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: var(--transition-smooth);
 }
 
-.btn-logout:hover {
-    color: var(--color-on-secondary-container);
+.btn-logout:hover,
+.btn-dashboard:hover {
+    color: var(--color-text-muted);
 }
 
 /* Logo */
@@ -118,27 +130,27 @@
 
 /* Navegación Desktop */
 .main-nav {
-    display: none; /* Oculto en móviles */
+    display: none; /* Oculta en móvil/tablet; el drawer se encarga ahí */
 }
 
 .nav-list {
     display: flex;
-    gap: 32px;
+    gap: var(--gutter);
     list-style: none;
 }
 
 .nav-item {
+    font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--color-on-surface);
+    color: var(--color-text-main);
     text-decoration: none;
     position: relative;
     padding-bottom: 2px;
 }
 
-/* Efecto hover elegante de la plantilla original */
 .nav-item::after {
     content: '';
     position: absolute;
@@ -147,7 +159,7 @@
     width: 0;
     height: 1px;
     background-color: currentColor;
-    transition: width 0.3s ease;
+    transition: var(--transition-smooth);
 }
 
 .nav-item:hover::after {
@@ -164,7 +176,7 @@
 .action-btn, .mobile-menu-btn {
     background: none;
     border: none;
-    color: var(--color-on-surface);
+    color: var(--color-text-main);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -174,11 +186,10 @@
     height: 2rem;
 }
 
-.symbol-nav-btn{
+.symbol-nav-btn {
     width: 100%;
     height: 100%;
 }
-
 
 /* Ocultar iconos de cuenta y búsqueda en móvil para priorizar espacio */
 .action-btn:nth-child(1),
@@ -194,8 +205,9 @@
     position: absolute;
     top: -4px;
     right: -4px;
-    background-color: var(--color-secondary-container);
-    color: var(--color-on-secondary-container);
+    background-color: var(--color-bg-inputs);
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
     font-size: 10px;
     font-weight: 600;
     width: 16px;
@@ -206,21 +218,196 @@
     justify-content: center;
 }
 
+/* ==========================================================
+   MENÚ LATERAL (DRAWER) MÓVIL/TABLET
+   ========================================================== */
+
+/* Oscurece el fondo cuando el drawer está abierto */
+.mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 60;
+}
+
+.mobile-nav-overlay--visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Panel lateral que se desliza desde la derecha */
+.mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(320px, 85vw);
+    height: 100vh;
+    height: 100dvh;
+    background-color: var(--color-bg-light);
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.3s ease, visibility 0.3s ease;
+    z-index: 70;
+}
+
+.mobile-drawer--open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px var(--margin-mobile);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 10%, transparent);
+    flex-shrink: 0;
+}
+
+.mobile-drawer-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--color-text-main);
+    cursor: pointer;
+    padding: 0 4px;
+}
+
+/* Navegación dentro del drawer, con scroll propio si hay muchos links */
+.mobile-drawer-nav {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px var(--margin-mobile);
+}
+
+.mobile-drawer-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-drawer-nav a {
+    display: block;
+    padding: 14px 4px;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-main);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 6%, transparent);
+    transition: var(--transition-smooth);
+}
+
+.mobile-drawer-nav a:hover,
+.mobile-drawer-nav a.active_link {
+    color: var(--color-text-light);
+    padding-left: 8px;
+}
+
+/* Pie del drawer: perfil de usuario, siempre visible al fondo */
+.mobile-drawer-footer {
+    flex-shrink: 0;
+    padding: 20px var(--margin-mobile) 28px;
+    border-top: 1px solid color-mix(in srgb, var(--color-border) 10%, transparent);
+    background-color: color-mix(in srgb, var(--color-bg-light) 96%, black);
+}
+
+.mobile-user-block {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.mobile-user-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mobile-user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-text-light);
+    flex-shrink: 0;
+}
+
+.mobile-user-name {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+.mobile-user-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mobile-user-links a {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-light);
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px 4px;
+    border-radius: 4px;
+    transition: var(--transition-smooth);
+}
+
+.mobile-user-links a:hover {
+    color: var(--color-text-muted);
+    background-color: color-mix(in srgb, var(--color-bg-inputs) 40%, transparent);
+}
+
+.mobile-login-link {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-main);
+    text-decoration: none;
+    padding: 12px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    transition: var(--transition-smooth);
+}
+
+.mobile-login-link:hover {
+    background-color: var(--color-text-main);
+    color: var(--color-bg-light);
+}
+
 /* --- Media Queries (Responsive) --- */
 @media (min-width: 768px) {
     .header-container {
         padding: 0 40px;
     }
-    
+
     .action-btn:nth-child(1),
     .action-btn:nth-child(2) {
-        display: flex; /* Mostrar búsqueda y cuenta en tablets */
+        display: flex;
     }
 }
 
 @media (min-width: 1024px) {
     .header-container {
-        padding: 0 64px; /* Margen de escritorio según tu spacing config */
+        padding: 0 var(--margin-desktop);
     }
 
     .main-nav {
@@ -228,10 +415,23 @@
     }
 
     .mobile-menu-btn {
-        display: none; /* Ocultar hamburguesa */
+        display: none; /* Ocultar hamburguesa: ya no hace falta el drawer */
     }
-    
+
     .header-actions {
         gap: 24px;
+    }
+
+    /* El drawer y su overlay son exclusivos de móvil/tablet */
+    .mobile-nav-overlay,
+    .mobile-drawer {
+        display: none;
+    }
+}
+
+@media (max-width: 1023.98px) {
+    /* En móvil/tablet el perfil vive en el drawer, no en el dropdown de escritorio */
+    .avatar-logout {
+        display: none;
     }
 }

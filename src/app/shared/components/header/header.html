@@ -1,37 +1,26 @@
 <header class="site-header">
-  
   <div class="header-container">
     <!-- Brand Logo -->
     <a class="brand-logo" routerLink="/">
-      <!-- Reemplazar el src con tu archivo de logo real, ej: logo.png -->
       <img alt="Kalue-Studio_logo" src="assets/images/kalue.png" />
     </a>
 
-    <!-- Navigation Links -->
     <nav class="main-nav">
       <ul class="nav-list">
-        <li>
-          <a class="nav-item" routerLink="/coleccion" routerLinkActive="active_link">Coleccion</a>
-        </li>
-        <li>
-          <a class="nav-item" routerLink="/nosotros" roouterLinkActive="active_link">Nosotros</a>
-        </li>
-        <li>
-          <a class="nav-item" routerLink="/productos" routerLinkActive="active_link">Productos</a>
-        </li>
-        <li>
-          <a class="nav-item" routerLink="/contacto" routerLinkActive="active_link">Contactos</a>
-        </li>
+        <li><a class="nav-item" routerLink="/coleccion" routerLinkActive="active_link">Coleccion</a></li>
+        <li><a class="nav-item" routerLink="/nosotros" routerLinkActive="active_link">Nosotros</a></li>
+        <li><a class="nav-item" routerLink="/productos" routerLinkActive="active_link">Productos</a></li>
+        <li><a class="nav-item" routerLink="/contacto" routerLinkActive="active_link">Contactos</a></li>
       </ul>
     </nav>
 
-    <!-- Action Icons -->
     <div class="header-actions">
       <button class="action-btn" aria-label="Buscar">
         <span class="material-symbols-outlined"
           ><img class="symbol-nav-btn" src="assets/svg/search.svg" alt="Buscar"
         /></span>
       </button>
+
       @if (httpAuth.isLoggedIn() && httpAuth.user; as user) {
         <div class="avatar-logout">
           @if (user.avatar) {
@@ -40,6 +29,9 @@
           <div class="logout-dropdown">
             <span class="user-name">{{ user.name || 'Usuario' }}</span>
             <a routerLink="/user/detail" class="btn-logout">Ver Perfil</a>
+            @if (user.role && user.role !== 'subscriber') {
+              <a routerLink="/dashboard/resume" class="btn-dashboard">Dashboard</a>
+            }
             <a class="btn-logout" style="cursor: pointer" (click)="logout()">Cerrar Sesión</a>
           </div>
         </div>
@@ -50,14 +42,20 @@
           /></a>
         </button>
       }
+
       <button class="action-btn shopping-cart-btn" aria-label="Carrito de compras">
         <a routerLink="/carrito" class="material-symbols-outlined"
           ><img class="symbol-nav-btn" src="assets/svg/shopping-bag.svg" alt="Carrito de compras"
         /></a>
         <span class="cart-badge">{{ (counter | async) }}</span>
       </button>
-      <!-- Botón de Menú Móvil -->
-      <button class="mobile-menu-btn" aria-label="Abrir Menú">
+
+      <button
+        class="mobile-menu-btn"
+        aria-label="Abrir Menú"
+        [attr.aria-expanded]="isMobileMenuOpen"
+        (click)="toggleMobileMenu()"
+      >
         <span class="material-symbols-outlined"
           ><img class="symbol-nav-btn" src="assets/svg/menu-2.svg" alt="Menu Desplegable"
         /></span>
@@ -65,3 +63,52 @@
     </div>
   </div>
 </header>
+
+<!-- Overlay y drawer FUERA del <header>, para que backdrop-filter no los "atrape" -->
+<div
+  class="mobile-nav-overlay"
+  [class.mobile-nav-overlay--visible]="isMobileMenuOpen"
+  (click)="closeMobileMenu()"
+></div>
+
+<aside class="mobile-drawer" [class.mobile-drawer--open]="isMobileMenuOpen">
+  <div class="mobile-drawer-header">
+    <a class="brand-logo" routerLink="/" (click)="closeMobileMenu()">
+      <img alt="Kalue-Studio_logo" src="assets/images/kalue.png" />
+    </a>
+    <button class="mobile-drawer-close" (click)="closeMobileMenu()" aria-label="Cerrar menú">
+      &times;
+    </button>
+  </div>
+
+  <nav class="mobile-drawer-nav">
+    <ul>
+      <li><a routerLink="/coleccion" routerLinkActive="active_link" (click)="closeMobileMenu()">Coleccion</a></li>
+      <li><a routerLink="/nosotros" routerLinkActive="active_link" (click)="closeMobileMenu()">Nosotros</a></li>
+      <li><a routerLink="/productos" routerLinkActive="active_link" (click)="closeMobileMenu()">Productos</a></li>
+      <li><a routerLink="/contacto" routerLinkActive="active_link" (click)="closeMobileMenu()">Contactos</a></li>
+    </ul>
+  </nav>
+
+  <div class="mobile-drawer-footer">
+    @if (httpAuth.isLoggedIn() && httpAuth.user; as user) {
+      <div class="mobile-user-block">
+        <div class="mobile-user-top">
+          @if (user.avatar) {
+            <img [src]="user.avatar" [alt]="user.name || 'User'" class="mobile-user-avatar" />
+          }
+          <span class="mobile-user-name">{{ user.name || 'Usuario' }}</span>
+        </div>
+        <div class="mobile-user-links">
+          <a routerLink="/user/detail" (click)="closeMobileMenu()">Ver Perfil</a>
+          @if (user.role && user.role !== 'subscriber') {
+            <a routerLink="/dashboard/resume" (click)="closeMobileMenu()">Dashboard</a>
+          }
+          <a style="cursor: pointer" (click)="logout()">Cerrar Sesión</a>
+        </div>
+      </div>
+    } @else {
+      <a class="mobile-login-link" routerLink="/login" (click)="closeMobileMenu()">Iniciar Sesión</a>
+    }
+  </div>
+</aside>
