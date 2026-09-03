@@ -9,12 +9,12 @@ export class HttpProducts {
 
     BASE_URL: string = environment.apiUrl;
     createProduct (newProduct:any) {
-        return this.http.post('http://localhost:3000/api/products', newProduct);
+        return this.http.post(`${this.BASE_URL}/products`, newProduct);
     }
 
     getProduct () {
         //observable (HttpClient)
-       return this.http.get<any>(`http://localhost:3000/api/products`);
+       return this.http.get<any>(`${this.BASE_URL}products`);
     }
 
     getProductById (id: string | any) {
