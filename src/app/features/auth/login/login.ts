@@ -14,7 +14,6 @@ import { HttpCart } from '../../../core/services/http-cart';
 export default class Login {
   public formData: FormGroup;
   private httpAuth = inject(HttpAuth);
-  private httpCart = inject(HttpCart);
 
   constructor() {
     this.formData = new FormGroup({

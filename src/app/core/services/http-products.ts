@@ -14,7 +14,7 @@ export class HttpProducts {
 
     getProduct () {
         //observable (HttpClient)
-       return this.http.get<any>(`${this.BASE_URL}products`);
+       return this.http.get<any>(`${this.BASE_URL}/products`);
     }
 
     getProductById (id: string | any) {

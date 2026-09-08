@@ -22,7 +22,7 @@
         </div>
         <div class="dashboard__stat-body">
           <span class="dashboard__stat-label">Usuarios</span>
-          <span class="dashboard__stat-value">{{ stats.users }}</span>
+          <span class="dashboard__stat-value">{{(users | async)?.length}}</span>
         </div>
       </article>
 
@@ -35,7 +35,7 @@
         </div>
         <div class="dashboard__stat-body">
           <span class="dashboard__stat-label">Categorías</span>
-          <span class="dashboard__stat-value">{{ stats.categories }}</span>
+          <span class="dashboard__stat-value">{{(categories | async)?.length}}</span>
         </div>
       </article>
 
@@ -49,7 +49,7 @@
         </div>
         <div class="dashboard__stat-body">
           <span class="dashboard__stat-label">Materiales</span>
-          <span class="dashboard__stat-value">{{ stats.materials }}</span>
+          <span class="dashboard__stat-value"> {{(materials | async)?.length}} </span>
         </div>
       </article>
 
@@ -62,7 +62,7 @@
         </div>
         <div class="dashboard__stat-body">
           <span class="dashboard__stat-label">Productos</span>
-          <span class="dashboard__stat-value">{{ stats.contacts }}</span>
+          <span class="dashboard__stat-value"> {{(products | async)?.length}} </span>
         </div>
       </article>
     </section>
@@ -102,26 +102,6 @@
             Nuevo Producto
           </a>
         </div>
-      </article>
-
-      <article class="dashboard__panel">
-        <header class="dashboard__panel-header">
-          <h2 class="dashboard__panel-title">Actividad reciente</h2>
-        </header>
-
-        <ul class="dashboard__activity-list">
-          @for (item of recentActivity; track $index) {
-            <li class="dashboard__activity-item">
-              <span class="dashboard__activity-dot"></span>
-              <div class="dashboard__activity-body">
-                <p class="dashboard__activity-text">{{ item.text }}</p>
-                <span class="dashboard__activity-time">{{ item.time }}</span>
-              </div>
-            </li>
-          } @empty {
-            <li class="dashboard__activity-empty">Sin actividad reciente.</li>
-          }
-        </ul>
       </article>
     </section>
   </main>
