@@ -23,21 +23,33 @@ export class Header {
   private serverHostUrl: string = environment.serverHostUrl;
 
   ngOnInit(): void {
-    // Si ya hay sesión, precargamos el carrito para que el badge no arranque en 0 falso.
+    // Nos suscribimos siempre a cart$: como ahora es el único punto que
+    // emite (getMyCart/updateMyCart/removeCartItem/clearCart), el badge
+    // se mantiene sincronizado sin importar desde qué página se modificó
+    // el carrito.
+    this.httpCart.cart.subscribe({
+      next: (res) => {
+        this.counter.next(res?.items?.length || 0);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+
+    // Si ya hay sesión, pedimos el carrito una vez al iniciar para que el
+    // badge arranque con el valor real (antes dependía de que otra página
+    // ya hubiera llamado a getMyCart()).
     if (this.httpAuth.isLoggedIn()) {
       this.loadCounter();
     }
   }
 
   loadCounter() {
-    this.httpCart.cart.subscribe({
-      next: (res) => {
-        this.counter.next(res?.items.length || 0);
-      },
+    this.httpCart.getMyCart().subscribe({
       error: (err) => {
         console.error(err);
       }
-    })
+    });
   }
 
   /**
