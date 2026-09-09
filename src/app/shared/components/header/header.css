@@ -55,6 +55,19 @@
     border-color: var(--color-on-surface);
 }
 
+.user-avatar--placeholder {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-on-surface) !important;
+    color: var(--color-background) !important;
+    border-color: var(--color-on-surface) !important;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
 /* Dropdown que aparece al pasar el mouse por el avatar */
 .logout-dropdown {
     position: absolute;

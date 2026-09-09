@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
+
 import { ProductModal } from '../../../core/services/product-modal';
+import { HttpProducts } from '../../../core/services/http-products';
 
 @Component({
   selector: 'app-products-modal',
@@ -10,7 +11,7 @@ import { ProductModal } from '../../../core/services/product-modal';
   styleUrl: './products-modal.css',
 })
 export default class ProductsModal {
-  
+  public httpProducts = inject (HttpProducts);
   private ProductModal = inject(ProductModal)
   public selectedProduct$ = this.ProductModal.selectedProduct$;
 

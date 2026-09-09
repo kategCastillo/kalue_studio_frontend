@@ -1,27 +1,29 @@
-import { CurrencyPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, JsonPipe } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { HttpCart } from '../../../core/services/http-cart';
-import { HttpAuth } from '../../../core/services/http-auth';
+import { HttpProducts } from '../../../core/services/http-products';;
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { ProductModal } from '../../../core/services/product-modal';
+// import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-product-card',
-  imports: [CurrencyPipe, FontAwesomeModule],
+  imports: [CurrencyPipe, FontAwesomeModule, JsonPipe, AsyncPipe],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
 export class ProductCard {
   @Input() product: any;
+  @Output() add = new EventEmitter<any>();
+
+  // serverHostUrl: string = environment.serverHostUrl; // URL del servidor para las imágenes
 
   public count: any = 0;
   public adding: any = false; // deshabilita el botón mientras la petición está en curso
 
-  
   private productModal = inject (ProductModal)
-  @Output() add = new EventEmitter<any>();
+  public httpProducts = inject(HttpProducts);
 
   public faEye = faEye;
 
@@ -48,4 +50,13 @@ export class ProductCard {
       this.count--;
     }
   }
+
+  // getMainImageUrl( product: any ): string {
+  //   if ( !product || product.images && product.images.length === 0 ) {
+  //     return 'assets/images/default-product.jpg'; // Ruta de la imagen por defecto
+  //   }
+    
+  //   const mainImage = product.images.find((img: any) => img.isMain || product.images[0]);
+  //   return `${this.serverHostUrl}${mainImage.url.startsWith('/') ? mainImage.url.slice(1) : mainImage.url}`; // Ruta de la imagen por defecto
+  // }
 }

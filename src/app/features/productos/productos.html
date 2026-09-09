@@ -1,40 +1,50 @@
+<main>
+  <!-- <pre>{{ listProducts$ | async | json }}</pre> -->
+  <section class="productos-header">
+    <h1>Nuestra Colección</h1>
+    <p>BOLSOS & CARTERAS</p>
+  </section>
 
-  <main>
-   
-    <section class="productos-header">
-      <h1>Nuestra Colección</h1>
-      <p>BOLSOS & CARTERAS</p>
-    </section>
+  <section class="categorias-section">
 
-    <section class="categoria">
+    <div class="categorias-encabezado">
+      <div>
+        <h2>Selección de Carteras</h2>
+        <p>EXPLORA POR CATEGORÍA</p>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" (click)="scrollCategorias(-1)" aria-label="Categoría anterior">‹</button>
+        <button class="carousel-btn" (click)="scrollCategorias(1)" aria-label="Siguiente categoría">›</button>
+      </div>
+    </div>
 
-      <h2>Selección de Carteras</h2>
-
-      <div class="productos-grid">
-        @for (category of (listCategory$|async); track $index) {
-           <div class="producto">
+    <div class="categorias-carousel" #categoriasTrack>
+      @for (category of (listCategory$|async); track $index) {
+      <div class="categoria-card">
+        <div class="categoria-img-wrap">
           <img [src]="category.image" [alt]="category.name">
-          <h3> {{category.name}} </h3>
-          <p> {{category.price|currency}} </p>
         </div>
-        }
+        <h3>{{category.name}}</h3>
       </div>
+      }
+    </div>
 
-    </section>
+  </section>
 
-    <section class="categoria">
+  <section class="categoria">
 
-      <h2>Selección de Bolsos</h2>
+    <h2>Selección de Bolsos</h2>
 
-      <div class="productos-grid">
-        @for (product of (listProducts$ | async); track $index) {
-          <app-product-card [product]="product" (add)="addCart($event)" />
-        }
-      </div>
+    <div class="productos-grid">
+      @for (product of listProducts$ | async; track product._id || $index) {
+      <app-product-card [product]="product" (add)="addCart($event)" />
+      } @empty {
+      <p>No hay productos para mostrar.</p>
+      }
+    </div>
 
-    </section>
+  </section>
 
-  </main>
+</main>
 
-  <app-products-modal></app-products-modal>
-
+<app-products-modal></app-products-modal>

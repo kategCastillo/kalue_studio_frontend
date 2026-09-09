@@ -112,33 +112,40 @@ export default class ProductsEditForm {
       //implementacion del modal de sweetalert2
 
       Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "¿Guardar cambios?",
+        text: "Se actualizará la información de este producto.",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Sí, guardar",
+        cancelButtonText: "Cancelar",
       }).then((result) => {
-        if (result.isConfirmed) Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been edited.",
-          icon: "success"
+        if (!result.isConfirmed) return;
+
+        //Ejecutar el servicio que me permite actualizar los datos que se encuentran registrados en el formulario
+        this.httpProduct.updateProductById(this.selectedId, this.formData.value).subscribe({
+          next: (data) => {
+            console.log(data);
+
+            Swal.fire({
+              title: "Producto actualizado",
+              text: "Los cambios se guardaron correctamente.",
+              icon: "success",
+            });
+          },
+          error: (error) => {
+            console.error(error);
+
+            Swal.fire({
+              title: "No se pudo actualizar",
+              text: error?.error?.message || "Ocurrió un error inesperado. Intenta nuevamente.",
+              icon: "error",
+            });
+          },
+
+          complete: () => {
+            console.log('Actualiza producto')
+          }
         });
-      });
-
-       //Ejecutar el servicio que me permite actualizar los datos que se encuentran registrados en el formulario
-      this.httpProduct.updateProductById(this.selectedId, this.formData.value).subscribe({
-        next: (data) => {
-          console.log(data)
-        },
-        error: (error) => {
-          console.error(error);
-        },
-
-        complete: () => {
-          console.log('Actualiza producto')
-        }
       });
     }
     else {
@@ -146,4 +153,3 @@ export default class ProductsEditForm {
     }
   }
 }
-

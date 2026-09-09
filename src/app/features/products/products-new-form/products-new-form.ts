@@ -19,6 +19,8 @@ export default class ProductsNewForm {
   private httpMaterials = inject(HttpMaterials);
   materialList$ = new BehaviorSubject<any[]>([]);
   private httpProduct = inject(HttpProducts);
+  selectedFiles: any[] = [];
+  imageError: string | null = null;
 
   constructor() {
     this.formData = new FormGroup(
@@ -38,7 +40,6 @@ export default class ProductsNewForm {
           Validators.min(0),
         ]),
         stock: new FormControl(1, [Validators.min(0)]),
-        images: new FormControl('', [Validators.required]),
         isFeatured: new FormControl(false),
         isActive: new FormControl(true),
       },
@@ -46,11 +47,32 @@ export default class ProductsNewForm {
   }
 
   onSend() {
+
+    if (this.selectedFiles.length === 0) {
+      this.imageError = 'Please select at least one image.';
+      this.formData.markAllAsTouched();
+      return;
+    }
+
+    if (this.formData.invalid) {
+      this.formData.markAllAsTouched();
+      return;
+    }
+
+    const payload = new FormData();
+    Object.keys(this.formData.value).forEach((key) => {
+      payload.append(key, this.formData.get(key)?.value);
+    });
+
+    this.selectedFiles.forEach(item => {
+      payload.append('images', item.file);
+    });
+
     //verifica si el campo es valido
     if (this.formData.valid) {
       //Muestro los valores que capturo el formulario
       console.log(this.formData.value);
-      this.httpProduct.createProduct(this.formData.value).subscribe({
+      this.httpProduct.createProduct(payload).subscribe({
         next: (res) => {
           console.log(res);
           this.formData.reset();
@@ -94,4 +116,37 @@ export default class ProductsNewForm {
       },
     });
   }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.imageError = null;
+
+    
+    //valida la longitud max de los archivos permitidos
+  if (input.files && input.files.length > 0) {
+      const files = Array.from(input.files);
+      
+      if(this.selectedFiles.length + files.length > 5) {
+        this.imageError = 'You can only upload a maximum of 5 images.';
+        return;
+      }
+
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) {
+          this.imageError = 'Only image files are allowed.';
+          return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) { // 5MB
+          this.imageError = 'Each image must be less than 5MB.';
+          return;
+        }
+
+        this.selectedFiles.push({ file,preview: URL.createObjectURL(file) });
+      }
+    }
+    input.value = ''; // Clear the input value to allow re-selection of the same file
+  }
+
+
 }

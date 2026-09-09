@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap');
+@import '../../../../styles.css';
 
 * {
   margin: 0;
@@ -5,12 +7,17 @@
   box-sizing: border-box;
 }
 
-/* ---------- Fondo oscuro ---------- */
+/* =========================================
+   ORDER MODAL
+   (usa el mismo sistema "register__" del
+   panel de administración para mantener
+   coherencia visual en todo el proyecto)
+   ========================================= */
 
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(28, 27, 27, 0.55);
+  background-color: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
@@ -18,6 +25,7 @@
   padding: 30px;
   z-index: 1000;
   animation: fadeIn 0.2s ease;
+  font-family: var(--font-sans);
 }
 
 @keyframes fadeIn {
@@ -30,21 +38,19 @@
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* ---------- Tarjeta del modal ---------- */
-
 .modal-content {
   position: relative;
-  background-color: #f7f5f2;
-  border-radius: 14px;
+  background-color: var(--color-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
   max-width: 1040px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
   animation: slideUp 0.25s ease;
-  font-family: 'Inter', sans-serif;
-  color: #2c2c2c;
-  padding: 60px 60px 60px;
+  color: var(--color-text-main);
+  padding: 3.5rem 4rem;
 }
 
 .modal-close {
@@ -55,23 +61,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border: none;
-  border-radius: 50%;
-  background-color: #ffffff;
-  color: #1c1b1b;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 2px;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-main);
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: 0.2s ease;
+  transition: var(--transition-smooth);
   z-index: 5;
 }
 
 .modal-close:hover {
-  background-color: #1c1b1b;
-  color: #ffffff;
+  border-color: var(--color-text-main);
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 /* ---------- Encabezado ---------- */
@@ -81,53 +86,66 @@
   align-items: flex-start;
   justify-content: space-between;
   max-width: 1000px;
-  margin: -30px auto 40px;
+  margin: -2.5rem auto 2rem;
   gap: 16px;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .ojo-marca {
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: #c2a27c;
-  margin-bottom: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.6rem;
 }
 
 .orden-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 30px;
-  font-weight: 500;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-text-main);
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
 .fecha {
-  font-size: 13px;
-  color: #6d6d6d;
-  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
 }
 
 .estado-badge {
-  padding: 8px 18px;
-  border-radius: 30px;
-  font-size: 12px;
-  letter-spacing: 0.5px;
+  padding: 0.5rem 1.1rem;
+  border-radius: 2px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   white-space: nowrap;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  border: 1px solid rgba(0, 0, 0, 0.14);
 }
 
-.estado-pendiente { background-color: #f0e6d6; color: #9c7a2e; }
-.estado-pagado { background-color: #dde8e0; color: #3f6b4d; }
-.estado-en-preparacion { background-color: #e2e6f0; color: #4650a3; }
-.estado-enviado { background-color: #dbe9f2; color: #2f6f95; }
-.estado-entregado { background-color: #e2ecd8; color: #4b7a30; }
-.estado-cancelado { background-color: #f4dede; color: #b3392c; }
+.estado-pendiente { background-color: transparent; color: #9c7a2e; border-color: #9c7a2e; }
+.estado-pagado { background-color: transparent; color: #3f6b4d; border-color: #3f6b4d; }
+.estado-en-preparacion { background-color: transparent; color: #4650a3; border-color: #4650a3; }
+.estado-enviado { background-color: transparent; color: #2f6f95; border-color: #2f6f95; }
+.estado-entregado { background-color: var(--color-text-main); color: var(--color-bg-light); border-color: var(--color-text-main); }
+.estado-cancelado { background-color: transparent; color: #c0392b; border-color: #c0392b; }
 
 /* ---------- Línea de tiempo ---------- */
+
 .orden-timeline {
   display: flex;
   justify-content: space-between;
   max-width: 1000px;
-  margin: 0 auto 40px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e5e2dc;
+  margin: 0 auto 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .paso {
@@ -137,25 +155,27 @@
 
 .paso .punto {
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: #cfcac3;
-  margin: 0 auto 8px;
+  background-color: rgba(0, 0, 0, 0.15);
+  margin: 0 auto 0.5rem;
+  transition: var(--transition-smooth);
 }
 
 .paso p {
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  color: #b0aca4;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
 }
 
 .paso.activo .punto {
-  background-color: #2c2c2c;
+  background-color: var(--color-text-main);
 }
 
 .paso.activo p {
-  color: #2c2c2c;
+  color: var(--color-text-main);
   font-weight: 600;
 }
 
@@ -164,26 +184,28 @@
 .orden-cancelada {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background-color: #f4dede;
-  border-radius: 10px;
-  padding: 14px 20px;
+  gap: 0.6rem;
+  background-color: #fff8f8;
+  border: 1px solid #c0392b;
+  border-radius: 2px;
+  padding: 0.9rem 1.25rem;
   max-width: 1000px;
-  margin: 0 auto 40px;
+  margin: 0 auto 2rem;
 }
 
 .punto-cancelado {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: #b3392c;
+  background-color: #c0392b;
   flex-shrink: 0;
 }
 
 .orden-cancelada p {
-  font-size: 13px;
-  color: #b3392c;
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: #c0392b;
+  font-weight: 500;
 }
 
 /* ---------- Grid principal ---------- */
@@ -191,7 +213,7 @@
 .orden-grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
-  gap: 40px;
+  gap: 2.5rem;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -199,25 +221,26 @@
 /* ---------- Productos ---------- */
 
 .orden-productos h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 20px;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--color-text-main);
+  margin-bottom: 1.25rem;
 }
 
 .producto-lista {
-  background-color: #ffffff;
-  border: 1px solid #e5e2dc;
-  border-radius: 10px;
+  background-color: var(--color-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
   overflow: hidden;
 }
 
 .producto-item {
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 18px 22px;
-  border-bottom: 1px solid #f0eeea;
+  gap: 1.1rem;
+  padding: 1.1rem 1.3rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .producto-item:last-child {
@@ -225,12 +248,13 @@
 }
 
 .producto-item img {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 2px;
   flex-shrink: 0;
-  background-color: #f0eeea;
+  background-color: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .producto-item-info {
@@ -238,42 +262,48 @@
 }
 
 .producto-item-info h4 {
-  font-family: 'Playfair Display', serif;
-  font-size: 15px;
+  font-family: var(--font-serif);
+  font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 4px;
+  color: var(--color-text-main);
+  margin-bottom: 0.25rem;
 }
 
 .cantidad {
-  font-size: 12px;
-  color: #6d6d6d;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
 }
 
 .producto-item-precio {
-  font-size: 14px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
   font-weight: 600;
+  color: var(--color-text-main);
   white-space: nowrap;
 }
 
 .orden-notas {
-  background-color: #ffffff;
-  border: 1px solid #e5e2dc;
-  border-radius: 10px;
-  padding: 18px 22px;
-  margin-top: 18px;
+  background-color: var(--color-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  padding: 1.1rem 1.3rem;
+  margin-top: 1.1rem;
 }
 
 .orden-notas h4 {
-  font-size: 11px;
-  letter-spacing: 1px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #c2a27c;
-  margin-bottom: 8px;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
 }
 
 .orden-notas p {
-  font-size: 14px;
-  color: #6d6d6d;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--color-text-main);
   line-height: 1.6;
 }
 
@@ -282,26 +312,28 @@
 .orden-lateral {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .lateral-card {
-  background-color: #ffffff;
-  border: 1px solid #e5e2dc;
-  border-radius: 10px;
-  padding: 22px;
+  background-color: var(--color-bg-light);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  padding: 1.4rem;
 }
 
 .lateral-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 16px;
+  font-family: var(--font-serif);
+  font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 14px;
+  color: var(--color-text-main);
+  margin-bottom: 0.9rem;
 }
 
 .lateral-card p {
-  font-size: 13px;
-  color: #6d6d6d;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
   line-height: 1.6;
 }
 
@@ -309,9 +341,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
-  color: #6d6d6d;
-  margin-bottom: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
 }
 
 .pago-fila:last-child {
@@ -319,15 +352,16 @@
 }
 
 .pago-valor {
-  color: #2c2c2c;
+  color: var(--color-text-main);
   font-weight: 500;
+  text-transform: capitalize;
 }
 
 .pago-badge {
-  padding: 4px 12px;
-  border-radius: 30px;
-  font-size: 11px;
-  background-color: #dde8e0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+  font-size: 0.68rem;
+  border: 1px solid #3f6b4d;
   color: #3f6b4d;
   text-transform: capitalize;
 }
@@ -337,25 +371,26 @@
 .total-fila {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  color: #6d6d6d;
-  margin-bottom: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
 }
 
 .total-fila.total-final {
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid #e5e2dc;
-  font-size: 17px;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 1.05rem;
   font-weight: 700;
-  color: #1c1b1b;
+  color: var(--color-text-main);
 }
 
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1024px) {
   .modal-content {
-    padding: 50px 30px 40px;
+    padding: 2.5rem 1.75rem;
   }
 
   .orden-grid {
@@ -364,7 +399,7 @@
 
   .orden-timeline {
     overflow-x: auto;
-    gap: 20px;
+    gap: 1.25rem;
   }
 }
 
@@ -380,7 +415,6 @@
 
   .orden-header {
     flex-direction: column;
-    gap: 14px;
+    gap: 0.9rem;
   }
-
 }

@@ -61,3 +61,102 @@ table, th, td {
 .pre {
     display: none;
 }
+/* =========================================
+   TEMA GLOBAL DE SWEETALERT2
+   Aplica a todos los popups de confirmación
+   del sitio (Swal.fire) para que combinen
+   con la paleta de la marca en vez del azul
+   por defecto de la librería.
+   ========================================= */
+
+.swal2-popup {
+  font-family: var(--font-sans) !important;
+  border-radius: 2px !important;
+  padding: 2rem 1.75rem !important;
+}
+
+.swal2-title {
+  font-family: var(--font-serif) !important;
+  font-weight: 400 !important;
+  color: var(--color-text-main) !important;
+  font-size: 1.6rem !important;
+}
+
+.swal2-html-container {
+  font-family: var(--font-sans) !important;
+  color: var(--color-text-muted) !important;
+  font-size: 0.9rem !important;
+}
+
+.swal2-icon {
+  border-width: 1px !important;
+}
+
+.swal2-icon.swal2-warning {
+  border-color: #9c7a2e !important;
+  color: #9c7a2e !important;
+}
+
+.swal2-icon.swal2-success {
+  border-color: #3f6b4d !important;
+  color: #3f6b4d !important;
+}
+
+.swal2-icon.swal2-success [class^='swal2-success-line'] {
+  background-color: #3f6b4d !important;
+}
+
+.swal2-icon.swal2-error {
+  border-color: #c0392b !important;
+  color: #c0392b !important;
+}
+
+.swal2-actions {
+  gap: 0.75rem !important;
+}
+
+.swal2-styled {
+  font-family: var(--font-sans) !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  border-radius: 2px !important;
+  padding: 0.75rem 1.5rem !important;
+  box-shadow: none !important;
+  transition: var(--transition-smooth) !important;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: var(--color-text-main) !important;
+  color: var(--color-bg-light) !important;
+}
+
+.swal2-styled.swal2-confirm:hover {
+  opacity: 0.78 !important;
+}
+
+.swal2-styled.swal2-confirm:focus {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15) !important;
+}
+
+.swal2-styled.swal2-cancel {
+  background-color: transparent !important;
+  color: var(--color-text-muted) !important;
+  border: 1px solid rgba(0, 0, 0, 0.14) !important;
+}
+
+.swal2-styled.swal2-cancel:hover {
+  border-color: var(--color-text-main) !important;
+  color: var(--color-text-main) !important;
+}
+
+.swal2-styled.swal2-deny {
+  background-color: transparent !important;
+  color: #c0392b !important;
+  border: 1px solid #c0392b !important;
+}
+
+.swal2-timer-progress-bar {
+  background: var(--color-text-main) !important;
+}

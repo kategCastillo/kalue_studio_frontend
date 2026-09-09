@@ -65,6 +65,138 @@
   gap: 30px;
 }
 
+/* ---------- Carrusel de Categorías (diferenciado de las tarjetas de producto) ---------- */
+
+.categorias-section {
+  padding: 50px 80px 60px;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e2dc;
+}
+
+.categorias-encabezado {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 35px;
+}
+
+.categorias-encabezado h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  color: #2c2c2c;
+}
+
+.categorias-encabezado p {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #c2a27c;
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #c2a27c;
+  background: transparent;
+  color: #2c2c2c;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.3s;
+  flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+  background-color: #c2a27c;
+  color: #fff;
+}
+
+.categorias-carousel {
+  display: flex;
+  gap: 35px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.categorias-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.categoria-card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 170px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.categoria-img-wrap {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #e5e2dc;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.categoria-card:hover .categoria-img-wrap {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.categoria-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.categoria-card:hover .categoria-img-wrap img {
+  transform: scale(1.08);
+}
+
+.categoria-card h3 {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #2c2c2c;
+}
+
+@media (max-width: 1024px) {
+  .categorias-section {
+    padding: 40px 40px 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .categorias-section {
+    padding: 35px 20px 45px;
+  }
+
+  .categorias-encabezado {
+    align-items: center;
+  }
+
+  .categoria-card,
+  .categoria-img-wrap {
+    width: 130px;
+    height: 130px;
+  }
+}
+
 /* ---------- Estilo de las tarjetas de Carteras (hardcodeadas) ---------- */
 
 .producto {

@@ -7,7 +7,7 @@
       <div class="modal-grid">
 
         <div class="modal-imagen">
-          <img [src]="product.images?.[0]" [alt]="product.name">
+          <img [src]="httpProducts.getMainImageUrl(product)" [alt]="product.name">
         </div>
 
         <div class="modal-info">
