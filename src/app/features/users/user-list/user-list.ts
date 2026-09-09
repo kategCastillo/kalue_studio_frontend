@@ -9,6 +9,7 @@ import { faTrash, faEdit, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { HttpUsers } from '../../../core/services/http-users';
 
 import Swal from 'sweetalert2';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +22,9 @@ export default class UserList {
   private subscriberDeleteUser!: Subscription;
   private httpUsers = inject(HttpUsers);
   public userList$ = new BehaviorSubject<any>([]);
-  
+
+  serverHostUrl: string = environment.serverHostUrl;
+
   //Atrivutos de fontAwesome
   public faEdit = faEdit
   public faTrash = faTrash
@@ -77,6 +80,23 @@ export default class UserList {
       },
       complete: () => {},
     });
+  }
+
+  /**
+   * Construye la URL pública del avatar, garantizando siempre un único "/"
+   * entre el host del backend y el path del archivo (evita URLs pegadas
+   * como "http://localhost:3001uploads/..." cuando serverHostUrl no
+   * termina en slash).
+   */
+  getImageUrl(urlPath: string | undefined | null): string {
+    const host = this.serverHostUrl.endsWith('/')
+      ? this.serverHostUrl.slice(0, -1)
+      : this.serverHostUrl;
+
+    const path = urlPath || 'uploads/avatars/default-avatar.png';
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+
+    return `${host}${cleanPath}`;
   }
 
   ngOnInit() {

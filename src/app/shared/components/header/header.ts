@@ -1,13 +1,14 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, SlicePipe } from '@angular/common';
 import { Component, HostListener, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { HttpAuth } from '../../../core/services/http-auth';
 import { HttpCart } from '../../../core/services/http-cart';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, AsyncPipe],
+  imports: [RouterLink, RouterLinkActive, AsyncPipe, SlicePipe],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -18,6 +19,8 @@ export class Header {
   public httpAuth = inject(HttpAuth);
   public httpCart = inject(HttpCart);
   private router = inject(Router);
+
+  private serverHostUrl: string = environment.serverHostUrl;
 
   ngOnInit(): void {
     // Si ya hay sesión, precargamos el carrito para que el badge no arranque en 0 falso.
@@ -35,6 +38,22 @@ export class Header {
         console.error(err);
       }
     })
+  }
+
+  /**
+   * Construye la URL pública absoluta del avatar (host del backend + ruta),
+   * evitando el bug de slash faltante/doble. Devuelve null si no hay avatar,
+   * para que el template pueda caer al fallback de iniciales.
+   */
+  getAvatarUrl(avatarPath: string | null | undefined): string | null {
+    if (!avatarPath) return null;
+
+    const host = this.serverHostUrl.endsWith('/')
+      ? this.serverHostUrl.slice(0, -1)
+      : this.serverHostUrl;
+    const cleanPath = avatarPath.startsWith('/') ? avatarPath : `/${avatarPath}`;
+
+    return `${host}${cleanPath}`;
   }
 
   toggleMobileMenu(): void {

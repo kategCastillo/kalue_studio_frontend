@@ -146,6 +146,12 @@
   opacity: 0.85;
 }
 
+/* Estado mientras se sube la imagen: deshabilita interacción y lo indica visualmente */
+.profile-avatar-edit--busy {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 .profile-visually-hidden {
   position: absolute;
   width: 1px;

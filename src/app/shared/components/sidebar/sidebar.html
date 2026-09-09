@@ -104,13 +104,6 @@
     <div class="sidebar__footer" (click)="closeMobileMenu()">
       @if (httpAuth.isLoggedIn() && httpAuth.user; as user) {
         <div class="sidebar__user">
-          @if (user.avatar) {
-            <img [src]="user.avatar" [alt]="user.name || 'Usuario'" class="sidebar__user-avatar" />
-          } @else {
-            <span class="sidebar__user-avatar sidebar__user-avatar--placeholder">
-              {{ (user.name || 'U').charAt(0) }}
-            </span>
-          }
           <div class="sidebar__user-info">
             <span class="sidebar__user-name">{{ user.name }}</span>
             <span class="sidebar__user-role">{{ user.role }}</span>

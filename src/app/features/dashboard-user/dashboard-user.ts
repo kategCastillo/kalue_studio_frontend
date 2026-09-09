@@ -6,6 +6,7 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -22,6 +23,10 @@ export default class DashboardUser {
   // Controla si el panel de "Información Personal" está en modo edición o solo lectura.
   public isEditing = false;
   public isSaving = false;
+
+  // Estado del avatar: se sube aparte, apenas se elige un archivo (no espera al "Guardar Cambios").
+  public isUploadingAvatar = false;
+  private serverHostUrl: string = environment.serverHostUrl;
 
   public formData: FormGroup = new FormGroup({
     name: new FormControl('', [
@@ -72,6 +77,49 @@ export default class DashboardUser {
       .slice(0, 2)
       .map((part) => part.charAt(0).toUpperCase())
       .join('');
+  }
+
+  /** Construye la URL pública absoluta del avatar, evitando slash faltante/doble. */
+  getAvatarUrl(avatarPath: string | null | undefined): string | null {
+    if (!avatarPath) return null;
+
+    const host = this.serverHostUrl.endsWith('/')
+      ? this.serverHostUrl.slice(0, -1)
+      : this.serverHostUrl;
+    const cleanPath = avatarPath.startsWith('/') ? avatarPath : `/${avatarPath}`;
+
+    return `${host}${cleanPath}`;
+  }
+
+  /** Se dispara al elegir un archivo en el lápiz de edición del avatar; sube de inmediato. */
+  onAvatarSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (!file) return;
+
+    const payload = new FormData();
+    payload.set('avatar', file);
+
+    this.isUploadingAvatar = true;
+
+    this.httpUsers.updateUserSelf(payload).subscribe({
+      next: (res: any) => {
+        this.isUploadingAvatar = false;
+        this.user$.next(res.data);
+        input.value = ''; // permite volver a elegir el mismo archivo si hace falta
+      },
+      error: (error) => {
+        this.isUploadingAvatar = false;
+        console.error(error);
+        Swal.fire({
+          title: 'No se pudo actualizar la foto',
+          text: error?.error?.msg || 'Ocurrió un error al subir la imagen.',
+          icon: 'error',
+        });
+        input.value = '';
+      },
+    });
   }
 
   enableEdit(): void {
