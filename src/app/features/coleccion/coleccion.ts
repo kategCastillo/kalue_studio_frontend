@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { HttpProducts } from '../../core/services/http-products';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
@@ -17,21 +17,22 @@ export default class Coleccion {
   private httpCart = inject(HttpCart);
   private httpAuth = inject(HttpAuth);
 
-  public listProducts$ = new BehaviorSubject<any>([]) 
+  @Input() product: any;
+  @Output() add = new EventEmitter<any>();
 
-  private loadProduct () {
-    this.httpProducts.getProduct().subscribe({
-      next: (data) => {
-        this.listProducts$.next(data.data)
-      },
+  public listProducts$ = new BehaviorSubject<any[]>([])
 
-      error: (error) => {
-        console.error(error)
-      },
-
-      complete: () => {}
-    })
-  }
+private loadProduct() {
+  this.httpProducts.getProduct().subscribe({
+    next: (data) => {
+      console.log('Respuesta backend productos:', data);
+      // Ajusta según la estructura real de data:
+      const arrayProductos = Array.isArray(data) ? data : (data.data || []);
+      this.listProducts$.next(arrayProductos);
+    },
+    error: (err) => console.error(err)
+  });
+}
 
   ngOnInit () {
     this.loadProduct()

@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HttpUsers } from '../../../core/services/http-users';
 import { RouterLink } from "@angular/router";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-new-form',
@@ -55,9 +56,23 @@ export default class UserNewForm {
         next: (res) => {
           console.log(res);
           this.formData.reset();
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Usuario creado',
+            text: 'El usuario se registró correctamente.',
+            confirmButtonText: 'Aceptar',
+          });
         },
         error: (error) => {
           console.error(error);
+
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo crear el usuario',
+            text: error?.error?.message || 'Ocurrió un error inesperado. Intenta nuevamente.',
+            confirmButtonText: 'Aceptar',
+          });
         },
         complete: () => {
           console.log('complete execute');

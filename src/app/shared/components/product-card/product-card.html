@@ -1,12 +1,13 @@
-<!--{{product | json}}-->
 
+<!-- <pre>{{ product | json }}</pre> -->
 <div class="producto-card">
-  <div class="producto">
-    <img [src]="product.images" [alt]="product.name" />
-    <h3>{{ product.name }}</h3>
-</div>
 
-<div class="fila-precio-cantidad">
+  <div class="producto">
+    <img [src]="httpProducts.getMainImageUrl(product)" [alt]="product.name" class="imagen-producto" />
+    <h3>{{ product.name }}</h3>
+  </div>
+
+  <div class="fila-precio-cantidad">
     <div class="price-cops">
         <p class="precio">{{ product.price | currency }}</p>
         <span class="moneda">COP</span>
@@ -32,4 +33,6 @@
    Ver
   </button>
 </div>
+
+
  

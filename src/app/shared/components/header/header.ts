@@ -57,4 +57,16 @@ export class Header {
     this.closeMobileMenu();
     this.router.navigateByUrl('/login');
   }
+
+  // Iniciales del nombre para el avatar cuando el usuario no tiene foto cargada
+  getInitials(name?: string): string {
+    if (!name) return 'U';
+
+    return name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((part) => part.charAt(0).toUpperCase())
+      .join('');
+  }
 }

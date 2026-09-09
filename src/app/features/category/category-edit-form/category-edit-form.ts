@@ -25,7 +25,7 @@ export default class CategoryEditForm {
   // Categorías existentes para elegir la categoría padre (sin incluirse a sí misma)
   public categoryList$ = new BehaviorSubject<any[]>([]);
 
-  constructor() {
+  constructor() { 
     this.formData = new FormGroup({
       name: new FormControl('', [
         Validators.required,
