@@ -3,10 +3,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
+import Swal from 'sweetalert2';
 
 import { HttpCategories } from '../../../core/services/http-categories';
 
-import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-category-new-form',
   imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
@@ -62,13 +62,22 @@ export default class CategoryNewForm {
     };
 
     this.httpCategories.createCategory(payload).subscribe({
-      next: (res) => {
-        console.log(res);
+      next: (res: any) => {
+        Swal.fire({
+          title: 'Creada',
+          text: res?.msg || 'La categoría se creó con éxito.',
+          icon: 'success',
+        });
         this.formData.reset({ isActive: true, parentCategoryId: '' });
         this.loadCategories();
       },
       error: (error) => {
         console.error(error);
+        Swal.fire({
+          title: 'Error',
+          text: error?.error?.msg || 'No se pudo crear la categoría.',
+          icon: 'error',
+        });
       },
     });
   }

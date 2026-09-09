@@ -89,7 +89,11 @@ export default class Carrito {
       next: () => this.loadCart(),
       error: (error: any) => {
         console.error(error);
-        alert(error.error?.msg || 'No se pudo actualizar el carrito');
+        Swal.fire({
+          title: 'Error',
+          text: error.error?.msg || 'No se pudo actualizar el carrito.',
+          icon: 'error',
+        });
       }
     });
   }
@@ -99,7 +103,11 @@ export default class Carrito {
       next: () => this.loadCart(),
       error: (error: any) => {
         console.error(error);
-        alert(error.error?.msg || 'No se pudo actualizar el carrito');
+        Swal.fire({
+          title: 'Error',
+          text: error.error?.msg || 'No se pudo actualizar el carrito.',
+          icon: 'error',
+        });
       }
     });
   }
@@ -112,7 +120,11 @@ export default class Carrito {
       next: () => this.loadCart(),
       error: (error: any) => {
         console.error(error);
-        alert(error.error?.msg || 'No se pudo eliminar el producto del carrito');
+        Swal.fire({
+          title: 'Error',
+          text: error.error?.msg || 'No se pudo eliminar el producto del carrito.',
+          icon: 'error',
+        });
       }
     });
   }
@@ -174,7 +186,7 @@ export default class Carrito {
         
         Swal.fire({
           title: '¡Pedido confirmado!',
-          text: 'Tu compra se ha procesado con éxito.',
+          text: res?.msg || 'Tu compra se ha procesado con éxito.',
           icon: 'success',
           draggable: true
         });

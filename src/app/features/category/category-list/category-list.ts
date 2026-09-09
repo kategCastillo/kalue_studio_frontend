@@ -39,10 +39,10 @@ export default class CategoryList {
     }).then((result) => {
       if (result.isConfirmed) {
         this.subscriberDeleteCategory = this.httpCategories.deleteCategory(id).subscribe({
-          next: () => {
+          next: (res: any) => {
             Swal.fire({
               title: 'Eliminada',
-              text: 'La categoría fue eliminada.',
+              text: res?.msg || 'La categoría fue eliminada.',
               icon: 'success',
             });
             this.loadCategories();
@@ -51,7 +51,7 @@ export default class CategoryList {
             console.error(error);
             Swal.fire({
               title: 'Error',
-              text: 'No se pudo eliminar la categoría.',
+              text: error?.error?.msg || 'No se pudo eliminar la categoría.',
               icon: 'error',
             });
           },

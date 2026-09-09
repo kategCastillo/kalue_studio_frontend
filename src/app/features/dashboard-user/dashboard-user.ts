@@ -93,6 +93,8 @@ export default class DashboardUser {
     const { password, confirmPassword } = this.formData.value;
 
     // La contraseña es opcional: solo se envía si el usuario escribió una nueva.
+    // Esta validación es del frontend (no viene del backend), por eso el
+    // texto se queda fijo.
     if (password && password !== confirmPassword) {
       Swal.fire({
         title: 'Las contraseñas no coinciden',
@@ -123,7 +125,7 @@ export default class DashboardUser {
 
         Swal.fire({
           title: 'Datos actualizados',
-          text: 'Tu información se guardó exitosamente.',
+          text: res?.msg || 'Tu información se guardó exitosamente.',
           icon: 'success',
         });
       },

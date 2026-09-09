@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { HttpProducts } from '../../core/services/http-products';
 import { BehaviorSubject } from 'rxjs';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ProductCard } from '../../shared/components/product-card/product-card';
 import { HttpCart } from '../../core/services/http-cart';
 import { HttpAuth } from '../../core/services/http-auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-coleccion',
@@ -43,7 +44,11 @@ export default class Coleccion {
     console.log({ product, count });
 
     if (!this.httpAuth.isLoggedIn()) {
-      alert('Debes iniciar sesión para agregar productos al carrito');
+      Swal.fire({
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para agregar productos al carrito.',
+        icon: 'warning',
+      });
       return;
     }
 
@@ -54,13 +59,13 @@ export default class Coleccion {
       },
       error: (error: any) => {
         console.error(error);
-        alert(error.error?.msg || 'No se pudo agregar el producto al carrito');
+        Swal.fire({
+          title: 'Error',
+          text: error.error?.msg || 'No se pudo agregar el producto al carrito.',
+          icon: 'error',
+        });
       }
     });
   }
 
 }
-
-
-
-

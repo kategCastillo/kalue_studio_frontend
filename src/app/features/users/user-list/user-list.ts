@@ -33,29 +33,34 @@ export default class UserList {
 
   onDelete(id: string) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esta acción.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Sí, eliminar',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: 'Deleted!',
-          text: 'Your file has been deleted.',
-          icon: 'success',
-        });
+        // El éxito se muestra solo cuando el backend confirma la eliminación
+        // (antes se mostraba el Swal de éxito antes de llamar al servicio).
         this.subscriberDeleteUser = this.httpUsers.deleteUser(id).subscribe({
-          next: (data) => {
-            console.log(data);
+          next: (res: any) => {
+            Swal.fire({
+              title: 'Eliminado',
+              text: res?.msg || 'El usuario fue eliminado.',
+              icon: 'success',
+            });
             this.loadUsers();
           },
           error: (error) => {
             console.error(error);
+            Swal.fire({
+              title: 'Error',
+              text: error?.error?.msg || 'No se pudo eliminar el usuario.',
+              icon: 'error',
+            });
           },
-          complete: () => {}
         });
       }
     });

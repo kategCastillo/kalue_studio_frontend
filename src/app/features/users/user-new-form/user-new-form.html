@@ -190,7 +190,7 @@
       <!-- Avatar URL -->
       <div class="register__field">
         <label class="register__label" for="link">
-          URL del avatar
+          Avatar
           <span class="register__label-optional">(opcional)</span>
         </label>
         <div class="register__input-icon-wrapper">
@@ -201,7 +201,7 @@
           <input
             class="register__input register__input--with-icon"
             [class.register__input--error]="formData.get('avatar')?.invalid && (formData.get('avatar')?.dirty || formData.get('avatar')?.touched)"
-            type="text"
+            type="file"
             formControlName="avatar"
             id="link"
             placeholder="https://ejemplo.com/avatar.jpg"

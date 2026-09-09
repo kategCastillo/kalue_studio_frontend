@@ -2,11 +2,10 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpAuth } from '../../../core/services/http-auth';
 import Swal from 'sweetalert2';
-import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -53,11 +52,11 @@ export default class Register {
     if (this.formData.valid) {
       console.log(this.formData.value);
       this.httpAuth.register(this.formData.value).subscribe({
-        next: (res) => {
-          console.log(res);
+        next: (res: any) => {
           this.formData.reset();
           Swal.fire({
-            title: 'Registado Exitosamente!',
+            title: 'Registrado',
+            text: res?.msg || 'Te registraste con éxito.',
             icon: 'success',
             draggable: true,
           });
@@ -67,7 +66,7 @@ export default class Register {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Algo sucedio!',
+            text: error?.error?.msg || 'No se pudo completar el registro.',
           });
         },
         complete: () => {},

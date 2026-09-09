@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { HttpProducts } from '../../core/services/http-products';
 import { BehaviorSubject } from 'rxjs';
 import { ProductCard } from '../../shared/components/product-card/product-card';
-import { AsyncPipe, CurrencyPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import ProductsModal from '../products/products-modal/products-modal';
 import { HttpCategories } from '../../core/services/http-categories';
 import { HttpCart } from '../../core/services/http-cart';
 import { HttpAuth } from '../../core/services/http-auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
@@ -55,7 +56,11 @@ export default class Productos {
     console.log({ product, count });
 
     if (!this.httpAuth.isLoggedIn()) {
-      alert('Debes iniciar sesión para agregar productos al carrito');
+      Swal.fire({
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para agregar productos al carrito.',
+        icon: 'warning',
+      });
       return;
     }
 
@@ -65,7 +70,11 @@ export default class Productos {
       },
       error: (error: any) => {
         console.error(error);
-        alert(error.error?.msg || 'No se pudo agregar el producto al carrito');
+        Swal.fire({
+          title: 'Error',
+          text: error.error?.msg || 'No se pudo agregar el producto al carrito.',
+          icon: 'error',
+        });
       },
     });
   }

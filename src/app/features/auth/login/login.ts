@@ -3,7 +3,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { HttpAuth } from '../../../core/services/http-auth';
 import Swal from 'sweetalert2';
-import { HttpCart } from '../../../core/services/http-cart';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +23,12 @@ export default class Login {
 
   onSubmit() {
     this.httpAuth.loginUser(this.formData.value).subscribe({
-      next: (res) => {
-        Swal.fire({ title: 'Inicio exitoso!', icon: 'success', draggable: true });
+      next: (res: any) => {
+        // loginUser() en http-auth.ts ya viene mapeado a solo el "msg" del
+        // backend (.pipe(map((data) => data.msg))), por eso aquí "res" es
+        // directamente el texto y no un objeto { data, msg }.
+        Swal.fire({ title: 'Inicio exitoso!', text: res, icon: 'success', draggable: true });
         this.formData.reset();
-        console.log(res)
       },
       error: (error) => {
         console.log(error)

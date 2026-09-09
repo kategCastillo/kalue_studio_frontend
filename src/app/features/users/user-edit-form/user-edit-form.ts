@@ -99,6 +99,11 @@ export default class UserEditForm {
   }
 
   onSend() {
+    if (this.formData.invalid) {
+      this.formData.markAllAsTouched();
+      return;
+    }
+
     Swal.fire({
       title: '¿Estas Seguro?',
       text: "Recuarda que puedes volver a editar",
@@ -109,25 +114,26 @@ export default class UserEditForm {
       confirmButtonText: 'Si, editar!',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: 'Editado!',
-          text: 'Usuario Actualizado con exito.',
-          icon: 'success',
+        // El éxito se muestra solo cuando el backend responde
+        // (antes se mostraba "Editado!" antes de llamar al servicio,
+        // incluso si el formulario era inválido).
+        this.httpUser.updateUserById(this.selectedId, this.formData.value).subscribe({
+          next: (data: any) => {
+            Swal.fire({
+              title: 'Editado!',
+              text: data?.msg || 'Usuario actualizado con éxito.',
+              icon: 'success',
+            });
+          },
+          error: (error) => {
+            console.error(error);
+            Swal.fire({
+              title: 'Error',
+              text: error?.error?.msg || 'No se pudo actualizar el usuario.',
+              icon: 'error',
+            });
+          },
         });
-
-        if (this.formData.valid) {
-          this.httpUser.updateUserById(this.selectedId, this.formData.value).subscribe({
-            next: (data) => {
-              console.log(data);
-            },
-            error: (error) => {
-              console.error(error);
-            },
-            complete: () => {},
-          });
-        } else {
-          console.log('Formulario invalido');
-        }
       }
     });
   }

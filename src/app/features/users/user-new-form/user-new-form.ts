@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HttpUsers } from '../../../core/services/http-users';
 import { RouterLink } from "@angular/router";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-new-form',
@@ -52,15 +53,21 @@ export default class UserNewForm {
       //Muestro los valores que capturo el formulario
       console.log(this.formData.value);
       this.httpUser.createUser(this.formData.value).subscribe({
-        next: (res) => {
-          console.log(res);
+        next: (res: any) => {
+          Swal.fire({
+            title: 'Creado',
+            text: res?.msg || 'El usuario se creó con éxito.',
+            icon: 'success',
+          });
           this.formData.reset();
         },
         error: (error) => {
           console.error(error);
-        },
-        complete: () => {
-          console.log('complete execute');
+          Swal.fire({
+            title: 'Error',
+            text: error?.error?.msg || 'No se pudo crear el usuario.',
+            icon: 'error',
+          });
         },
       });
     } else {

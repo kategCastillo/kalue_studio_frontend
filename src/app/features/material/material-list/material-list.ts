@@ -39,10 +39,10 @@ export default class MaterialList {
     }).then((result) => {
       if (result.isConfirmed) {
         this.subscriberDeleteMaterial = this.httpMaterials.deleteMaterial(id).subscribe({
-          next: () => {
+          next: (res: any) => {
             Swal.fire({
               title: 'Eliminado',
-              text: 'El material fue eliminado.',
+              text: res?.msg || 'El material fue eliminado.',
               icon: 'success',
             });
             this.loadMaterials();
@@ -51,7 +51,7 @@ export default class MaterialList {
             console.error(error);
             Swal.fire({
               title: 'Error',
-              text: 'No se pudo eliminar el material.',
+              text: error?.error?.msg || 'No se pudo eliminar el material.',
               icon: 'error',
             });
           },

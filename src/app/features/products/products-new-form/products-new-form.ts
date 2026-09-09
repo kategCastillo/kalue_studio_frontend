@@ -5,6 +5,7 @@ import { HttpCategorys } from '../../../core/services/http-categorys';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { HttpProducts } from '../../../core/services/http-products';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products-new-form',
@@ -51,15 +52,21 @@ export default class ProductsNewForm {
       //Muestro los valores que capturo el formulario
       console.log(this.formData.value);
       this.httpProduct.createProduct(this.formData.value).subscribe({
-        next: (res) => {
-          console.log(res);
+        next: (res: any) => {
+          Swal.fire({
+            title: 'Creado',
+            text: res?.msg || 'El producto se creó con éxito.',
+            icon: 'success',
+          });
           this.formData.reset();
         },
         error: (error) => {
           console.error(error);
-        },
-        complete: () => {
-          console.log('complete execute');
+          Swal.fire({
+            title: 'Error',
+            text: error?.error?.msg || 'No se pudo crear el producto.',
+            icon: 'error',
+          });
         },
       });
     } else {
