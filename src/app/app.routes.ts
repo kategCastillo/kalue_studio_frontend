@@ -57,10 +57,10 @@ export const routes: Routes = [
         ]
       },
       
-    { path: 'dashboard/contact/new/form', loadComponent: () => import('./features/contact/contact-new-form/contact-new-form')},
-    { path: 'dashboard/order/list', loadComponent: () => import ('./features/order/order-list/order-list')},
-    { path: 'dashboard/contact/list', loadComponent:() => import('./features/contact/contact-list/contact-list')},
-    { path: 'dashboard/contact/edit/form/:id', loadComponent:() => import('./features/contact/contact-edit-form/contact-edit-form')},
+    { path: 'user/contact/new/form', loadComponent: () => import('./features/contact/contact-new-form/contact-new-form')},
+    { path: 'user/order/list', loadComponent: () => import ('./features/order/order-list/order-list')},
+    { path: 'user/contact/list', loadComponent:() => import('./features/contact/contact-list/contact-list')},
+    { path: 'user/contact/edit/form/:id', loadComponent:() => import('./features/contact/contact-edit-form/contact-edit-form')},
     
 
     { path: '' , redirectTo: 'coleccion', pathMatch: 'full'},

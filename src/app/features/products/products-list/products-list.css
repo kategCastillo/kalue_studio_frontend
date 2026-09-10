@@ -307,10 +307,15 @@
 .product-list__product-desc {
   font-size: 0.72rem;
   color: var(--color-text-muted);
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  max-height: 2.8em; /* fallback: 2 líneas por si el navegador no soporta line-clamp */
+  word-break: break-word;
 }
  
 /* Badge de categoría */
@@ -592,4 +597,3 @@
     padding: 0.85rem 1rem;
   }
 }
- 

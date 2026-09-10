@@ -5,10 +5,11 @@ import { HttpMaterials } from '../../core/services/http-materials';
 import { HttpProducts } from '../../core/services/http-products';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-resume-dashboard',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterLink],
   templateUrl: './resume-dashboard.html',
   styleUrl: './resume-dashboard.css',
 })

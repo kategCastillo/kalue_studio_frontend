@@ -40,7 +40,7 @@
                 <div class="product-list__product-cell">
                   <div class="product-list__thumb">
                     @if (item.images?.[0]) {
-                      <img [src]="item.images[0]" [alt]="item.name" class="product-list__thumb-img" />
+                      <img [src]="httpProducts.getMainImageUrl(item)" [alt]="item.name" class="product-list__thumb-img" />
                     } @else {
                       <span class="product-list__thumb-initials">{{ item.name | slice:0:1 }}</span>
                     }
@@ -131,4 +131,3 @@
  
   </main>
 </div>
- 

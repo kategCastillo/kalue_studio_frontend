@@ -18,7 +18,9 @@ import { faEdit, faTrash, faPlus, faStar } from '@fortawesome/free-solid-svg-ico
 export default class ProductsList {
  private subscriberProduct!: Subscription;
   private subscriberDeleteProduct!: Subscription;
-  private httpProducts = inject(HttpProducts);
+  // Público porque el template usa httpProducts.getMainImageUrl(item) para
+  // centralizar la imagen igual que product-card, el carrito y el modal de órdenes.
+  public httpProducts = inject(HttpProducts);
   public productList$ = new BehaviorSubject<any>([]);
  
   //Atributos de fontAwesome
