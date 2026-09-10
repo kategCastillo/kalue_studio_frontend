@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
 
 import { HttpMaterials } from '../../../core/services/http-materials';
 
@@ -34,12 +35,21 @@ export default class MaterialNewForm {
     }
 
     this.httpMaterials.createMaterial(this.formData.value).subscribe({
-      next: (res) => {
-        console.log(res);
+      next: (res: any) => {
+        Swal.fire({
+          title: 'Creado',
+          text: res?.msg || 'El material se creó con éxito.',
+          icon: 'success',
+        });
         this.formData.reset({ isActive: true });
       },
       error: (error) => {
         console.error(error);
+        Swal.fire({
+          title: 'Error',
+          text: error?.error?.msg || 'No se pudo crear el material.',
+          icon: 'error',
+        });
       },
     });
   }

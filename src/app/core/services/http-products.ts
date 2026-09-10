@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpAuth } from './http-auth';
 import { Observable } from 'rxjs';
 
 @Service()
@@ -14,7 +13,6 @@ export class HttpProducts {
     createProduct (newProduct:any) {
         return this.http.post(`${this.BASE_URL}/products`, newProduct);
     }
-    
     
     getProduct(): Observable<any> {
     console.log(`${this.BASE_URL}/products`)

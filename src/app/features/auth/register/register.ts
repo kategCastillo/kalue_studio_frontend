@@ -52,11 +52,11 @@ export default class Register {
     if (this.formData.valid) {
       console.log(this.formData.value);
       this.httpAuth.register(this.formData.value).subscribe({
-        next: (res) => {
-          console.log(res);
+        next: (res: any) => {
           this.formData.reset();
           Swal.fire({
-            title: 'Registado Exitosamente!',
+            title: 'Registrado',
+            text: res?.msg || 'Te registraste con éxito.',
             icon: 'success',
             draggable: true,
           });
@@ -66,7 +66,7 @@ export default class Register {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Algo sucedio!',
+            text: error?.error?.msg || 'No se pudo completar el registro.',
           });
         },
         complete: () => {},

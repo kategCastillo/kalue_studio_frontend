@@ -46,34 +46,45 @@ body {
     align-items: center;
 }
 
-.user-avatar {
+/* Contenedor circular del avatar: SIEMPRE tiene tamaño y contenido
+   (imagen o iniciales), así el hover para abrir el dropdown nunca
+   se pierde cuando el usuario no tiene foto. */
+.user-avatar-wrapper {
     width: 2.5rem;
     height: 2.5rem;
+    flex-shrink: 0;
     border-radius: 100%;
     border: 2px solid var(--color-text-light);
-    object-fit: cover;
+    overflow: hidden;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: color-mix(in srgb, var(--color-text-main) 8%, transparent);
     transition: var(--transition-smooth);
 }
 
-.user-avatar:hover {
+.user-avatar-wrapper:hover {
     transform: scale(1.05);
     border-color: var(--color-text-main);
 }
 
-.user-avatar--placeholder {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-on-surface) !important;
-    color: var(--color-background) !important;
-    border-color: var(--color-on-surface) !important;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+.user-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
+.user-avatar-initials {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-main);
+    text-transform: uppercase;
+}
+
+/* Dropdown de escritorio (hover sobre el avatar) */
 .logout-dropdown {
     position: absolute;
     top: calc(100% + 12px);
@@ -348,13 +359,33 @@ body {
     gap: 12px;
 }
 
-.mobile-user-avatar {
+/* Mismo patrón que el desktop: círculo que siempre muestra algo. */
+.mobile-user-avatar-wrapper {
     width: 48px;
     height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--color-text-light);
     flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid var(--color-text-light);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: color-mix(in srgb, var(--color-text-main) 8%, transparent);
+}
+
+.mobile-user-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mobile-user-avatar-initials {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-text-main);
+    text-transform: uppercase;
 }
 
 .mobile-user-name {

@@ -4,7 +4,6 @@ import { Footer } from "./shared/components/footer/footer";
 import { Header } from "./shared/components/header/header";
 import ProductsModal from './features/products/products-modal/products-modal';
 
-
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, Footer, Header, ProductsModal],

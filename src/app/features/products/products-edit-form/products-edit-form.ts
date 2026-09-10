@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpMaterials } from '../../../core/services/http-materials';
 import { HttpCategorys } from '../../../core/services/http-categorys';
 import { BehaviorSubject } from 'rxjs';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products-edit-form',
-  imports: [ReactiveFormsModule, AsyncPipe],
+  imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
   templateUrl: './products-edit-form.html',
   styleUrl: './products-edit-form.css',
 })
@@ -106,50 +106,45 @@ export default class ProductsEditForm {
   onSubmit() {
 
     //validar que el formulario sea valido
-    if (this.formData.valid) {
-      console.log(this.formData.value);
-
-      //implementacion del modal de sweetalert2
-
-      Swal.fire({
-        title: "¿Guardar cambios?",
-        text: "Se actualizará la información de este producto.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Sí, guardar",
-        cancelButtonText: "Cancelar",
-      }).then((result) => {
-        if (!result.isConfirmed) return;
-
-        //Ejecutar el servicio que me permite actualizar los datos que se encuentran registrados en el formulario
-        this.httpProduct.updateProductById(this.selectedId, this.formData.value).subscribe({
-          next: (data) => {
-            console.log(data);
-
-            Swal.fire({
-              title: "Producto actualizado",
-              text: "Los cambios se guardaron correctamente.",
-              icon: "success",
-            });
-          },
-          error: (error) => {
-            console.error(error);
-
-            Swal.fire({
-              title: "No se pudo actualizar",
-              text: error?.error?.message || "Ocurrió un error inesperado. Intenta nuevamente.",
-              icon: "error",
-            });
-          },
-
-          complete: () => {
-            console.log('Actualiza producto')
-          }
-        });
-      });
-    }
-    else {
+    if (this.formData.invalid) {
+      this.formData.markAllAsTouched();
       console.log('Formulario invalido')
+      return;
     }
+
+    console.log(this.formData.value);
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Puedes volver a editar este producto más tarde.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, guardar',
+    }).then((result) => {
+      if (!result.isConfirmed) return;
+
+      // Antes esta petición se ejecutaba SIEMPRE (incluso si se cancelaba el
+      // diálogo) y nunca mostraba el resultado real de la actualización.
+      // Ahora solo corre si se confirma, y muestra el msg que responde el backend.
+      this.httpProduct.updateProductById(this.selectedId, this.formData.value).subscribe({
+        next: (data: any) => {
+          Swal.fire({
+            title: 'Actualizado',
+            text: data?.msg || 'El producto se actualizó con éxito.',
+            icon: 'success',
+          });
+        },
+        error: (error) => {
+          console.error(error);
+          Swal.fire({
+            title: 'Error',
+            text: error?.error?.msg || 'No se pudo actualizar el producto.',
+            icon: 'error',
+          });
+        },
+      });
+    });
   }
 }

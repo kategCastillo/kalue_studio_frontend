@@ -2,15 +2,16 @@ import { Component, ElementRef, inject, ViewChild, OnInit } from '@angular/core'
 import { HttpProducts } from '../../core/services/http-products';
 import { BehaviorSubject } from 'rxjs';
 import { ProductCard } from '../../shared/components/product-card/product-card';
-import { AsyncPipe, CurrencyPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import ProductsModal from '../products/products-modal/products-modal';
 import { HttpCategories } from '../../core/services/http-categories';
 import { HttpCart } from '../../core/services/http-cart';
 import { HttpAuth } from '../../core/services/http-auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
-  imports: [ProductCard, AsyncPipe, ProductsModal, CurrencyPipe, JsonPipe],
+  imports: [ProductCard, AsyncPipe, ProductsModal],
   templateUrl: './productos.html',
   styleUrl: './productos.css',
 })
@@ -60,22 +61,38 @@ export default class Productos {
     });
   }
 
-  addCart(item: any) {
-    const { product, count } = item;
+ addCart(item: any) {
+  const { product, count } = item;
 
-    if (!this.httpAuth.isLoggedIn()) {
-      alert('Debes iniciar sesión para agregar productos al carrito');
-      return;
-    }
-
-    this.httpCart.updateMyCart(product._id, count).subscribe({
-      next: (data) => console.log(data),
-      error: (error: any) => {
-        console.error(error);
-        alert(error.error?.msg || 'No se pudo agregar el producto al carrito');
-      },
+  if (!this.httpAuth.isLoggedIn()) {
+    Swal.fire({
+      title: 'Inicia sesión',
+      text: 'Debes iniciar sesión para agregar productos al carrito.',
+      icon: 'warning',
     });
+    return;
   }
+
+  this.httpCart.updateMyCart(product._id, count).subscribe({
+    next: () => {
+      Swal.fire({
+        title: 'Producto añadido',
+        text: `${product.name || 'El producto'} se agregó a tu carrito.`,
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    },
+    error: (error: any) => {
+      console.error(error);
+      Swal.fire({
+        title: 'Error',
+        text: error.error?.msg || 'No se pudo agregar el producto al carrito.',
+        icon: 'error',
+      });
+    },
+  });
+}
 
   ngOnInit() {
     this.loadProduct();

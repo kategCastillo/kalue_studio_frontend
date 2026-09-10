@@ -187,29 +187,32 @@
         </div>
       </div>
 
-      <!-- Avatar URL -->
-      <div class="register__field">
-        <label class="register__label" for="link">
-          URL del avatar
+      <!-- SECCIÓN DE AVATAR -->
+      <div class="register__field register__field--avatar">
+        <label class="register__label">
+          Avatar
           <span class="register__label-optional">(opcional)</span>
         </label>
-        <div class="register__input-icon-wrapper">
-          <svg class="register__input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="8" r="4"></circle>
-            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path>
-          </svg>
-          <input
-            class="register__input register__input--with-icon"
-            [class.register__input--error]="formData.get('avatar')?.invalid && (formData.get('avatar')?.dirty || formData.get('avatar')?.touched)"
-            type="text"
-            formControlName="avatar"
-            id="link"
-            placeholder="https://ejemplo.com/avatar.jpg"
-          />
+
+        <div class="register__avatar-row">
+          <div class="register__avatar-preview">
+            <img [src]="avatarPreviewUrl" alt="Avatar del nuevo usuario" class="register__avatar-img" />
+          </div>
+
+          <div class="register__avatar-controls">
+            <label for="user-avatar" class="register__btn register__btn--secondary register__avatar-upload-btn">
+              Seleccionar imagen
+            </label>
+            <input
+              id="user-avatar"
+              type="file"
+              accept="image/png, image/jpeg, image/jpg, image/webp"
+              (change)="onFileSelected($event)"
+              class="register__avatar-input"
+            />
+            <small class="register__avatar-help">JPG, PNG o WEBP · máx. 2MB</small>
+          </div>
         </div>
-        @if (formData.get('avatar')?.invalid && (formData.get('avatar')?.dirty || formData.get('avatar')?.touched)) {
-          <small class="register__error">Ingresa una URL válida</small>
-        }
       </div>
 
       <!-- Divider -->
