@@ -38,7 +38,7 @@
           <div class="producto-lista">
             @for (item of order.products; track item._id) {
               <div class="producto-item">
-                <img [src]="item.productID?.images?.[0]" [alt]="item.productID?.name">
+                <img [src]="httpProducts.getMainImageUrl(item.productID)" [alt]="item.productID?.name">
                 <div class="producto-item-info">
                   <h4>{{ item.productID?.name }}</h4>
                   <p class="cantidad">Cantidad: {{ item.quantity }}</p>
@@ -82,5 +82,3 @@
     </div>
   </main>
 }
-
-

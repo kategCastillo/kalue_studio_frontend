@@ -1,7 +1,8 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, EventEmitter, Input, output, Output } from '@angular/core';
+import { Component, EventEmitter, Input, inject, output, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faTrash, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { HttpProducts } from '../../../core/services/http-products';
 
 @Component({
   selector: 'app-card-items-carrito',
@@ -13,6 +14,10 @@ export class CardItemsCarrito {
   // item = { _id, productId: { _id, name, price, images, category, stock, isActive }, quantity }
   // Así es exactamente como el backend devuelve cada item del carrito (populate en cart.service.js).
   @Input() item: any;
+
+  // Misma lógica centralizada que usa product-card para armar la URL de la
+  // imagen principal (host del servidor + fallback a imagen por defecto).
+  public httpProducts = inject(HttpProducts);
 
   // El componente no llama al backend directamente: solo avisa al padre (carrito.ts),
   // que es quien tiene la lógica de recarga y manejo de errores.

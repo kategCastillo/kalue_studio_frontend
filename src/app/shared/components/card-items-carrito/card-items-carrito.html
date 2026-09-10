@@ -12,7 +12,7 @@
     </div>
   } @else {
     <div class="cart-card__image-wrapper">
-      <img [src]="item.productId.images?.[0]" alt="Imagen del producto" class="cart-card__image" />
+      <img [src]="httpProducts.getMainImageUrl(item.productId)" alt="Imagen del producto" class="cart-card__image" />
     </div>
 
     <div class="cart-card__details">
