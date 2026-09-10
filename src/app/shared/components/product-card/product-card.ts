@@ -9,7 +9,7 @@ import { ProductModal } from '../../../core/services/product-modal';
 
 @Component({
   selector: 'app-product-card',
-  imports: [CurrencyPipe, FontAwesomeModule, JsonPipe, AsyncPipe],
+  imports: [CurrencyPipe, FontAwesomeModule],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
