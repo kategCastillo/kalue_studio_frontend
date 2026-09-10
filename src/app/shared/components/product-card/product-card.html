@@ -1,38 +1,75 @@
-
 <!-- <pre>{{ product | json }}</pre> -->
+
 <div class="producto-card">
 
   <div class="producto">
-    <img [src]="httpProducts.getMainImageUrl(product)" [alt]="product.name" class="imagen-producto" />
+
+    <!-- Contenedor para el efecto zoom -->
+    <div class="producto-img-wrap">
+      <img
+        [src]="httpProducts.getMainImageUrl(product)"
+        [alt]="product.name"
+        class="imagen-producto"
+      />
+    </div>
+
     <h3>{{ product.name }}</h3>
+
   </div>
+
 
   <div class="fila-precio-cantidad">
-    <div class="price-cops">
-        <p class="precio">{{ product.price | currency }}</p>
-        <span class="moneda">COP</span>
-    </div>
-   <div class="cantidad-selector">
 
-     <button class="cantidad-btn" (click)="decrement()" [disabled]="count === 0" aria-label="Restar">−</button>
-    <span class="cantidad-valor">{{ count }}</span>
-    <button class="cantidad-btn" (click)="increment()" aria-label="Sumar">+</button>
-   </div>
+    <div class="price-cops">
+      <p class="precio">{{ product.price | currency }}</p>
+      <span class="moneda">COP</span>
+    </div>
+
+
+    <div class="cantidad-selector">
+
+      <button
+        class="cantidad-btn"
+        (click)="decrement()"
+        [disabled]="count === 0"
+        aria-label="Restar"
+      >
+        −
+      </button>
+
+      <span class="cantidad-valor">
+        {{ count }}
+      </span>
+
+      <button
+        class="cantidad-btn"
+        (click)="increment()"
+        aria-label="Sumar"
+      >
+        +
+      </button>
+
+    </div>
+
   </div>
 
-  <button class="btn-agregar" (click)="addCart()" [disabled]="adding || count === 0">
+
+  <button
+    class="btn-agregar"
+    (click)="addCart()"
+    [disabled]="adding || count === 0"
+  >
     {{ adding ? 'Agregando...' : 'Agregar al carrito' }}
   </button>
 
+
   <button
-   class="btn-agregar btn-see-product"
-   (click)="onView(product)"
-   title="Ver producto"
+    class="btn-agregar btn-see-product"
+    (click)="onView(product)"
+    title="Ver producto"
   >
-   <fa-icon [icon]="faEye" />
-   Ver
+    <fa-icon [icon]="faEye"></fa-icon>
+    Ver
   </button>
+
 </div>
-
-
- 

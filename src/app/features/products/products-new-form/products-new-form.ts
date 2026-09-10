@@ -73,7 +73,7 @@ export default class ProductsNewForm {
     if (this.formData.valid) {
       //Muestro los valores que capturo el formulario
       console.log(this.formData.value);
-      this.httpProduct.createProduct(this.formData.value).subscribe({
+      this.httpProduct.createProduct(payload).subscribe({
         next: (res: any) => {
           Swal.fire({
             title: 'Creado',

@@ -49,7 +49,11 @@ export const routes: Routes = [
             { path: 'new', loadComponent: () => import ('./features/products/products-new-form/products-new-form')},
             { path: 'edit/:id', loadComponent: () => import ('./features/products/products-edit-form/products-edit-form')}
            ]
-         }
+         },
+         { path: '**', redirectTo: 'resume', pathMatch: 'full' }
+
+
+
         ]
       },
       
@@ -61,7 +65,6 @@ export const routes: Routes = [
 
     { path: '' , redirectTo: 'coleccion', pathMatch: 'full'},
     { path: '**', redirectTo: 'coleccion', pathMatch: 'full' },
-    { path: 'dashboard', redirectTo: 'dashboars/resume', pathMatch: 'full' }
 
 ];
 
