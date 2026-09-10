@@ -1,14 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import Swal from 'sweetalert2';
 
 import { HttpContacts } from '../../../core/services/http-contacts';
 import { HttpUsers } from '../../../core/services/http-users';
 
-import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 import { HttpAuth } from '../../../core/services/http-auth';
 @Component({
   selector: 'app-contact-edit-form',
@@ -106,10 +104,10 @@ export default class ContactEditForm {
         this.httpContacts
           .updateContactById(this.selectedId as string, this.formData.value)
           .subscribe({
-            next: () => {
+            next: (res: any) => {
               Swal.fire({
                 title: 'Actualizado',
-                text: 'El contacto se actualizó con éxito.',
+                text: res?.msg || 'El contacto se actualizó con éxito.',
                 icon: 'success',
               });
             },
@@ -117,7 +115,7 @@ export default class ContactEditForm {
               console.error(error);
               Swal.fire({
                 title: 'Error',
-                text: 'No se pudo actualizar el contacto.',
+                text: error?.error?.msg || 'No se pudo actualizar el contacto.',
                 icon: 'error',
               });
             },

@@ -70,10 +70,10 @@ export default class MaterialEditForm {
     }).then((result) => {
       if (result.isConfirmed) {
         this.httpMaterials.updateMaterialById(this.selectedId as string, this.formData.value).subscribe({
-          next: () => {
+          next: (res: any) => {
             Swal.fire({
               title: 'Actualizado',
-              text: 'El material se actualizó con éxito.',
+              text: res?.msg || 'El material se actualizó con éxito.',
               icon: 'success',
             });
           },
@@ -81,7 +81,7 @@ export default class MaterialEditForm {
             console.error(error);
             Swal.fire({
               title: 'Error',
-              text: 'No se pudo actualizar el material.',
+              text: error?.error?.msg || 'No se pudo actualizar el material.',
               icon: 'error',
             });
           },

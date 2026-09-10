@@ -6,6 +6,7 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -22,6 +23,10 @@ export default class DashboardUser {
   // Controla si el panel de "Información Personal" está en modo edición o solo lectura.
   public isEditing = false;
   public isSaving = false;
+
+  // Estado del avatar: se sube aparte, apenas se elige un archivo (no espera al "Guardar Cambios").
+  public isUploadingAvatar = false;
+  private serverHostUrl: string = environment.serverHostUrl;
 
   public formData: FormGroup = new FormGroup({
     name: new FormControl('', [
@@ -74,6 +79,50 @@ export default class DashboardUser {
       .join('');
   }
 
+  /** Construye la URL pública absoluta del avatar, evitando slash faltante/doble. */
+  getAvatarUrl(avatarPath: string | null | undefined): string | null {
+    if (!avatarPath) return null;
+
+    const host = this.serverHostUrl.endsWith('/')
+      ? this.serverHostUrl.slice(0, -1)
+      : this.serverHostUrl;
+    const cleanPath = avatarPath.startsWith('/') ? avatarPath : `/${avatarPath}`;
+
+    return `${host}${cleanPath}`;
+  }
+
+  /** Se dispara al elegir un archivo en el lápiz de edición del avatar; sube de inmediato. */
+  onAvatarSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+
+  if (!file) return;
+
+  const payload = new FormData();
+  payload.set('avatar', file);
+
+  this.isUploadingAvatar = true;
+
+  this.httpUsers.updateUserSelf(payload).subscribe({
+    next: (res: any) => {
+      this.isUploadingAvatar = false;
+      this.user$.next(res.data);
+      this.httpAuth.user = res.data; // 👈 sincroniza el estado global; el header se refresca solo
+      input.value = '';
+    },
+    error: (error) => {
+      this.isUploadingAvatar = false;
+      console.error(error);
+      Swal.fire({
+        title: 'No se pudo actualizar la foto',
+        text: error?.error?.msg || 'Ocurrió un error al subir la imagen.',
+        icon: 'error',
+      });
+      input.value = '';
+    },
+  });
+}
+
   enableEdit(): void {
     this.patchForm(this.user$.getValue());
     this.isEditing = true;
@@ -85,60 +134,60 @@ export default class DashboardUser {
   }
 
   onSave(): void {
-    if (this.formData.invalid) {
-      this.formData.markAllAsTouched();
-      return;
-    }
-
-    const { password, confirmPassword } = this.formData.value;
-
-    // La contraseña es opcional: solo se envía si el usuario escribió una nueva.
-    if (password && password !== confirmPassword) {
-      Swal.fire({
-        title: 'Las contraseñas no coinciden',
-        text: 'Verifica que ambos campos de contraseña sean iguales.',
-        icon: 'warning',
-      });
-      return;
-    }
-
-    const payload: any = {
-      name: this.formData.value.name,
-      nickname: this.formData.value.nickname,
-      email: this.formData.value.email,
-    };
-
-    if (password) {
-      payload.password = password;
-    }
-
-    this.isSaving = true;
-
-    this.httpUsers.updateUserSelf(payload).subscribe({
-      next: (res) => {
-        this.isSaving = false;
-        this.isEditing = false;
-        this.user$.next(res.data);
-        this.patchForm(res.data);
-
-        Swal.fire({
-          title: 'Datos actualizados',
-          text: 'Tu información se guardó exitosamente.',
-          icon: 'success',
-        });
-      },
-      error: (error) => {
-        this.isSaving = false;
-        console.error(error);
-
-        Swal.fire({
-          title: 'No se pudo guardar',
-          text: error?.error?.msg || 'Ocurrió un error al actualizar tus datos.',
-          icon: 'error',
-        });
-      },
-    });
+  if (this.formData.invalid) {
+    this.formData.markAllAsTouched();
+    return;
   }
+
+  const { password, confirmPassword } = this.formData.value;
+
+  if (password && password !== confirmPassword) {
+    Swal.fire({
+      title: 'Las contraseñas no coinciden',
+      text: 'Verifica que ambos campos de contraseña sean iguales.',
+      icon: 'warning',
+    });
+    return;
+  }
+
+  const payload: any = {
+    name: this.formData.value.name,
+    nickname: this.formData.value.nickname,
+    email: this.formData.value.email,
+  };
+
+  if (password) {
+    payload.password = password;
+  }
+
+  this.isSaving = true;
+
+  this.httpUsers.updateUserSelf(payload).subscribe({
+    next: (res) => {
+      this.isSaving = false;
+      this.isEditing = false;
+      this.user$.next(res.data);
+      this.httpAuth.user = res.data; // 👈 mismo fix: el nombre/nickname también se ven ya actualizados en el header
+      this.patchForm(res.data);
+
+      Swal.fire({
+        title: 'Datos actualizados',
+        text: res?.msg || 'Tu información se guardó exitosamente.',
+        icon: 'success',
+      });
+    },
+    error: (error) => {
+      this.isSaving = false;
+      console.error(error);
+
+      Swal.fire({
+        title: 'No se pudo guardar',
+        text: error?.error?.msg || 'Ocurrió un error al actualizar tus datos.',
+        icon: 'error',
+      });
+    },
+  });
+}
 
   logout(): void {
     this.httpAuth.logoutUser();

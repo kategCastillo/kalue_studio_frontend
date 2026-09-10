@@ -12,17 +12,20 @@ export const roleGuard: CanActivateFn = (route, state) => {
     return true;
   }
   const currentUser = authService.user;
-  console.log(currentUser)
-  const userRole = typeof currentUser?.rol === 'object' ? currentUser?.role?.name : currentUser?.rol;
-  const isAuthorized = userRole && allowedRoles.some(
-    (role) => role.toLowerCase() === String(userRole).toLowerCase()
-  );
+  console.log(currentUser);
+  const userRole =
+    typeof currentUser?.role === 'object' ? currentUser?.role?.name : currentUser?.role;
+  const isAuthorized =
+    userRole && allowedRoles.some((role) => role.toLowerCase() === String(userRole).toLowerCase());
   if (isAuthorized) {
     return true;
   }
 
-  console.warn(`⛔ [RoleGuard] Acceso denegado a '${state.url}'. El rol '${userRole}' no cuenta con permisos. Roles autorizados:`, allowedRoles);
+  console.warn(
+    `⛔ [RoleGuard] Acceso denegado a '${state.url}'. El rol '${userRole}' no cuenta con permisos. Roles autorizados:`,
+    allowedRoles,
+  );
 
-  router.navigate(['/coleccion']);
+  router.navigate(['/home']);
   return false;
 };

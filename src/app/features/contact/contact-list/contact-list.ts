@@ -40,10 +40,10 @@ export default class ContactList {
     }).then((result) => {
       if (result.isConfirmed) {
         this.subscriberDeleteContact = this.httpContacts.deleteContact(id).subscribe({
-          next: () => {
+          next: (res: any) => {
             Swal.fire({
               title: 'Eliminado',
-              text: 'El contacto fue eliminado.',
+              text: res?.msg || 'El contacto fue eliminado.',
               icon: 'success',
             });
             this.loadContacts();
@@ -52,7 +52,7 @@ export default class ContactList {
             console.error(error);
             Swal.fire({
               title: 'Error',
-              text: 'No se pudo eliminar el contacto.',
+              text: error?.error?.msg || 'No se pudo eliminar el contacto.',
               icon: 'error',
             });
           },

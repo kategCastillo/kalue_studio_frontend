@@ -39,7 +39,7 @@
                 <div class="user-list__user-cell">
                   <div class="user-list__avatar">
                     @if (item.avatar) {
-                      <img [src]="item.avatar" [alt]="item.name" class="user-list__avatar-img" />
+                      <img [src]="getImageUrl(item.avatar)" [alt]="item.name" class="user-list__avatar-img" />
                     } @else {
                       <span class="user-list__avatar-initials">{{ item.name | slice:0:1 }}</span>
                     }

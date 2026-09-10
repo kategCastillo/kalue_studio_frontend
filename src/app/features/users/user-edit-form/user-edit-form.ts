@@ -4,7 +4,6 @@ import {
   FormGroup,
   ReactiveFormsModule,
   Validators,
-  ɵInternalFormsSharedModule,
 } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpRoles } from '../../../core/services/http-roles';
@@ -12,6 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { HttpUsers } from '../../../core/services/http-users';
 import Swal from 'sweetalert2';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-user-edit-form',
@@ -26,6 +26,17 @@ export default class UserEditForm {
   private selectedId!: string | undefined | null | any;
   public formData: FormGroup;
   private httpUser = inject(HttpUsers);
+  serverHostUrl: string = environment.serverHostUrl;
+
+  // --- Avatar state (fuera del FormGroup: no es un campo de texto normal) ---
+  selectedFile: File | null = null;
+  selectedFilePreview: string | null = null; // preview local del archivo elegido
+  resetAvatarFlag: boolean = false;
+  currentAvatarUrl: string | null = null; // ruta ("avatar") que viene del backend
+
+  // Ruta relativa del avatar por defecto tal como vive en el backend
+  // (public/uploads/avatars/default-avatar.png, servida vía /uploads/avatars/...)
+  readonly defaultAvatarPath = 'uploads/avatars/default-avatar.png';
 
   constructor() {
     this.formData = new FormGroup({
@@ -38,41 +49,34 @@ export default class UserEditForm {
       nickname: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(20), // ← era 30, el schema dice 20
+        Validators.maxLength(20),
         Validators.pattern(/^[a-zA-Z0-9]+$/),
       ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8), // ← faltaba, el HTML lo valida
-      ]),
-      comfirmPassword: new FormControl('', [Validators.required]),
+      // Opcional de verdad: sin required. Si escriben algo, debe tener min 8.
+      password: new FormControl('', [Validators.minLength(8)]),
+      comfirmPassword: new FormControl(''),
       role: new FormControl('', [Validators.required]),
       status: new FormControl(true),
-      avatar: new FormControl(''),
     });
+  }
+
+  ngOnInit() {
+    this.selectedId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.getRols();
+    this.getUser();
   }
 
   private getRols() {
     this.httpRoles.getRoles().subscribe({
-      next: (roles) => {
-        console.log(roles);
-        this.roleList$.next(roles.roles);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-      complete: () => {
-        console.log('complete execute');
-      },
+      next: (roles) => this.roleList$.next(roles.roles),
+      error: (error) => console.error(error),
     });
   }
 
   private getUser() {
     this.httpUser.getUserById(this.selectedId).subscribe({
       next: (data) => {
-        console.log(data);
-
         const { name, nickname, email, role, status, avatar } = data.data;
 
         this.formData.patchValue({
@@ -81,82 +85,132 @@ export default class UserEditForm {
           email,
           role,
           status,
-          avatar,
         });
+
+        // "avatar" es el nombre real del campo en el modelo de Mongo.
+        // currentAvatarUrl es solo cómo se llama la variable en este componente.
+        this.currentAvatarUrl = avatar || null;
       },
-      error: (error) => {
-        console.error(error);
-      },
-      complete: () => {},
+      error: (error) => console.error(error),
     });
   }
 
-  ngOnInit() {
-    // obtener el id que se encuentra en la url (solamente cuanco el formulario es un componenete de pagina)
-    this.selectedId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.getRols();
-    this.getUser();
+  /** URL final a mostrar en el <img>: preview local, avatar del server, o el default del server. */
+  get avatarPreviewUrl(): string {
+    if (this.selectedFilePreview) {
+      return this.selectedFilePreview;
+    }
+    if (this.resetAvatarFlag || !this.currentAvatarUrl) {
+      return this.buildAvatarUrl(this.defaultAvatarPath);
+    }
+    return this.buildAvatarUrl(this.currentAvatarUrl);
+  }
+
+  /** Concatena host + path evitando el bug de doble slash / slash faltante. */
+  private buildAvatarUrl(path: string): string {
+    const host = this.serverHostUrl.endsWith('/')
+      ? this.serverHostUrl.slice(0, -1)
+      : this.serverHostUrl;
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    return `${host}${cleanPath}`;
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      this.resetAvatarFlag = false;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedFilePreview = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.selectedFile = null;
+      this.selectedFilePreview = null;
+    }
+  }
+
+  onRemoveAvatar(): void {
+    this.selectedFile = null;
+    this.selectedFilePreview = null;
+    this.resetAvatarFlag = true;
+    this.currentAvatarUrl = null;
   }
 
   onSend() {
+    if (this.formData.invalid) {
+      this.formData.markAllAsTouched();
+      return;
+    }
+
     Swal.fire({
       title: '¿Estas Seguro?',
-      text: "Recuarda que puedes volver a editar",
+      text: 'Recuarda que puedes volver a editar',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, editar!',
     }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: 'Editado!',
-          text: 'Usuario Actualizado con exito.',
-          icon: 'success',
-        });
+      if (!result.isConfirmed) return;
 
-        if (this.formData.valid) {
-          this.httpUser.updateUserById(this.selectedId, this.formData.value).subscribe({
-            next: (data) => {
-              console.log(data);
-            },
-            error: (error) => {
-              console.error(error);
-            },
-            complete: () => {},
-          });
-        } else {
-          console.log('Formulario invalido');
-        }
+      const { comfirmPassword, ...userPayload } = this.formData.value;
+
+      if (!userPayload.password) {
+        delete userPayload.password;
       }
+
+      const payload = new FormData();
+      Object.entries(userPayload).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          payload.append(key, value as any);
+        }
+      });
+
+      if (this.selectedFile) {
+        payload.set('avatar', this.selectedFile);
+      } else if (this.resetAvatarFlag) {
+        payload.set('avatar', '');
+      }
+
+      this.httpUser.updateUserById(this.selectedId, payload).subscribe({
+        next: (data: any) => {
+          Swal.fire({
+            title: 'Editado!',
+            text: data?.msg || 'Usuario actualizado con éxito.',
+            icon: 'success',
+          });
+        },
+        error: (error) => {
+          console.error(error);
+          Swal.fire({
+            title: 'Error',
+            text: error?.error?.msg || 'No se pudo actualizar el usuario.',
+            icon: 'error',
+          });
+        },
+      });
     });
   }
 
   get name() {
     return this.formData.get('name');
   }
-
   get nickname() {
     return this.formData.get('nickname');
   }
-
   get email() {
     return this.formData.get('email');
   }
-
   get password() {
     return this.formData.get('password');
   }
-
   get comfirmPassword() {
     return this.formData.get('comfirmPassword');
   }
-
   get role() {
     return this.formData.get('role');
-  }
-
-  get avatar() {
-    return this.formData.get('avatar');
   }
 }

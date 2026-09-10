@@ -23,13 +23,13 @@
 
       @if (httpAuth.isLoggedIn() && httpAuth.user; as user) {
         <div class="avatar-logout">
-          @if (user.avatar) {
-            <img [src]="user.avatar" [alt]="user.name || 'User'" class="user-avatar" />
-          } @else {
-            <span class="user-avatar user-avatar--placeholder" [attr.aria-label]="user.name || 'Usuario'">
-              {{ getInitials(user.name) }}
-            </span>
-          }
+          <div class="user-avatar-wrapper">
+            @if (getAvatarUrl(user.avatar); as avatarUrl) {
+              <img [src]="avatarUrl" [alt]="user.name || 'User'" class="user-avatar" />
+            } @else {
+              <span class="user-avatar-initials">{{ (user.name || 'U') | slice:0:1 }}</span>
+            }
+          </div>
           <div class="logout-dropdown">
             <span class="user-name">{{ user.name || 'Usuario' }}</span>
             <a routerLink="/user/detail" class="btn-logout">Ver Perfil</a>
@@ -98,9 +98,13 @@
     @if (httpAuth.isLoggedIn() && httpAuth.user; as user) {
       <div class="mobile-user-block">
         <div class="mobile-user-top">
-          @if (user.avatar) {
-            <img [src]="user.avatar" [alt]="user.name || 'User'" class="mobile-user-avatar" />
-          }
+          <div class="mobile-user-avatar-wrapper">
+            @if (getAvatarUrl(user.avatar); as avatarUrl) {
+              <img [src]="avatarUrl" [alt]="user.name || 'User'" class="mobile-user-avatar" />
+            } @else {
+              <span class="mobile-user-avatar-initials">{{ (user.name || 'U') | slice:0:1 }}</span>
+            }
+          </div>
           <span class="mobile-user-name">{{ user.name || 'Usuario' }}</span>
         </div>
         <div class="mobile-user-links">
@@ -116,4 +120,4 @@
     }
   </div>
 </aside>
-</header>
+

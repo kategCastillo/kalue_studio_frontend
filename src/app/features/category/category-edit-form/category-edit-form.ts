@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 
 import { HttpCategories } from '../../../core/services/http-categories';
 
-import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 @Component({
   selector: 'app-category-edit-form',
   imports: [ReactiveFormsModule, AsyncPipe, RouterLink],
@@ -96,10 +95,10 @@ export default class CategoryEditForm {
         };
 
         this.httpCategories.updateCategoryById(this.selectedId as string, payload).subscribe({
-          next: () => {
+          next: (res: any) => {
             Swal.fire({
               title: 'Actualizada',
-              text: 'La categoría se actualizó con éxito.',
+              text: res?.msg || 'La categoría se actualizó con éxito.',
               icon: 'success',
             });
           },
@@ -107,7 +106,7 @@ export default class CategoryEditForm {
             console.error(error);
             Swal.fire({
               title: 'Error',
-              text: 'No se pudo actualizar la categoría.',
+              text: error?.error?.msg || 'No se pudo actualizar la categoría.',
               icon: 'error',
             });
           },

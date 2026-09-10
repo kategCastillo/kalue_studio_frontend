@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
+import Swal from 'sweetalert2';
 
 import { HttpContacts } from '../../../core/services/http-contacts';
 import { HttpUsers } from '../../../core/services/http-users';
 
-import { Sidebar } from '../../../shared/components/sidebar/sidebar';
 import { HttpAuth } from '../../../core/services/http-auth';
 @Component({
   selector: 'app-contact-new-form',
@@ -82,13 +81,22 @@ export default class ContactNewForm {
     if (this.formData.valid) {
       this.formData.get('userId')?.patchValue({userId: this.httpAuth.user._id})
       this.httpContacts.createContact(this.formData.value).subscribe({
-        next: (res) => {
-          console.log(res);
+        next: (res: any) => {
+          Swal.fire({
+            title: 'Creado',
+            text: res?.msg || 'El contacto se creó con éxito.',
+            icon: 'success',
+          });
           const keepUserId = this.formData.get('userId')?.value;
           this.formData.reset({ userId: keepUserId, isDefault: false });
         },
         error: (error) => {
           console.error(error);
+          Swal.fire({
+            title: 'Error',
+            text: error?.error?.msg || 'No se pudo crear el contacto.',
+            icon: 'error',
+          });
         },
       });
     } else {

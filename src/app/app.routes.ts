@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
 import { guestGuard } from './core/guards/guest-guard';
+import { roleGuard } from './core/guards/role-guard';
 
 export const routes: Routes = [
     { path: 'carrito', loadComponent: () => import('./features/carrito/carrito') },
@@ -15,7 +16,8 @@ export const routes: Routes = [
     { path: 'user/detail', loadComponent: () => import('./features/dashboard-user/dashboard-user') },
 
     { path: 'dashboard',
-      canActivate: [authGuard], 
+      canActivate: [authGuard, roleGuard], 
+      data: {roles: ['administrator', 'author', 'editor']},
       loadComponent:() => import('./features/dashboard/dashboard'),
       children: [
         { path: 'resume',
