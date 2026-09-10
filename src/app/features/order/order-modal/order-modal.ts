@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, CurrencyPipe, DatePipe, NgClass, SlicePipe } from '@angular/common';
 import { OrderModal } from '../../../core/services/order-modal';
+import { HttpProducts } from '../../../core/services/http-products';
 
 interface PasoTimeline {
   key: string;
@@ -17,6 +18,10 @@ interface PasoTimeline {
 export default class OrderModalComponent {
   private orderModalService = inject(OrderModal);
   public selectedOrder$ = this.orderModalService.selectedOrder$;
+
+  // Misma lógica centralizada que usa product-card y el carrito para armar
+  // la URL de la imagen principal de cada producto de la orden.
+  public httpProducts = inject(HttpProducts);
 
   private readonly SECUENCIA = ['pendiente', 'pagado', 'en preparacion', 'enviado', 'entregado'];
 
