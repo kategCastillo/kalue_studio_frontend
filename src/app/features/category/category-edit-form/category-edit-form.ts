@@ -32,6 +32,7 @@ export default class CategoryEditForm {
         Validators.maxLength(50),
       ]),
       description: new FormControl('', [Validators.maxLength(300)]),
+      image: new FormControl(''),
       parentCategoryId: new FormControl(''),
       isActive: new FormControl(true),
     });
@@ -52,11 +53,12 @@ export default class CategoryEditForm {
   private getCategory() {
     this.httpCategories.getCategoryById(this.selectedId).subscribe({
       next: (res) => {
-        const { name, description, parentCategoryId, isActive } = res.data;
+        const { name, description, image, parentCategoryId, isActive } = res.data;
 
         this.formData.patchValue({
           name,
           description,
+          image,
           parentCategoryId: typeof parentCategoryId === 'object' ? parentCategoryId?._id : (parentCategoryId || ''),
           isActive,
         });

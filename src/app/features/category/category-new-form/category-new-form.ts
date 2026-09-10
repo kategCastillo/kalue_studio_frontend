@@ -22,16 +22,23 @@ export default class CategoryNewForm {
   public categoryList$ = new BehaviorSubject<any[]>([]);
 
   constructor() {
-    this.formData = new FormGroup({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(50),
-      ]),
-      description: new FormControl('', [Validators.maxLength(300)]),
-      parentCategoryId: new FormControl(''),
-      isActive: new FormControl(true),
-    });
+  this.formData = new FormGroup({
+   name: new FormControl('', [
+    Validators.required,
+    Validators.minLength(5),
+    Validators.maxLength(50),
+  ]),
+
+  description: new FormControl('', [
+    Validators.maxLength(300)
+  ]),
+
+  image: new FormControl(''),
+
+  parentCategoryId: new FormControl(''),
+
+  isActive: new FormControl(true),
+});
   }
 
   ngOnInit() {
